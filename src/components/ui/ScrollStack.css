@@ -1,0 +1,160 @@
+.scroll-stack {
+  position: relative;
+  width: 100%;
+}
+
+.scroll-stack--contained {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.scroll-stack--window {
+  overflow: visible;
+}
+
+.scroll-stack__inner {
+  position: relative;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding-inline: clamp(1rem, 4%, 2.5rem);
+}
+
+.scroll-stack__slot {
+  position: sticky;
+}
+
+.scroll-stack-card {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 380px;
+  padding: clamp(3rem, 5.5vw, 4.5rem) clamp(2.5rem, 6vw, 5rem);
+  border-radius: 28px;
+  overflow: hidden;
+  background: #09090b;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 1px 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 25px 60px -15px rgba(0, 0, 0, 0.5),
+    0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  transform-origin: 50% 0;
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Tasteful Black & White Shading per Card */
+.scroll-stack-card--arch {
+  background: linear-gradient(145deg, #0d0d10 0%, #070708 100%);
+}
+
+.scroll-stack-card--precision {
+  background: linear-gradient(145deg, #111114 0%, #080809 100%);
+}
+
+.scroll-stack-card--craft {
+  background: linear-gradient(145deg, #141418 0%, #09090b 100%);
+}
+
+.scroll-stack-card--synthesis {
+  background: linear-gradient(145deg, #17171c 0%, #0b0b0d 100%);
+}
+
+/* Monochromatic Ambient Light Flare */
+.scroll-stack-card__flare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+}
+
+.scroll-stack-card__pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.12;
+  color: #ffffff;
+}
+
+.scroll-stack-card__content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.scroll-stack-card__shade {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #000;
+  opacity: var(--scroll-stack-dim, 0);
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.15s ease-out;
+}
+
+.scroll-stack-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.25rem;
+}
+
+.scroll-stack-card__num {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  opacity: 0.85;
+}
+
+.scroll-stack-card__author {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.scroll-stack-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.scroll-stack-card__title {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-stack-card__desc {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.65;
+  max-width: 720px;
+}
+
+@media (max-width: 768px) {
+  .scroll-stack-card {
+    padding: 2.5rem 1.75rem;
+    min-height: 340px;
+    border-radius: 20px;
+  }
+}
