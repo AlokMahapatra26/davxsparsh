@@ -19,8 +19,8 @@ export interface FlexCarouselItem {
 
 export const DEFAULT_SERVICES_ITEMS: FlexCarouselItem[] = [
   {
-    src: photo('photo-1518770660439-4636190af475'),
-    alt: 'Enterprise web architecture and distributed systems',
+    src: photo('photo-1555066931-4365d14bab8c'),
+    alt: 'Web development code editor with modern software architecture',
     title: 'Web Development',
     subtitle: 'DAVLabs',
     slug: 'web-development',
@@ -28,8 +28,8 @@ export const DEFAULT_SERVICES_ITEMS: FlexCarouselItem[] = [
     email: 'contact@davlabs.in'
   },
   {
-    src: photo('photo-1512941937669-90a1b58e7e9c'),
-    alt: 'Native and cross-platform mobile app development',
+    src: photo('photo-1551650975-87deedd944c3'),
+    alt: 'Mobile application interface screens on smartphone',
     title: 'App Development',
     subtitle: 'DAVLabs',
     slug: 'app-development',
@@ -37,8 +37,8 @@ export const DEFAULT_SERVICES_ITEMS: FlexCarouselItem[] = [
     email: 'contact@davlabs.in'
   },
   {
-    src: photo('photo-1620712943543-bcc4688e7485'),
-    alt: 'Custom LLM pipelines, autonomous agents, and intelligence workflows',
+    src: photo('photo-1677442136019-21780ecad995'),
+    alt: 'Artificial intelligence neural network and automated intelligence workflows',
     title: 'AI Automation',
     subtitle: 'DAVLabs',
     slug: 'ai-automation',
@@ -46,8 +46,8 @@ export const DEFAULT_SERVICES_ITEMS: FlexCarouselItem[] = [
     email: 'contact@davlabs.in'
   },
   {
-    src: photo('photo-1507238691740-187a5b1d37b8'),
-    alt: 'Sensory digital product design and tactile UI/UX',
+    src: photo('photo-1581291518857-4e27b48ff24e'),
+    alt: 'UI/UX wireframes, digital interface design and tactile prototype',
     title: 'UI/UX & Product Design',
     subtitle: 'Sparsh Design',
     slug: 'ui-ux-design',
@@ -55,8 +55,8 @@ export const DEFAULT_SERVICES_ITEMS: FlexCarouselItem[] = [
     email: 'contact@sparshdesign.com'
   },
   {
-    src: photo('photo-1600585154340-be6161a56a0c'),
-    alt: 'Brand identity systems, token architecture, and editorial direction',
+    src: photo('photo-1634942537034-2531766767d1'),
+    alt: 'Brand identity stationery, typography specimen, and visual branding',
     title: 'Brand Systems & Identity',
     subtitle: 'Sparsh Design',
     slug: 'brand-identity',
