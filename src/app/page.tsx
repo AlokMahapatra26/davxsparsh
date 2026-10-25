@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { FlexCarousel, DEFAULT_SERVICES_ITEMS } from "@/components/ui/FlexCarousel";
 import { ScrollStack, ScrollStackItem } from "@/components/ui/ScrollStack";
 import { CardNav } from "@/components/ui/CardNav";
@@ -9,6 +10,7 @@ import { InkBackground } from "@/components/ui/InkBackground";
 import { Footer } from "@/components/ui/Footer";
 
 export default function HomePage() {
+  const router = useRouter();
   const servicesTrackRef = useRef<HTMLDivElement>(null);
   const [servicesProgress, setServicesProgress] = useState(0);
 
@@ -71,13 +73,16 @@ export default function HomePage() {
             items={[
               {
                 label: "Services",
-                description: "Direct email inquiry for services.",
+                description: "Engineering & sensory digital design.",
                 links: [
-                  { label: "Web Development", href: "mailto:contact@davlabs.in?subject=Project%20Inquiry%20%E2%80%94%20Web%20Development%20(DAVLabs)" },
-                  { label: "App Development", href: "mailto:contact@davlabs.in?subject=Project%20Inquiry%20%E2%80%94%20App%20Development%20(DAVLabs)" },
-                  { label: "AI Automation", href: "mailto:contact@davlabs.in?subject=Project%20Inquiry%20%E2%80%94%20AI%20Automation%20(DAVLabs)" },
-                  { label: "UI/UX & Product Design", href: "mailto:contact@sparshdesign.com?subject=Project%20Inquiry%20%E2%80%94%20UI%2FUX%20%26%20Product%20Design%20(Sparsh%20Design)" },
-                  { label: "Brand Identity", href: "mailto:contact@sparshdesign.com?subject=Project%20Inquiry%20%E2%80%94%20Brand%20Systems%20%26%20Identity%20(Sparsh%20Design)" }
+                  { label: "Web Development", href: "/services/web-development" },
+                  { label: "App Development", href: "/services/app-development" },
+                  { label: "AI Automation", href: "/services/ai-automation" },
+                  { label: "UI/UX & Web Design", href: "/services/ui-ux-design" },
+                  { label: "Creative Logo Design", href: "/services/creative-logo-design" },
+                  { label: "Graphics Design & Branding", href: "/services/graphics-design" },
+                  { label: "Social Media Marketing", href: "/services/social-media-marketing" },
+                  { label: "Brand Identity & Packaging", href: "/services/brand-identity" }
                 ]
               },
               {
@@ -139,7 +144,7 @@ export default function HomePage() {
               </span>
               <h2 className="services-title">Services</h2>
               <p className="text-xs font-mono text-zinc-500 tracking-wider mt-2 uppercase">
-                Scroll to slide &bull; Click card to email direct
+                Scroll to slide &bull; Click card to explore
               </p>
             </div>
 
@@ -148,11 +153,8 @@ export default function HomePage() {
                 items={DEFAULT_SERVICES_ITEMS}
                 scrollProgress={servicesProgress}
                 onSelect={(_idx, item) => {
-                  if (item.email) {
-                    const subject = encodeURIComponent(
-                      `Project Inquiry — ${item.title} (${item.subtitle || item.agency || ''})`
-                    );
-                    window.location.href = `mailto:${item.email}?subject=${subject}`;
+                  if (item.slug) {
+                    router.push(`/services/${item.slug}`);
                   }
                 }}
                 preset="liquid"

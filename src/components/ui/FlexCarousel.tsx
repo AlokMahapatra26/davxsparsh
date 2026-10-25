@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState, CSSProperties } from 'react';
+import Link from 'next/link';
 import { Renderer, Program, Mesh, Triangle, Plane, Texture, RenderTarget } from 'ogl';
 
 import './FlexCarousel.css';
@@ -48,16 +49,43 @@ export const DEFAULT_SERVICES_ITEMS: FlexCarouselItem[] = [
   {
     src: photo('photo-1581291518857-4e27b48ff24e'),
     alt: 'UI/UX wireframes, digital interface design and tactile prototype',
-    title: 'UI/UX & Product Design',
+    title: 'UI/UX & Web Design',
     subtitle: 'Sparsh Design',
     slug: 'ui-ux-design',
     agency: 'Sparsh Design',
     email: 'contact@sparshdesign.com'
   },
   {
+    src: photo('photo-1626785774573-4b799315345d'),
+    alt: 'Creative logo design sketching, brand mark creation and identity drafting',
+    title: 'Creative Logo Design',
+    subtitle: 'Sparsh Design',
+    slug: 'creative-logo-design',
+    agency: 'Sparsh Design',
+    email: 'contact@sparshdesign.com'
+  },
+  {
+    src: photo('photo-1542744094-24638eff58bb'),
+    alt: 'Graphic design layouts, print collateral, packaging and outdoor branding',
+    title: 'Graphics Design & Branding',
+    subtitle: 'Sparsh Design',
+    slug: 'graphics-design',
+    agency: 'Sparsh Design',
+    email: 'contact@sparshdesign.com'
+  },
+  {
+    src: photo('photo-1611162617474-5b21e879e113'),
+    alt: 'Social media marketing campaigns, content engagement and lead generation',
+    title: 'Social Media Marketing',
+    subtitle: 'Sparsh Design',
+    slug: 'social-media-marketing',
+    agency: 'Sparsh Design',
+    email: 'contact@sparshdesign.com'
+  },
+  {
     src: photo('photo-1634942537034-2531766767d1'),
-    alt: 'Brand identity stationery, typography specimen, and visual branding',
-    title: 'Brand Systems & Identity',
+    alt: 'Brand identity stationery, typography specimen, and packaging design',
+    title: 'Brand Identity & Packaging',
     subtitle: 'Sparsh Design',
     slug: 'brand-identity',
     agency: 'Sparsh Design',
@@ -1340,11 +1368,6 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
 
   const current = list[active] || list[0];
   const label = current ? current.title || current.alt || `Image ${active + 1}` : '';
-  const mailtoHref = current?.email
-    ? `mailto:${current.email}?subject=${encodeURIComponent(
-      `Project Inquiry — ${current.title} (${current.subtitle || current.agency || ''})`
-    )}`
-    : undefined;
 
   return (
     <div
@@ -1358,9 +1381,9 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
     >
       {captions && current && revealed && (
         <div className="flex-carousel__caption" aria-hidden="true">
-          {mailtoHref ? (
-            <a
-              href={mailtoHref}
+          {current.slug ? (
+            <Link
+              href={`/services/${current.slug}`}
               className="flex-carousel__title flex-carousel__title--link group"
               onClick={() => {
                 callbacksRef.current.onSelect?.(active, current);
@@ -1371,7 +1394,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
                 <span className="text-xs transition-transform duration-200 group-hover:translate-x-0.5">↗</span>
               </span>
               {current.subtitle && <span className="flex-carousel__subtitle">{current.subtitle}</span>}
-            </a>
+            </Link>
           ) : (
             <span key={active} className="flex-carousel__title">
               {current.title || current.alt}
@@ -1379,17 +1402,17 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
             </span>
           )}
           <div className="flex-carousel__action-row">
-            {mailtoHref && (
-              <a
-                href={mailtoHref}
+            {current.slug && (
+              <Link
+                href={`/services/${current.slug}`}
                 className="flex-carousel__cta"
                 onClick={() => {
                   callbacksRef.current.onSelect?.(active, current);
                 }}
               >
-                <span>Email {current.subtitle || current.agency}</span>
+                <span>Explore Service</span>
                 <span className="text-[10px]">↗</span>
-              </a>
+              </Link>
             )}
             <span className="flex-carousel__count" data-hidden={focusOpen ? '' : undefined}>
               <Digits value={active + 1} />

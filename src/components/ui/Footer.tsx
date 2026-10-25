@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 export function Footer() {
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
@@ -148,15 +149,16 @@ export function Footer() {
             <span>Engineering &amp; Craft</span>
           </div>
 
-          <button
+          <Button
             onClick={scrollToTop}
-            type="button"
-            className="footer-back-to-top group"
+            variant="push"
+            size="sm"
+            className="!bg-zinc-900 border-zinc-700/80 gap-1.5 font-mono text-xs shadow-[0_3px_0_0_#000000]"
             aria-label="Back to top"
           >
             <span>Top</span>
-            <span className="transition-transform duration-300 group-hover:-translate-y-0.5">↑</span>
-          </button>
+            <span className="transition-transform duration-300 group-hover/button:-translate-y-0.5">↑</span>
+          </Button>
         </div>
       </div>
     </footer>

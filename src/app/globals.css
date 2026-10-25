@@ -20,12 +20,15 @@
   --color-dav-accent: #1e3a5f;
   --color-sparsh-accent: #8c4a2f;
 
-  --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-serif), serif;
-  --font-mono: var(--font-mono), monospace;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 :root {
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --bg-primary: #fcfcfc;
   --bg-secondary: #f7f7f6;
   --bg-tertiary: #f0f0ee;
@@ -136,14 +139,16 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 
-p {
-  color: var(--ink-secondary);
-}
+@layer base {
+  p {
+    color: var(--ink-secondary);
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color var(--transition-fast);
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
 }
 
 .editorial-accent {
@@ -2689,3 +2694,42 @@ a {
 .footer-back-to-top:hover {
   color: #f8fafc;
 }
+
+/* ==========================================================================
+   Kobra Systems Tactile Push Button Physics & Motion
+   ========================================================================== */
+.t-push {
+  --push-lift: 4px;
+  --push-hover: 1px;
+  --push-travel: 3px;
+  --push-release: 0.19s;
+  --push-press: 0.11s;
+  --push-spring: cubic-bezier(0.22, 1.32, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  
+  transition: transform var(--push-release) var(--push-spring),
+              box-shadow var(--push-release) var(--push-spring),
+              background-color 0.15s ease,
+              border-color 0.15s ease !important;
+  will-change: transform, box-shadow;
+}
+
+.t-push:hover {
+  transform: translateY(-1px) !important;
+}
+
+.t-push:active {
+  transition-duration: var(--push-press) !important;
+  transition-timing-function: var(--ease-out) !important;
+  transform: translateY(3px) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-push,
+  .t-push:hover,
+  .t-push:active {
+    transition-duration: 0s !important;
+    transform: none !important;
+  }
+}
+
