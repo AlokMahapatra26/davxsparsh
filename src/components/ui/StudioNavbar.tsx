@@ -17,16 +17,16 @@ export function StudioNavbar() {
   );
 
   return (
-    <header className="fixed top-4 left-0 right-0 z-50 px-4 pointer-events-none">
-      <div className="pointer-events-auto">
+    <header className="fixed top-3 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none">
+      <div className="w-full pointer-events-auto">
         <CardNav
           logo={BrandLogo}
           logoAlt="DAVLabs and Sparsh Design"
           logoHref="/"
           theme="light"
-          surface="glass"
+          surface="transparent"
           cardEffect="rise"
-          maxWidth={780}
+          maxWidth="100%"
           cta={{ label: "Contact", href: "mailto:contact@davlabs.in" }}
           items={[
             {

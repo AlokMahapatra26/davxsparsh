@@ -58,6 +58,7 @@ const ROOT = 'card-nav';
 const PANEL = 'card-nav__panel';
 const RIM = 'card-nav__rim';
 const BAR = 'card-nav__bar';
+const ACTIONS = 'card-nav__actions';
 const MENU = 'card-nav__menu';
 const BURGER = 'card-nav__burger';
 const LINE_TOP = 'card-nav__line card-nav__line--top';
@@ -107,14 +108,14 @@ export interface CardNavProps {
   items?: CardNavItem[];
   cta?: CardNavCta;
   theme?: 'dark' | 'light';
-  surface?: 'glass' | 'solid';
+  surface?: 'glass' | 'solid' | 'transparent';
   openOn?: 'click' | 'hover';
   cardEffect?: 'rise' | 'unfold' | 'fade';
   stagger?: number;
   bounce?: number;
   speed?: number;
   cardHeight?: number;
-  maxWidth?: number;
+  maxWidth?: number | string;
   accentColor?: string;
   menuLabel?: boolean;
   intro?: boolean;
@@ -190,14 +191,14 @@ export const CardNav: React.FC<CardNavProps> = ({
   items = DEFAULT_CARD_NAV_ITEMS,
   cta,
   theme = 'light',
-  surface = 'glass',
+  surface = 'transparent',
   openOn = 'click',
   cardEffect = 'rise',
   stagger = 0.12,
   bounce = 0.2,
   speed = 1,
   cardHeight = 176,
-  maxWidth = 840,
+  maxWidth = '100%',
   accentColor,
   menuLabel = true,
   intro = true,
@@ -241,7 +242,7 @@ export const CardNav: React.FC<CardNavProps> = ({
   const palette = THEMES[theme] ?? THEMES.light;
   const vars: Record<string, string> = {
     ...palette,
-    '--cn-max': `${maxWidth}px`,
+    '--cn-max': typeof maxWidth === 'number' ? `${maxWidth}px` : `${maxWidth}`,
     '--cn-bar': '60px',
     '--cn-inset': '8px',
     '--cn-gap': '8px',
@@ -253,6 +254,13 @@ export const CardNav: React.FC<CardNavProps> = ({
   if (surface === 'solid') {
     vars['--cn-panel'] = palette['--cn-solid'];
     vars['--cn-blur'] = 'none';
+  }
+  if (surface === 'transparent') {
+    vars['--cn-panel'] = 'transparent';
+    vars['--cn-blur'] = 'none';
+    vars['--cn-shadow'] = 'none';
+    vars['--cn-edge'] = 'transparent';
+    vars['--cn-highlight'] = 'transparent';
   }
   if (accentColor) {
     vars['--cn-cta'] = accentColor;
@@ -481,6 +489,7 @@ export const CardNav: React.FC<CardNavProps> = ({
     <div
       ref={rootRef}
       className={[ROOT, className].filter(Boolean).join(' ')}
+      data-surface={surface}
       data-open={open ? '' : undefined}
       data-shown={shown || open ? '' : undefined}
       data-narrow={narrow ? '' : undefined}
@@ -490,39 +499,41 @@ export const CardNav: React.FC<CardNavProps> = ({
     >
       <nav ref={panelRef} className={PANEL} aria-label={ariaLabel}>
         <div ref={barRef} className={BAR}>
-          <button
-            ref={menuRef}
-            type="button"
-            className={MENU}
-            data-icon-only={menuLabel ? undefined : ''}
-            aria-expanded={open}
-            aria-controls={contentId}
-            aria-label={menuLabel ? undefined : open ? 'Close menu' : 'Open menu'}
-            onClick={() => setOpen(!open)}
-          >
-            <span className={BURGER} aria-hidden="true">
-              <span className={LINE_TOP} />
-              <span className={LINE_BOTTOM} />
-            </span>
-            {menuLabel && (
-              <span className={MENU_LABEL}>
-                <span className={WORD_OPEN} aria-hidden={open}>
-                  Menu
-                </span>
-                <span className={WORD_CLOSE} aria-hidden={!open}>
-                  Close
-                </span>
-              </span>
-            )}
-          </button>
-
           {logo && (
             <LinkComponent href={logoHref} className={LOGO} aria-label={logoAlt}>
               {typeof logo === 'string' ? <img src={logo} alt="" draggable={false} /> : logo}
             </LinkComponent>
           )}
 
-          {cta && !narrow && ctaButton(cta, false)}
+          <div className={ACTIONS}>
+            <button
+              ref={menuRef}
+              type="button"
+              className={MENU}
+              data-icon-only={menuLabel ? undefined : ''}
+              aria-expanded={open}
+              aria-controls={contentId}
+              aria-label={menuLabel ? undefined : open ? 'Close menu' : 'Open menu'}
+              onClick={() => setOpen(!open)}
+            >
+              <span className={BURGER} aria-hidden="true">
+                <span className={LINE_TOP} />
+                <span className={LINE_BOTTOM} />
+              </span>
+              {menuLabel && (
+                <span className={MENU_LABEL}>
+                  <span className={WORD_OPEN} aria-hidden={open}>
+                    Menu
+                  </span>
+                  <span className={WORD_CLOSE} aria-hidden={!open}>
+                    Close
+                  </span>
+                </span>
+              )}
+            </button>
+
+            {cta && !narrow && ctaButton(cta, false)}
+          </div>
         </div>
 
         <div ref={contentRef} id={contentId} className={CONTENT} aria-hidden={!open}>
