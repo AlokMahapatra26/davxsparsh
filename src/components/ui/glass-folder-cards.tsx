@@ -423,7 +423,7 @@ function paint(recipe: ArtRecipe, seed: number, w: number, h: number, priority: 
   return p
 }
 
-function ArtCanvas({
+export function ArtCanvas({
   art,
   seed,
   w,
@@ -1003,12 +1003,23 @@ canvas.gf-art[data-ready] { opacity: 1; filter: none; }
     opacity .9s var(--gf-ease);
 }
 .gf-root[data-tone="dark"] .gf-sheet { background: linear-gradient(180deg, #2c2c30 0%, #1c1c1f 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 0 0 .5px rgba(255, 255, 255, .08), 0 12px 28px -8px rgba(0, 0, 0, .7); }
-.gf-sheet--art { background: #1a1a1d; }
+.gf-sheet:hover,
+.gf-sheet:focus-visible {
+  z-index: 25 !important;
+}
 .gf-root[data-open] .gf-sheet:hover,
 .gf-root[data-open] .gf-sheet:focus-visible {
   transform:
     translate(calc(var(--gf-jx) + var(--gf-slot) * var(--gf-spread)), calc(var(--gf-lift) + var(--gf-depth) * var(--gf-stack) * -1 - 18px))
     rotate(calc(var(--gf-slot) * var(--gf-fan) * .6));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 0 0 .5px rgba(0, 0, 0, .1), 0 22px 40px -12px rgba(10, 12, 20, .42);
+  transition-delay: 0s;
+}
+.gf-root:not([data-open]):hover .gf-sheet:hover,
+.gf-root:not([data-open]):hover .gf-sheet:focus-visible {
+  transform:
+    translate(calc(var(--gf-jx) + var(--gf-slot) * var(--gf-spread)), calc(var(--gf-lift) + var(--gf-depth) * var(--gf-stack) * -1 - 16px))
+    rotate(calc(var(--gf-slot) * var(--gf-fan) * .5));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 0 0 .5px rgba(0, 0, 0, .1), 0 22px 40px -12px rgba(10, 12, 20, .42);
   transition-delay: 0s;
 }

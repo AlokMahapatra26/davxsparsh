@@ -27,7 +27,7 @@ export function StudioNavbar() {
           surface="transparent"
           cardEffect="rise"
           maxWidth="100%"
-          cta={{ label: "Contact", href: "mailto:contact@davlabs.in" }}
+          cta={{ label: "Contact", href: "/contact" }}
           items={[
             {
               label: "Services",
@@ -56,6 +56,7 @@ export function StudioNavbar() {
               label: "Dialogue",
               description: "Direct inquiry for collaborations.",
               links: [
+                { label: "Contact Us", href: "/contact" },
                 { label: "DAVLabs (Engineering)", href: "mailto:contact@davlabs.in" },
                 { label: "Sparsh Design (Craft)", href: "mailto:contact@sparshdesign.com" }
               ]

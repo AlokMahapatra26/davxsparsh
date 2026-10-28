@@ -13,6 +13,8 @@ import React, {
 } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowUpRight01Icon } from '@hugeicons/core-free-icons';
+import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
+import Link from 'next/link';
 import './CardNav.css';
 
 const THEMES = {
@@ -205,7 +207,7 @@ export const CardNav: React.FC<CardNavProps> = ({
   defaultOpen = false,
   open: openProp,
   onOpenChange,
-  linkComponent: LinkComponent = 'a',
+  linkComponent: LinkComponent = Link,
   onLinkClick,
   ariaLabel = 'Main',
   className = '',
@@ -462,15 +464,25 @@ export const CardNav: React.FC<CardNavProps> = ({
         </button>
       );
     }
+    const isInternal = target.href.startsWith('/') || target.href.startsWith('#');
+    const isMailOrTel = target.href.startsWith('mailto:') || target.href.startsWith('tel:');
+    const Component = isInternal ? LinkComponent : 'a';
+    const linkProps = {
+      ...props,
+      href: target.href,
+      ...(!isInternal && !isMailOrTel ? { target: '_blank', rel: 'noopener noreferrer' } : {})
+    };
     return (
-      <LinkComponent href={target.href} {...props}>
+      <Component {...linkProps}>
         {children}
-      </LinkComponent>
+      </Component>
     );
   };
 
   const ctaButton = (target: CardNavCta, wide: boolean) => {
-    const Component = target.href ? LinkComponent : 'button';
+    const isInternal = Boolean(target.href && (target.href.startsWith('/') || target.href.startsWith('#')));
+    const isMailOrTel = Boolean(target.href && (target.href.startsWith('mailto:') || target.href.startsWith('tel:')));
+    const Component = target.href ? (isInternal ? LinkComponent : 'a') : 'button';
     const ctaProps: any = {
       className: wide ? CTA_WIDE : CTA,
       tabIndex: wide && !open ? -1 : undefined,
@@ -479,8 +491,15 @@ export const CardNav: React.FC<CardNavProps> = ({
         if (wide) setOpen(false);
       }
     };
-    if (target.href) ctaProps.href = target.href;
-    else ctaProps.type = 'button';
+    if (target.href) {
+      ctaProps.href = target.href;
+      if (!isInternal && !isMailOrTel) {
+        ctaProps.target = '_blank';
+        ctaProps.rel = 'noopener noreferrer';
+      }
+    } else {
+      ctaProps.type = 'button';
+    }
 
     return <Component {...ctaProps}>{target.label}</Component>;
   };
@@ -516,10 +535,13 @@ export const CardNav: React.FC<CardNavProps> = ({
               aria-label={menuLabel ? undefined : open ? 'Close menu' : 'Open menu'}
               onClick={() => setOpen(!open)}
             >
-              <span className={BURGER} aria-hidden="true">
-                <span className={LINE_TOP} />
-                <span className={LINE_BOTTOM} />
-              </span>
+              <MenuToggleIcon
+                open={open}
+                className="w-5 h-5 text-current shrink-0"
+                duration={450}
+                strokeWidth={2.4}
+                aria-hidden="true"
+              />
               {menuLabel && (
                 <span className={MENU_LABEL}>
                   <span className={WORD_OPEN} aria-hidden={open}>

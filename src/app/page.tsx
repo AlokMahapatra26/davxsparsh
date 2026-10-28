@@ -7,8 +7,81 @@ import { ScrollStack, ScrollStackItem } from "@/components/ui/ScrollStack";
 import { CardNav } from "@/components/ui/CardNav";
 import { GlowCursor } from "@/components/ui/GlowCursor";
 import { HeroCollage } from "@/components/ui/modern-hero-section";
-import GlassFolder from "@/components/ui/glass-folder-cards";
+import GlassFolder, { type FolderFile } from "@/components/ui/glass-folder-cards";
+import { CountingStatsSection } from "@/components/ui/counting-stats-section";
+import { ClipPathLinks } from "@/components/ui/clip-path-links";
 import { Footer } from "@/components/ui/Footer";
+import GsapFlipCard, { type GsapFlipCardItem } from "@/components/ui/gsap-card-flip";
+
+import DossierCardFace from "@/components/ui/dossier-card-face";
+
+const getFileDescription = (name: string, meta?: string) => {
+  if (name.includes("Brand")) {
+    return "Official Sparsh Design brand identity guidelines, color palettes, editorial typography rules, and tactile print specifications.";
+  }
+  if (name.includes("Hierarchy") || name.includes("Component")) {
+    return "Atomic design token architecture, responsive component hierarchy, and Figma 48 master design library assets.";
+  }
+  if (name.includes("Tokens") || name.includes("Typography")) {
+    return "Editorial serif and sans-serif pairings, fluid scale calculations, and Storybook component documentation.";
+  }
+  if (name.includes("Zero-Trust")) {
+    return "Zero-trust Kubernetes multi-cluster mesh, automated IAM boundary scopes, and Terraform infrastructure as code.";
+  }
+  if (name.includes("Telemetry")) {
+    return "High-cardinality distributed tracing, Prometheus real-time metrics board, and Grafana anomaly detection alerts.";
+  }
+  if (name.includes("Microservices")) {
+    return "High-throughput Go & gRPC microservices architecture, sub-5ms routes, and concurrent event streaming workers.";
+  }
+  if (name.includes("CI/CD")) {
+    return "Automated GitHub Actions CI/CD pipeline with hermetic container builds, automated vulnerability scans, and instant rollback.";
+  }
+  if (name.includes("WebGL")) {
+    return "Custom GLSL liquid noise shaders, interactive chromatic dispersion, and 60fps real-time physics dynamics.";
+  }
+  if (name.includes("Packaging")) {
+    return "Sensory tactile packaging mockups, embossed paper stock specifications, and luxury print foil stamp accents.";
+  }
+  if (name.includes("Audit")) {
+    return "Comprehensive performance and engineering audit: 100/100 Lighthouse score, zero layout shift, and instant hydration.";
+  }
+  return `Archived project dossier document: ${name} (${meta || "Verified Record"}).`;
+};
+
+const getFileCaption = (name: string, meta?: string) => {
+  if (name.includes("Brand")) {
+    return "Sensory brand identity manual, color spaces, and tactile print specs.";
+  }
+  if (name.includes("Hierarchy") || name.includes("Component")) {
+    return "Atomic design tokens, 48 Figma components, and fluid responsive states.";
+  }
+  if (name.includes("Tokens") || name.includes("Typography")) {
+    return "Editorial serif pairings, fluid scale calculations, and Storybook documentation.";
+  }
+  if (name.includes("Zero-Trust")) {
+    return "K8s multi-cluster mesh, IAM zero-trust boundaries, and Terraform states.";
+  }
+  if (name.includes("Telemetry")) {
+    return "Distributed tracing, Prometheus metrics, and automated anomaly detection.";
+  }
+  if (name.includes("Microservices")) {
+    return "High-throughput Go & gRPC microservices with sub-5ms latency.";
+  }
+  if (name.includes("CI/CD")) {
+    return "Hermetic container builds, automated vulnerability scans, and instant rollback.";
+  }
+  if (name.includes("WebGL")) {
+    return "Custom GLSL noise shaders, chromatic dispersion, and interactive physics.";
+  }
+  if (name.includes("Packaging")) {
+    return "High-touch tangible physical packaging with tactile varnish and foil accents.";
+  }
+  if (name.includes("Audit")) {
+    return "Performance benchmark audit: 100/100 Lighthouse score and zero layout shift.";
+  }
+  return `Document specification for ${name} verified by DAVLabs × Sparsh Studio.`;
+};
 
 // 7 floating card collage images from 21st.dev component
 const HERO_COLLAGE_IMAGES = [
@@ -32,6 +105,71 @@ export default function HomePage() {
   const router = useRouter();
   const servicesTrackRef = useRef<HTMLDivElement>(null);
   const [servicesProgress, setServicesProgress] = useState(0);
+
+  // Maintain live file arrays for folders so dynamically added files (+ button) are supported!
+  const [designFiles, setDesignFiles] = useState<FolderFile[]>([
+    { name: "Tokens & Typography", meta: "Storybook · v2.4", art: "aurora" },
+    { name: "Component Hierarchy", meta: "Figma · 48 assets", art: "dusk" },
+    { name: "Brand Guidelines.pdf", meta: "PDF · 8.2 MB" },
+  ]);
+
+  const [cloudFiles, setCloudFiles] = useState<FolderFile[]>([
+    { name: "Zero-Trust Architecture", meta: "K8s · Terraform", art: "ember" },
+    { name: "Telemetry & Logs", meta: "Prometheus · Grafana" },
+    { name: "Microservices Blueprint", meta: "Go · gRPC", art: "glacier" },
+    { name: "CI/CD Pipeline.yml", meta: "GitHub Actions" },
+  ]);
+
+  const [artifactFiles, setArtifactFiles] = useState<FolderFile[]>([
+    { name: "Fluid WebGL Dynamics", meta: "Shaders · GLSL", art: "verdant" },
+    { name: "Sensory Packaging", meta: "Print · 3D Mockup", art: "dusk" },
+    { name: "Audit Report v4", meta: "PDF · 1.4 MB" },
+  ]);
+
+  const [activeFlipGallery, setActiveFlipGallery] = useState<{
+    title: string;
+    meta: string;
+    description: string;
+    items: GsapFlipCardItem[];
+    initialSelectedIndex?: number;
+  } | null>(null);
+
+  const handleOpenFileGallery = (
+    folderKey: string,
+    clickedFile: FolderFile,
+    currentFiles: FolderFile[]
+  ) => {
+    const folderMetaMap: Record<string, string> = {
+      "Design Systems": "Sparsh Design",
+      "Cloud Topologies": "DAVLabs IT",
+      "Tactile Artifacts": "Case Studies",
+    };
+    const folderMeta = folderMetaMap[folderKey] || "DAVLabs × Sparsh";
+
+    const items: GsapFlipCardItem[] = currentFiles.map((f, i) => ({
+      id: f.name + "-" + i,
+      title: f.name,
+      meta: `${folderMeta} · ${f.meta || "Dossier Record"}`,
+      description: getFileDescription(f.name, f.meta),
+      caption: getFileCaption(f.name, f.meta),
+      art: typeof f.art === "string" ? f.art : undefined,
+      image: f.image,
+      isDocument: !f.art && !f.image,
+      renderContent: (isHero, item) => (
+        <DossierCardFace item={item} isHero={isHero} />
+      ),
+    }));
+
+    const targetIdx = currentFiles.findIndex((f) => f.name === clickedFile.name);
+
+    setActiveFlipGallery({
+      title: clickedFile.name,
+      meta: `${folderMeta} · ${clickedFile.meta || "Dossier Record"}`,
+      description: getFileDescription(clickedFile.name, clickedFile.meta),
+      items,
+      initialSelectedIndex: targetIdx >= 0 ? targetIdx : 0,
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -88,7 +226,7 @@ export default function HomePage() {
             surface="transparent"
             cardEffect="rise"
             maxWidth="100%"
-            cta={{ label: "Contact", href: "mailto:contact@davlabs.in" }}
+            cta={{ label: "Contact", href: "/contact" }}
             items={[
               {
                 label: "Services",
@@ -117,6 +255,7 @@ export default function HomePage() {
                 label: "Dialogue",
                 description: "Direct inquiry for collaborations.",
                 links: [
+                  { label: "Contact Us", href: "/contact" },
                   { label: "DAVLabs (Engineering)", href: "mailto:contact@davlabs.in" },
                   { label: "Sparsh Design (Craft)", href: "mailto:contact@sparshdesign.com" }
                 ]
@@ -141,6 +280,9 @@ export default function HomePage() {
             images={HERO_COLLAGE_IMAGES}
           />
         </section>
+
+        {/* Scale & Impact Metrics with CountingNumber */}
+        <CountingStatsSection />
 
         {/* Services Showcase: Slides horizontally on vertical scroll */}
         <div id="services" ref={servicesTrackRef} className="services-scroll-track">
@@ -212,11 +354,9 @@ export default function HomePage() {
                 art="aurora"
                 seed={3}
                 appearDelay={0}
-                files={[
-                  { name: "Tokens & Typography", meta: "Storybook · v2.4", art: "aurora" },
-                  { name: "Component Hierarchy", meta: "Figma · 48 assets", art: "dusk" },
-                  { name: "Brand Guidelines.pdf", meta: "PDF · 8.2 MB" },
-                ]}
+                files={designFiles}
+                onFilesChange={setDesignFiles}
+                onFileSelect={(file) => handleOpenFileGallery("Design Systems", file, designFiles)}
               />
               <GlassFolder
                 label="Cloud Topologies"
@@ -225,14 +365,11 @@ export default function HomePage() {
                 action="more"
                 labelPlacement="top-left"
                 appearDelay={140}
-                files={[
-                  { name: "Zero-Trust Architecture", meta: "K8s · Terraform", art: "ember" },
-                  { name: "Telemetry & Logs", meta: "Prometheus · Grafana" },
-                  { name: "Microservices Blueprint", meta: "Go · gRPC", art: "glacier" },
-                  { name: "CI/CD Pipeline.yml", meta: "GitHub Actions" },
-                ]}
+                files={cloudFiles}
+                onFilesChange={setCloudFiles}
+                onFileSelect={(file) => handleOpenFileGallery("Cloud Topologies", file, cloudFiles)}
                 menu={[
-                  { label: "Inspect Topology" },
+                  { label: "Inspect Topology", onSelect: () => handleOpenFileGallery("Cloud Topologies", cloudFiles[0], cloudFiles) },
                   { label: "Export Architecture" },
                   { label: "Purge Stale Pods", danger: true },
                 ]}
@@ -246,16 +383,14 @@ export default function HomePage() {
                 action="none"
                 labelPlacement="top-right"
                 appearDelay={280}
-                files={[
-                  { name: "Fluid WebGL Dynamics", meta: "Shaders · GLSL", art: "verdant" },
-                  { name: "Sensory Packaging", meta: "Print · 3D Mockup", art: "dusk" },
-                  { name: "Audit Report v4", meta: "PDF · 1.4 MB" },
-                ]}
+                files={artifactFiles}
+                onFilesChange={setArtifactFiles}
+                onFileSelect={(file) => handleOpenFileGallery("Tactile Artifacts", file, artifactFiles)}
               />
             </div>
 
             <p className="relative mt-16 font-mono text-[11px] tracking-[0.2em] text-[var(--ink-muted)] uppercase">
-              Hover to lean &bull; Click to open &bull; + to add files
+              Click any card to open interactive Flip dossier &bull; + to add files
             </p>
           </div>
         </section>
@@ -411,9 +546,54 @@ export default function HomePage() {
                 </div>
               </div>
             </ScrollStackItem>
+
+            {/* Card 05: Interactive Ecosystem & Connect */}
+            <ScrollStackItem itemClassName="scroll-stack-card--blank">
+              <div className="scroll-stack-card__flare" />
+              <div className="scroll-stack-card__content">
+                <div className="scroll-stack-card__top">
+                  <span className="scroll-stack-card__num">05</span>
+                  <span className="scroll-stack-card__author">
+                    Network &times; Ecosystems
+                  </span>
+                </div>
+                <div className="scroll-stack-card__body mb-5 sm:mb-6">
+                  <h3 className="scroll-stack-card__title">Connected Channels</h3>
+                  <p className="scroll-stack-card__desc">
+                    Directional interactive touchpoints across engineering codebases, creative networks, and collaborative spaces.
+                  </p>
+                </div>
+                <div className="w-full mt-2">
+                  <ClipPathLinks />
+                </div>
+              </div>
+            </ScrollStackItem>
           </ScrollStack>
         </section>
       </main>
+
+      {/* Fullscreen GSAP Flip Card Dossier Viewer */}
+      {activeFlipGallery && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-2xl flex flex-col justify-center items-center overflow-hidden animate-in fade-in duration-300"
+        >
+          <GsapFlipCard
+            items={activeFlipGallery.items}
+            title={activeFlipGallery.title}
+            meta={activeFlipGallery.meta}
+            description={activeFlipGallery.description}
+            backgroundColor="transparent"
+            textColor="#ffffff"
+            mutedColor="#a1a1aa"
+            defaultOpen={true}
+            initialSelectedIndex={activeFlipGallery.initialSelectedIndex}
+            onClose={() => setActiveFlipGallery(null)}
+            className="w-full h-full"
+          />
+        </div>
+      )}
 
       {/* Sleek Tasteful Footer */}
       <Footer />

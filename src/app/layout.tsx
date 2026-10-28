@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SupportChatbot } from "@/components/ui/support-chatbot";
 
 export const metadata: Metadata = {
   title: "DAVLabs × Sparsh Design — Engineering Precision × Editorial Craft",
@@ -34,6 +35,7 @@ export default function RootLayout({
         <div className="ambient-grid" aria-hidden="true" />
         <div className="noise-overlay" aria-hidden="true" />
         {children}
+        <SupportChatbot />
       </body>
     </html>
   );

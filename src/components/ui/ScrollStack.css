@@ -63,6 +63,10 @@
   background: linear-gradient(145deg, #17171c 0%, #0b0b0d 100%);
 }
 
+.scroll-stack-card--blank {
+  background: linear-gradient(145deg, #18181f 0%, #0a0a0c 100%);
+}
+
 /* Monochromatic Ambient Light Flare */
 .scroll-stack-card__flare {
   position: absolute;
