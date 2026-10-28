@@ -2,18 +2,19 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FlexCarousel, DEFAULT_SERVICES_ITEMS } from "@/components/ui/FlexCarousel";
+import { WorksWheel, type WorksWheelItem } from "@/components/ui/works-wheel";
 import { ScrollStack, ScrollStackItem } from "@/components/ui/ScrollStack";
 import { CardNav } from "@/components/ui/CardNav";
 import { GlowCursor } from "@/components/ui/GlowCursor";
-import { HeroCollage } from "@/components/ui/modern-hero-section";
+import LycorisSpecimen from "@/components/ui/lycoris-specimen";
 import GlassFolder, { type FolderFile } from "@/components/ui/glass-folder-cards";
 import { CountingStatsSection } from "@/components/ui/counting-stats-section";
 import { ClipPathLinks } from "@/components/ui/clip-path-links";
 import { Footer } from "@/components/ui/Footer";
 import GsapFlipCard, { type GsapFlipCardItem } from "@/components/ui/gsap-card-flip";
-
 import DossierCardFace from "@/components/ui/dossier-card-face";
+import { AnimatedTestimonials, testimonials } from "@/components/ui/testimonial";
+
 
 const getFileDescription = (name: string, meta?: string) => {
   if (name.includes("Brand")) {
@@ -83,28 +84,99 @@ const getFileCaption = (name: string, meta?: string) => {
   return `Document specification for ${name} verified by DAVLabs × Sparsh Studio.`;
 };
 
-// 7 floating card collage images from 21st.dev component
-const HERO_COLLAGE_IMAGES = [
-  // Central Image: Portrait
-  "https://cdn.21st.dev/assets/mirror/66/66a230562aa63505d3089a2040fd63a69f123bd9a36377b5c27f9bfa10de0ac2.jpg",
-  // Top-Left (Before/After concept)
-  "https://cdn.21st.dev/assets/mirror/55/551a3a38515bdf2d189041c89af7bf5dde3aea48f5867060101cb2a5b8884411.jpg",
-  // Top-Right (Daisies)
-  "https://cdn.21st.dev/assets/mirror/63/632124869b61777b6c8ef65776fc36fea8e417d8f6b4f67cbe499701e689e145.jpg",
-  // Bottom-Right (Sliders/Beach)
-  "https://cdn.21st.dev/assets/mirror/89/8908fd16f3ea85f950fa88adee07272a6ec68d9ef51470669754ced375950b4b.jpg",
-  // Far-Right (Sunflowers)
-  "https://cdn.21st.dev/assets/mirror/b0/b0de7d23f38dfbab566e2578db495b440d52bbf6fd78699afd33e598104d61c2.jpg",
-  // Bottom-Left (Product)
-  "https://cdn.21st.dev/assets/mirror/88/88b4510727e3e917c0cf04dae4b880d70e9360aaa1a95f93db1faff2aa0bab19.jpg",
-  // Far-Left (Rainbow)
-  "https://cdn.21st.dev/assets/mirror/69/69fce1ff9836c5092a6dfadfbd46649563779cceaf84a2eca1dc059a5f011f03.jpg",
+const SERVICES_WHEEL_ITEMS: WorksWheelItem[] = [
+  {
+    title: "Web Development",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop",
+    href: "/services/web-development",
+  },
+  {
+    title: "App Development",
+    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80&auto=format&fit=crop",
+    href: "/services/app-development",
+  },
+  {
+    title: "AI Automation",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80&auto=format&fit=crop",
+    href: "/services/ai-automation",
+  },
+  {
+    title: "UI/UX & Web Design",
+    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&q=80&auto=format&fit=crop",
+    href: "/services/ui-ux-design",
+  },
+  {
+    title: "Creative Logo Design",
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1200&q=80&auto=format&fit=crop",
+    href: "/services/creative-logo-design",
+  },
+  {
+    title: "Graphics Design & Branding",
+    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80&auto=format&fit=crop",
+    href: "/services/graphics-design",
+  },
+  {
+    title: "Social Media Marketing",
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&q=80&auto=format&fit=crop",
+    href: "/services/social-media-marketing",
+  },
+  {
+    title: "Brand Identity & Packaging",
+    image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=1200&q=80&auto=format&fit=crop",
+    href: "/services/brand-identity",
+  },
 ];
 
 export default function HomePage() {
   const router = useRouter();
-  const servicesTrackRef = useRef<HTMLDivElement>(null);
-  const [servicesProgress, setServicesProgress] = useState(0);
+
+  // Scroll restoration: when returning from another page, return to that exact section rather than the hero
+  useEffect(() => {
+    const handleRestore = () => {
+      const returnSection =
+        sessionStorage.getItem("return_to_section") ||
+        (typeof window !== "undefined" ? window.location.hash.replace("#", "") : "");
+
+      if (returnSection && returnSection !== "hero") {
+        sessionStorage.removeItem("return_to_section");
+        const target = document.getElementById(returnSection);
+        if (target) {
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 150);
+          return;
+        }
+      }
+
+      const savedScroll = sessionStorage.getItem("home_scroll_pos");
+      if (savedScroll && parseInt(savedScroll, 10) > 100) {
+        setTimeout(() => {
+          window.scrollTo({ top: parseInt(savedScroll, 10), behavior: "auto" });
+        }, 120);
+      }
+    };
+
+    handleRestore();
+
+    // Continuously track current visible section
+    const handleScroll = () => {
+      sessionStorage.setItem("home_scroll_pos", window.scrollY.toString());
+      const sections = ["services", "testimonials", "archives", "approach", "hero"];
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= window.innerHeight * 0.65 && rect.bottom >= window.innerHeight * 0.15) {
+            sessionStorage.setItem("home_current_section", id);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Maintain live file arrays for folders so dynamically added files (+ button) are supported!
   const [designFiles, setDesignFiles] = useState<FolderFile[]>([
@@ -171,22 +243,7 @@ export default function HomePage() {
     });
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const el = servicesTrackRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const total = el.offsetHeight - window.innerHeight;
-      if (total <= 0) return;
-      const current = -rect.top;
-      const p = Math.min(Math.max(current / total, 0), 1);
-      setServicesProgress(p);
-    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const BrandLogo = (
     <div className="flex items-center gap-1.5 text-xs sm:text-sm font-medium tracking-tight">
@@ -215,15 +272,15 @@ export default function HomePage() {
         theme="dark"
       />
 
-      {/* Top Floating CardNav (Full Width) */}
-      <header className="fixed top-3 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none">
-        <div className="w-full pointer-events-auto">
+      {/* Top Floating CardNav (Centered 50% Width) */}
+      <header className="fixed top-3 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none flex justify-center">
+        <div className="w-[94%] sm:w-[80%] md:w-[65%] lg:w-[50%] mx-auto pointer-events-auto">
           <CardNav
             logo={BrandLogo}
             logoAlt="DAVLabs and Sparsh Design"
             logoHref="#"
             theme="light"
-            surface="transparent"
+            surface="solid"
             cardEffect="rise"
             maxWidth="100%"
             cta={{ label: "Contact", href: "/contact" }}
@@ -266,64 +323,61 @@ export default function HomePage() {
       </header>
 
       <main>
-        {/* Hero Section with Floating Card Collage */}
-        <section id="hero" className="relative w-full pt-20 sm:pt-24 pb-12 overflow-hidden bg-background">
-          <HeroCollage
-            className="pt-8 sm:pt-12 pb-8"
-            title={
-              <>
-                Any Projects{" "}
-                <span className="text-blue-600">in mind?</span>
-              </>
-            }
-            subtitle="Resilient systems and sensory digital interfaces begin from first principles. Purpose-built IT engineering by DAVLabs paired with bespoke product craft by Sparsh Design."
-            images={HERO_COLLAGE_IMAGES}
-          />
-        </section>
+        {/* Hero Section with Lycoris Specimen Interactive WebGL Timeline (Sticky pinned for full 6-frame scroll) */}
+        <LycorisSpecimen
+          id="hero"
+          name="Design"
+          fontLabel="Develop"
+          studio="DAVLabs × Sparsh"
+          year="2026"
+          heroCategory="TECH SOLUTIONS"
+          heroSubtitle="WEB DESIGN & DEVELOPMENT STUDIO"
+          sceneScroll={1.4}
+          ink="linear-gradient(180deg, #FCF9F2 0%, #F6F1E3 100%)"
+          crimson="#1a56db"
+          bone="#111111"
+          description="We design and build high-performance websites and web applications for growing businesses worldwide. Custom design, clean engineering, and a process built around your goals."
+          tagline={[
+            { text: "Sensory" },
+            { text: "digital", small: true },
+            { text: "systems" },
+            { text: "by DAVLabs", small: true },
+          ]}
+          multilingual="DÄV·Lâbs·Spårsh"
+          ligatureWord="Sensory"
+          links={[
+            { label: "EXPLORE SERVICES", href: "#services" },
+            { label: "CONTACT US", href: "/contact" },
+          ]}
+        />
 
         {/* Scale & Impact Metrics with CountingNumber */}
         <CountingStatsSection />
 
-        {/* Services Showcase: Slides horizontally on vertical scroll */}
-        <div id="services" ref={servicesTrackRef} className="services-scroll-track">
-          <section className="services-sticky-stage">
-            <div className="services-header">
-              <h2 className="services-title">Services</h2>
-              <p className="text-xs font-mono text-zinc-500 tracking-wider mt-2 uppercase">
-                Scroll to slide &bull; Click card to explore
-              </p>
-            </div>
+        {/* Services 3D Interactive WorksWheel Section (Sticky Scroll Pinned Timeline) */}
+        <WorksWheel
+          id="services"
+          items={SERVICES_WHEEL_ITEMS}
+          label="Services '26"
+          action="Explore"
+          scrollPerItem={80}
+          className="border-b border-[var(--border-delicate)]"
+        />
 
-            <div className="services-carousel-wrapper">
-              <FlexCarousel
-                items={DEFAULT_SERVICES_ITEMS}
-                scrollProgress={servicesProgress}
-                onSelect={(_idx, item) => {
-                  if (item.slug) {
-                    router.push(`/services/${item.slug}`);
-                  }
-                }}
-                preset="liquid"
-                intro="rise"
-                cardHeight={0.52}
-                gap={16}
-                radius={12}
-                squeeze={0.18}
-                focusOnClick={false}
-                captions
-                captureWheel={false}
-              />
-            </div>
+        {/* Client Testimonials Section */}
+        <section id="testimonials" className="relative w-full py-20 sm:py-28 overflow-hidden bg-[var(--bg-primary)] border-b border-[var(--border-delicate)]">
+          <div className="relative max-w-5xl mx-auto px-6 text-center mb-6 sm:mb-10">
+            <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 block mb-2">
+              Client Endorsements &amp; Trust
+            </span>
+            <h2 className="services-title mb-4">What Our Partners Say</h2>
+            <p className="text-sm sm:text-base text-[var(--ink-secondary)] max-w-xl mx-auto leading-relaxed">
+              Engineering excellence and artisanal digital craft validated by industry leaders, founders, and creative directors.
+            </p>
+          </div>
 
-            {/* Subtle Progress Bar */}
-            <div className="services-progress-bar-wrap" aria-hidden="true">
-              <div
-                className="services-progress-bar"
-                style={{ width: `${Math.round(servicesProgress * 100)}%` }}
-              />
-            </div>
-          </section>
-        </div>
+          <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
+        </section>
 
         {/* Interactive Tactile Glass Folder Archives Section */}
         <section id="archives" className="relative w-full py-24 sm:py-32 overflow-hidden bg-[var(--bg-secondary)] border-y border-[var(--border-delicate)]">

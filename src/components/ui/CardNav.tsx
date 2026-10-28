@@ -37,11 +37,11 @@ const THEMES = {
     '--cn-cta-hover': 'brightness(0.94)'
   },
   light: {
-    '--cn-panel': 'rgba(255, 255, 255, 0.88)',
+    '--cn-panel': '#ffffff',
     '--cn-solid': '#ffffff',
     '--cn-edge': 'rgba(0, 0, 0, 0.08)',
     '--cn-highlight': 'rgba(255, 255, 255, 1)',
-    '--cn-shadow': '0 20px 48px -15px rgba(0, 0, 0, 0.12), 0 4px 12px -4px rgba(0, 0, 0, 0.06)',
+    '--cn-shadow': '0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04)',
     '--cn-text': '#121212',
     '--cn-muted': 'rgba(18, 18, 18, 0.55)',
     '--cn-hover': 'rgba(0, 0, 0, 0.04)',
@@ -248,13 +248,14 @@ export const CardNav: React.FC<CardNavProps> = ({
     '--cn-bar': '60px',
     '--cn-inset': '8px',
     '--cn-gap': '8px',
-    '--cn-radius': '18px',
+    '--cn-radius': '9999px',
     '--cn-logo': '24px',
     '--cn-card': `${cardHeight}px`
   };
   if (surface === 'glass') vars['--cn-blur'] = 'blur(20px) saturate(1.6)';
   if (surface === 'solid') {
-    vars['--cn-panel'] = palette['--cn-solid'];
+    vars['--cn-panel'] = '#ffffff';
+    vars['--cn-solid'] = '#ffffff';
     vars['--cn-blur'] = 'none';
   }
   if (surface === 'transparent') {

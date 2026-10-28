@@ -17,7 +17,39 @@ const COUNTRIES = [
   "France",
 ];
 
-export default function ContactForm() {
+const SERVICES = [
+  "Web Development",
+  "App Development",
+  "AI Automation & Systems",
+  "UI/UX & Web Design",
+  "Creative Logo Design",
+  "Graphics Design & Branding",
+  "Social Media Marketing",
+  "Brand Identity & Packaging",
+];
+
+interface RoutingData {
+  emails: string[];
+  primaryEmail: string;
+  divisions: string[];
+  isDefault: boolean;
+}
+
+interface ContactFormProps {
+  selectedServices?: string[];
+  setSelectedServices?: React.Dispatch<React.SetStateAction<string[]>>;
+  routingData?: RoutingData;
+}
+
+export default function ContactForm({
+  selectedServices: externalServices,
+  setSelectedServices: setExternalServices,
+  routingData,
+}: ContactFormProps) {
+  const [internalServices, setInternalServices] = useState<string[]>([]);
+  const selectedServices = externalServices ?? internalServices;
+  const setSelectedServices = setExternalServices ?? setInternalServices;
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -26,14 +58,25 @@ export default function ContactForm() {
   });
   const [country, setCountry] = useState("India");
   const [isCountryOpen, setIsCountryOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [agreed, setAgreed] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const targetEmails = routingData?.emails || ["contact@davlabs.in"];
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const toggleService = (service: string) => {
+    setSelectedServices((prev) =>
+      prev.includes(service)
+        ? prev.filter((item) => item !== service)
+        : [...prev, service]
+    );
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -44,33 +87,37 @@ export default function ContactForm() {
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 4000);
-    }, 800);
+      setTimeout(() => setSubmitted(false), 5000);
+    }, 700);
   };
 
   return (
-    <div className="w-full max-w-[407px] bg-white rounded-[20px] border border-[#e8e8e8] p-6 sm:p-7 shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
+    <div className="w-full max-w-[620px] bg-white rounded-[26px] border border-[#e2e8f0] p-8 sm:p-10 md:p-11 shadow-[0_12px_45px_rgba(0,0,0,0.05)]">
       {/* Card Title */}
-      <h2 className="text-[19px] font-bold text-[#0f172a] tracking-tight mb-4">
+      <h2 className="text-[24px] sm:text-[28px] font-bold text-[#0f172a] tracking-tight mb-7">
         Start the project
       </h2>
 
       {submitted ? (
-        <div className="py-10 flex flex-col items-center justify-center text-center space-y-3">
-          <div className="w-11 h-11 rounded-full bg-[#4355ff]/10 text-[#4355ff] flex items-center justify-center mb-1">
-            <Check className="w-5 h-5 stroke-[2.5]" />
+        <div className="py-14 flex flex-col items-center justify-center text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
+          <div className="w-16 h-16 rounded-full bg-[#4355ff]/10 text-[#4355ff] flex items-center justify-center mb-1 shadow-sm">
+            <Check className="w-8 h-8 stroke-[2.5]" />
           </div>
-          <h4 className="text-sm font-semibold text-[#0f172a]">
+          <h4 className="text-[20px] font-bold text-[#0f172a]">
             Inquiry Submitted Successfully
           </h4>
-          <p className="text-xs text-[#64748b] max-w-xs leading-relaxed">
-            Thank you! We will get back to you shortly.
+          <p className="text-[15px] text-[#64748b] max-w-md leading-relaxed">
+            Thank you! Your inquiry has been routed directly to{" "}
+            <span className="font-bold text-[#4355ff]">
+              {targetEmails.join(", ")}
+            </span>
+            . Our specialists will review your requirements and respond shortly.
           </p>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
           {/* Row 1: First Name & Last Name */}
-          <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="grid grid-cols-2 gap-4 sm:gap-5 mb-5">
             <div>
               <input
                 type="text"
@@ -79,7 +126,7 @@ export default function ContactForm() {
                 placeholder="First name"
                 value={formData.firstName}
                 onChange={handleChange}
-                className="w-full h-[38px] px-3 text-[13px] text-[#0f172a] placeholder:text-[#9ca3af] bg-white border border-[#e8e8e8] rounded-[8px] focus:outline-none focus:border-[#4355ff] focus:ring-1 focus:ring-[#4355ff] transition-all"
+                className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all"
               />
             </div>
             <div>
@@ -90,13 +137,13 @@ export default function ContactForm() {
                 placeholder="Last name"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="w-full h-[38px] px-3 text-[13px] text-[#0f172a] placeholder:text-[#9ca3af] bg-white border border-[#e8e8e8] rounded-[8px] focus:outline-none focus:border-[#4355ff] focus:ring-1 focus:ring-[#4355ff] transition-all"
+                className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all"
               />
             </div>
           </div>
 
           {/* Row 2: Email */}
-          <div className="mb-3">
+          <div className="mb-5">
             <input
               type="email"
               name="email"
@@ -104,21 +151,24 @@ export default function ContactForm() {
               placeholder="youremail@website.com"
               value={formData.email}
               onChange={handleChange}
-              className="w-full h-[38px] px-3 text-[13px] text-[#0f172a] placeholder:text-[#9ca3af] bg-white border border-[#e8e8e8] rounded-[8px] focus:outline-none focus:border-[#4355ff] focus:ring-1 focus:ring-[#4355ff] transition-all"
+              className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all"
             />
           </div>
 
           {/* Row 3: Country Select */}
-          <div className="relative mb-3">
+          <div className="relative mb-5">
             <button
               type="button"
-              onClick={() => setIsCountryOpen(!isCountryOpen)}
-              className="w-full h-[38px] px-3 text-[13px] text-[#0f172a] bg-white border border-[#e8e8e8] rounded-[8px] flex items-center justify-between focus:outline-none focus:border-[#4355ff] focus:ring-1 focus:ring-[#4355ff] transition-all cursor-pointer text-left"
+              onClick={() => {
+                setIsCountryOpen(!isCountryOpen);
+                setIsServicesOpen(false);
+              }}
+              className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[12px] flex items-center justify-between focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all cursor-pointer text-left"
             >
-              <span>{country}</span>
+              <span className="font-medium">{country}</span>
               <ChevronDown
                 className={cn(
-                  "w-4 h-4 text-[#9ca3af] transition-transform duration-200",
+                  "w-5 h-5 text-[#94a3b8] transition-transform duration-200",
                   isCountryOpen && "rotate-180"
                 )}
               />
@@ -127,10 +177,10 @@ export default function ContactForm() {
             {isCountryOpen && (
               <>
                 <div
-                  className="fixed inset-0 z-10"
+                  className="fixed inset-0 z-20"
                   onClick={() => setIsCountryOpen(false)}
                 />
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-[#e8e8e8] rounded-[8px] shadow-lg z-20 py-1 max-h-48 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-[#e2e8f0] rounded-[14px] shadow-2xl z-30 py-2.5 max-h-60 overflow-y-auto">
                   {COUNTRIES.map((c) => (
                     <button
                       key={c}
@@ -140,13 +190,14 @@ export default function ContactForm() {
                         setIsCountryOpen(false);
                       }}
                       className={cn(
-                        "w-full px-3 py-1.5 text-left text-[13px] hover:bg-[#f8fafc] transition-colors cursor-pointer",
+                        "w-full px-5 py-3 text-left text-[15px] hover:bg-[#f8fafc] transition-colors cursor-pointer flex items-center justify-between",
                         country === c
-                          ? "text-[#4355ff] font-medium bg-[#f0f4ff]"
+                          ? "text-[#4355ff] font-semibold bg-[#4355ff]/5"
                           : "text-[#0f172a]"
                       )}
                     >
-                      {c}
+                      <span>{c}</span>
+                      {country === c && <Check className="w-4 h-4 text-[#4355ff]" />}
                     </button>
                   ))}
                 </div>
@@ -154,44 +205,131 @@ export default function ContactForm() {
             )}
           </div>
 
-          {/* Row 4: Message Textarea */}
-          <div className="mb-3.5">
+          {/* Row 4: Services Multi-Select Dropdown with Checkboxes (Clean without extra pills/banners) */}
+          <div className="relative mb-5">
+            <button
+              type="button"
+              onClick={() => {
+                setIsServicesOpen(!isServicesOpen);
+                setIsCountryOpen(false);
+              }}
+              className="w-full h-[52px] px-5 text-[15px] bg-white border border-[#e2e8f0] rounded-[12px] flex items-center justify-between focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all cursor-pointer text-left"
+            >
+              <span
+                className={
+                  selectedServices.length === 0
+                    ? "text-[#94a3b8]"
+                    : "text-[#0f172a] font-medium"
+                }
+              >
+                {selectedServices.length === 0
+                  ? "Select services"
+                  : selectedServices.length === 1
+                  ? selectedServices[0]
+                  : `${selectedServices.length} services selected`}
+              </span>
+              <ChevronDown
+                className={cn(
+                  "w-5 h-5 text-[#94a3b8] transition-transform duration-200",
+                  isServicesOpen && "rotate-180"
+                )}
+              />
+            </button>
+
+            {isServicesOpen && (
+              <>
+                <div
+                  className="fixed inset-0 z-20"
+                  onClick={() => setIsServicesOpen(false)}
+                />
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-[#e2e8f0] rounded-[14px] shadow-2xl z-30 py-2.5 max-h-72 overflow-y-auto">
+                  <div className="px-5 py-2 flex items-center justify-between border-b border-[#f1f5f9] mb-1.5">
+                    <span className="text-[12px] font-bold tracking-wider uppercase text-[#64748b]">
+                      Select Services ({selectedServices.length} selected)
+                    </span>
+                    {selectedServices.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedServices([]);
+                        }}
+                        className="text-[13px] text-[#4355ff] hover:text-[#3142e6] hover:underline font-semibold cursor-pointer"
+                      >
+                        Clear all
+                      </button>
+                    )}
+                  </div>
+                  {SERVICES.map((service) => {
+                    const isChecked = selectedServices.includes(service);
+                    return (
+                      <div
+                        key={service}
+                        onClick={() => toggleService(service)}
+                        className={cn(
+                          "w-full px-5 py-3 text-left text-[15px] hover:bg-[#f8fafc] transition-colors cursor-pointer flex items-center gap-3.5 select-none",
+                          isChecked && "bg-[#4355ff]/5 text-[#4355ff]"
+                        )}
+                      >
+                        <div
+                          className={cn(
+                            "w-5 h-5 rounded-[6px] border-2 flex items-center justify-center transition-all shrink-0",
+                            isChecked
+                              ? "bg-[#4355ff] border-[#4355ff] text-white shadow-xs"
+                              : "border-[#cbd5e1] bg-white group-hover:border-[#94a3b8]"
+                          )}
+                        >
+                          {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                        </div>
+                        <span className="flex-1 font-medium select-none">
+                          {service}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Row 5: Message Textarea */}
+          <div className="mb-5">
             <textarea
               name="message"
               required
-              rows={3}
+              rows={4}
               placeholder="Let us know about your project"
               value={formData.message}
               onChange={handleChange}
-              className="w-full px-3 py-2 text-[13px] text-[#0f172a] placeholder:text-[#9ca3af] bg-white border border-[#e8e8e8] rounded-[8px] focus:outline-none focus:border-[#4355ff] focus:ring-1 focus:ring-[#4355ff] transition-all resize-none min-h-[86px]"
+              className="w-full px-5 py-4 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all resize-none min-h-[130px]"
             />
           </div>
 
-          {/* Row 5: Checkbox and Terms */}
+          {/* Row 6: Checkbox and Terms */}
           <div
             onClick={() => setAgreed(!agreed)}
-            className="flex items-center gap-2.5 mb-4 cursor-pointer select-none group"
+            className="flex items-center gap-3.5 mb-7 cursor-pointer select-none group"
           >
             <div
               className={cn(
-                "w-[17px] h-[17px] rounded-[4px] flex items-center justify-center shrink-0 transition-all",
+                "w-[22px] h-[22px] rounded-[6px] border-2 flex items-center justify-center shrink-0 transition-all",
                 agreed
-                  ? "bg-[#0f172a] text-white"
-                  : "border border-[#cbd5e1] bg-white"
+                  ? "bg-[#0f172a] border-[#0f172a] text-white"
+                  : "border-[#cbd5e1] bg-white group-hover:border-[#94a3b8]"
               )}
             >
-              {agreed && <Check className="w-3.5 h-3.5 text-white stroke-[2.5]" />}
+              {agreed && <Check className="w-4 h-4 text-white stroke-[2.5]" />}
             </div>
-            <span className="text-[12px] text-[#374151] font-normal leading-tight group-hover:text-[#0f172a] transition-colors">
+            <span className="text-[14px] text-[#475569] font-normal leading-tight group-hover:text-[#0f172a] transition-colors">
               I have read and acknowledge the Terms and Conditions
             </span>
           </div>
 
-          {/* Row 6: Submit Button */}
+          {/* Row 7: Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting || !agreed}
-            className="w-full h-10 bg-[#4355ff] hover:bg-[#3848ea] active:scale-[0.99] text-white font-medium text-[13px] rounded-[10px] shadow-xs transition-all flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
+            className="w-full h-[54px] bg-[#4355ff] hover:bg-[#3848ea] active:scale-[0.99] text-white font-bold text-[16px] rounded-[14px] shadow-md hover:shadow-lg hover:shadow-[#4355ff]/25 transition-all flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
           >
             {isSubmitting ? "Submitting..." : "Submit Inquiry"}
           </button>

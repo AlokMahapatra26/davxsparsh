@@ -50,29 +50,19 @@ export function CountingStatsSection({
     <section
       ref={containerRef}
       id="metrics"
-      className="relative w-full py-16 sm:py-20 bg-background border-y border-[var(--border-delicate)] overflow-hidden"
+      className="relative w-full py-16 sm:py-20 bg-white border-y border-zinc-100 overflow-hidden"
     >
-      {/* Architectural Dot Grid */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 text-foreground opacity-[0.04]"
-        style={{
-          backgroundImage: "radial-gradient(currentColor 1.1px, transparent 1.4px)",
-          backgroundSize: "24px 24px",
-        }}
-      />
-
       <div className="relative max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 sm:mb-14">
           <div>
             <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 block mb-2">
               Scale &amp; Impact
             </span>
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[var(--ink-primary)]">
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900">
               Engineered with Precision
             </h2>
           </div>
-          <p className="mt-3 md:mt-0 text-xs sm:text-sm text-[var(--ink-secondary)] max-w-sm leading-relaxed">
+          <p className="mt-3 md:mt-0 text-xs sm:text-sm text-zinc-600 max-w-sm leading-relaxed">
             Measurable traction across robust cloud foundations and sensory interface systems.
           </p>
         </div>
@@ -81,9 +71,9 @@ export function CountingStatsSection({
           {stats.map((stat, idx) => (
             <div
               key={stat.label}
-              className="group relative p-6 sm:p-7 rounded-2xl bg-[var(--bg-secondary)]/60 border border-[var(--border-delicate)] hover:border-[var(--border-medium)] transition-all duration-300 hover:shadow-subtle hover:-translate-y-0.5"
+              className="group relative p-6 sm:p-7 rounded-2xl bg-zinc-50/80 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
             >
-              <div className="flex items-baseline gap-1 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground group-hover:text-blue-600 transition-colors">
+              <div className="flex items-baseline gap-1 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-900 group-hover:text-blue-600 transition-colors">
                 <CountingNumber
                   target={stat.target}
                   autoStart={isInView}
@@ -93,11 +83,11 @@ export function CountingStatsSection({
                   {stat.suffix}
                 </span>
               </div>
-              <p className="mt-3 text-xs sm:text-sm font-semibold text-[var(--ink-primary)] tracking-wide">
+              <p className="mt-3 text-xs sm:text-sm font-semibold text-zinc-900 tracking-wide">
                 {stat.label}
               </p>
               {stat.description && (
-                <p className="mt-1 text-xs text-[var(--ink-muted)]">
+                <p className="mt-1 text-xs text-zinc-500">
                   {stat.description}
                 </p>
               )}

@@ -4,6 +4,7 @@ import { ArrowUpRight, ArrowLeft } from 'lucide-react';
 import BackgroundPaths from '@/components/kokonutui/background-paths';
 import { StudioNavbar } from '@/components/ui/StudioNavbar';
 import { Button } from '@/components/ui/button';
+import { ReturnToStudio } from '@/components/ui/return-to-studio';
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -345,12 +346,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
       <main className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-32 sm:pt-40 pb-32 text-zinc-900">
         {/* Subtle breadcrumb */}
         <div className="mb-10">
-          <Button variant="push-outline" size="sm" asChild className="gap-2">
-            <Link href="/">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Return to Studio</span>
-            </Link>
-          </Button>
+          <ReturnToStudio />
         </div>
 
         {/* Title & Editorial Lead */}

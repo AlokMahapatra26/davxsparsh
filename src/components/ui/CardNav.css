@@ -24,6 +24,10 @@
   backdrop-filter: var(--cn-blur);
 }
 
+.card-nav[data-open] .card-nav__panel {
+  border-radius: 28px !important;
+}
+
 .card-nav__rim {
   position: absolute;
   inset: 0;
