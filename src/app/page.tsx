@@ -6,7 +6,7 @@ import { WorksWheel, type WorksWheelItem } from "@/components/ui/works-wheel";
 import { ScrollStack, ScrollStackItem } from "@/components/ui/ScrollStack";
 import { CardNav } from "@/components/ui/CardNav";
 import { GlowCursor } from "@/components/ui/GlowCursor";
-import LycorisSpecimen from "@/components/ui/lycoris-specimen";
+import GradientHero01 from "@/components/ui/gradient-hero-01";
 import GlassFolder, { type FolderFile } from "@/components/ui/glass-folder-cards";
 import { CountingStatsSection } from "@/components/ui/counting-stats-section";
 import { ClipPathLinks } from "@/components/ui/clip-path-links";
@@ -270,6 +270,7 @@ export default function HomePage() {
         glow={1.1}
         clickBurst
         theme="dark"
+        excludeSelector="#hero, footer, .footer-root, [data-thumbnail-trail], [data-glow-suppress]"
       />
 
       {/* Top Floating CardNav (Centered 50% Width) */}
@@ -323,32 +324,16 @@ export default function HomePage() {
       </header>
 
       <main>
-        {/* Hero Section with Lycoris Specimen Interactive WebGL Timeline (Sticky pinned for full 6-frame scroll) */}
-        <LycorisSpecimen
+        {/* Gradient Hero Section */}
+        <GradientHero01
           id="hero"
-          name="Design"
-          fontLabel="Develop"
-          studio="DAVLabs × Sparsh"
-          year="2026"
-          heroCategory="TECH SOLUTIONS"
-          heroSubtitle="WEB DESIGN & DEVELOPMENT STUDIO"
-          sceneScroll={1.4}
-          ink="linear-gradient(180deg, #FCF9F2 0%, #F6F1E3 100%)"
-          crimson="#1a56db"
-          bone="#111111"
-          description="We design and build high-performance websites and web applications for growing businesses worldwide. Custom design, clean engineering, and a process built around your goals."
-          tagline={[
-            { text: "Sensory" },
-            { text: "digital", small: true },
-            { text: "systems" },
-            { text: "by DAVLabs", small: true },
-          ]}
-          multilingual="DÄV·Lâbs·Spårsh"
-          ligatureWord="Sensory"
-          links={[
-            { label: "EXPLORE SERVICES", href: "#services" },
-            { label: "CONTACT US", href: "/contact" },
-          ]}
+          badge="Previewing Componentry Blocks"
+          title="Launch pages that feel finished from the first pass"
+          description="Simple sections with considered spacing, quiet motion, and production ready code you can paste into real product work."
+          primaryCtaText="Explore Blocks"
+          primaryCtaHref="#services"
+          secondaryCtaText="View Source"
+          secondaryCtaHref="/contact"
         />
 
         {/* Scale & Impact Metrics with CountingNumber */}

@@ -313,6 +313,7 @@ export interface GlowCursorProps {
   maxDevicePixelRatio?: number;
   enabled?: boolean;
   overlay?: boolean;
+  excludeSelector?: string;
   children?: ReactNode;
   className?: string;
   style?: CSSProperties;
@@ -335,6 +336,7 @@ export const GlowCursor: React.FC<GlowCursorProps> = ({
   maxDevicePixelRatio = 2,
   enabled = true,
   overlay = false,
+  excludeSelector = '#hero, footer, .footer-root, [data-thumbnail-trail], [data-glow-suppress]',
   children,
   className = '',
   style,
@@ -357,7 +359,8 @@ export const GlowCursor: React.FC<GlowCursorProps> = ({
     quality: QUALITY[quality] ? quality : 'high',
     theme,
     maxDevicePixelRatio,
-    enabled
+    enabled,
+    excludeSelector
   };
 
   useEffect(() => {
@@ -877,6 +880,22 @@ export const GlowCursor: React.FC<GlowCursorProps> = ({
     };
 
     const onPointerMove = (event: PointerEvent) => {
+      const s = settingsRef.current;
+      if (!s.enabled) return;
+
+      // Suppress GlowCursor when pointer is over excluded sections (hero, footer, card trail)
+      if (s.excludeSelector && typeof document !== 'undefined') {
+        const el = document.elementFromPoint(event.clientX, event.clientY);
+        if (el && el.closest(s.excludeSelector)) {
+          if (state.pointer.inside) {
+            state.pointer.inside = false;
+            state.ready = false;
+            wake();
+          }
+          return;
+        }
+      }
+
       const rect = container.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
@@ -907,6 +926,12 @@ export const GlowCursor: React.FC<GlowCursorProps> = ({
     const onPointerDown = (event: PointerEvent) => {
       const s = settingsRef.current;
       if (!s.clickBurst || !s.enabled) return;
+
+      if (s.excludeSelector && typeof document !== 'undefined') {
+        const el = document.elementFromPoint(event.clientX, event.clientY);
+        if (el && el.closest(s.excludeSelector)) return;
+      }
+
       const rect = container.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;

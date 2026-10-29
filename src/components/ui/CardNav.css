@@ -282,10 +282,10 @@
   min-width: 0;
   min-height: var(--cn-card);
   padding: 16px 16px 14px;
-  border-radius: calc(var(--cn-radius) - var(--cn-inset));
+  border-radius: 16px;
   box-sizing: border-box;
-  background: var(--cn-tile);
-  box-shadow: var(--cn-tile-rim);
+  background: transparent;
+  box-shadow: none;
   color: var(--cn-text);
   transform-origin: 50% 0;
   will-change: transform, opacity;

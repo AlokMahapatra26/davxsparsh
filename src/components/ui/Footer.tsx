@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
+import { ThumbnailTrailOverlay } from '@/components/ui/thumbnail-trail';
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
 
   const handleCopyEmail = (e: React.MouseEvent, email: string) => {
@@ -18,8 +20,20 @@ export function Footer() {
   };
 
   return (
-    <footer className="footer-root">
-      <div className="footer-container">
+    <footer
+      ref={footerRef}
+      id="footer"
+      data-thumbnail-trail="true"
+      data-glow-suppress="true"
+      className="footer-root relative overflow-hidden"
+    >
+      <ThumbnailTrailOverlay
+        containerRef={footerRef}
+        className="z-[15] pointer-events-none"
+        width={104}
+        height={65}
+      />
+      <div className="footer-container relative z-10">
         {/* Main Dual Inquiries Section */}
         <div className="footer-hero">
           <span className="footer-label">Initiate Dialogue</span>
