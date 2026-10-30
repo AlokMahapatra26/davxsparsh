@@ -269,15 +269,15 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Interactive Fluid GlowCursor Trail on White Page */}
+      {/* Interactive Fluid GlowCursor Trail on White Page - Solid Bhagwa / Saffron Orange */}
       <GlowCursor
         overlay
-        color="#ff6b00"
-        secondaryColor="#8c4a2f"
-        intensity={1.4}
-        trailWidth={4}
-        linger={1.3}
-        glow={1.2}
+        color="#FF5500"
+        secondaryColor="#FF6B00"
+        intensity={1.6}
+        trailWidth={4.5}
+        linger={1.4}
+        glow={1.3}
         clickBurst
         theme="light"
         excludeSelector="#hero, footer, .footer-root, [data-thumbnail-trail], [data-glow-suppress]"

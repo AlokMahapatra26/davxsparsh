@@ -240,8 +240,7 @@ void main() {
     float halo = dot(bloom, vec3(0.2126, 0.7152, 0.0722));
     float density = 1.0 - exp(-((energy * 1.1 + gas * 0.8) * uIntensity + halo * 0.25));
     float tone = dot(tint, vec3(0.2126, 0.7152, 0.0722));
-    vec3 ink = tint * min(1.0, 0.5 / max(tone, 0.001)) * mix(0.95, 0.72, smoothstep(0.5, 3.0, energy));
-    ink = mix(ink, vec3(1.0), clamp(heat * heat * 0.05 * uHotspot, 0.0, 0.45));
+    vec3 ink = tint;
     density = clamp(density * grain, 0.0, 1.0) * edge;
     outColor = vec4(ink * density, density);
   } else {
@@ -320,8 +319,8 @@ export interface GlowCursorProps {
 }
 
 export const GlowCursor: React.FC<GlowCursorProps> = ({
-  color = '#5f8bff',
-  secondaryColor,
+  color = '#FF5500',
+  secondaryColor = '#FF6B00',
   intensity = 1.3,
   trailWidth = 3,
   linger = 1.4,
