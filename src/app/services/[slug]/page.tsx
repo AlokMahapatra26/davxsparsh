@@ -1000,35 +1000,6 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
           />
         </div>
 
-        {/* Core Capabilities Deep-Dive */}
-        <div className="mb-20 sm:mb-24 space-y-8">
-          <div className="pb-3 border-b border-zinc-200/80">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-500 font-bold">
-              Core Capabilities & Deliverables
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {service.capabilities.map((item) => (
-              <div
-                key={item.num}
-                className="p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-zinc-200/80 transition-all group"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="font-mono text-xs font-bold px-2 py-1 rounded-md bg-zinc-100 text-zinc-800 border border-zinc-200">
-                    {item.num}
-                  </span>
-                  <h3 className="font-bold text-lg text-zinc-950 tracking-tight group-hover:text-zinc-700 transition-colors">
-                    {item.title}
-                  </h3>
-                </div>
-                <p className="text-xs sm:text-sm text-zinc-600 font-sans leading-relaxed">
-                  {item.detail}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Direct Commission CTA Card */}
         <div className="p-8 sm:p-12 rounded-3xl bg-zinc-950 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border border-zinc-800">
