@@ -72,10 +72,8 @@ export const BentoGridShowcase = ({
       className={cn(
         // Core grid layout: 1 col on mobile, 3 on desktop
         "grid w-full grid-cols-1 gap-6 md:grid-cols-3",
-        // Defines 3 explicit rows on medium screens and up
-        "md:grid-rows-3",
-        // Use minmax to ensure cards can grow but have a minimum height
-        "auto-rows-[minmax(200px,auto)]",
+        // Fixed uniform row heights matching the reference design
+        "md:grid-rows-[repeat(3,186px)]",
         className
       )}
     >
@@ -84,32 +82,32 @@ export const BentoGridShowcase = ({
       */}
 
       {/* Slot 1: Integrations (1,1) */}
-      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1">
+      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1 h-full">
         {integrations}
       </motion.div>
 
       {/* Slot 2: Main Feature (1,2) - Spans 3 rows */}
-      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-3">
+      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-3 h-full">
         {mainFeature}
       </motion.div>
 
       {/* Slot 3: Feature Tags (1,3) */}
-      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1">
+      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1 h-full">
         {featureTags}
       </motion.div>
 
       {/* Slot 4: Secondary Feature (2,1) */}
-      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1">
+      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1 h-full">
         {secondaryFeature}
       </motion.div>
 
       {/* Slot 5: Statistic (2,3) - Spans 2 rows */}
-      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-2">
+      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-2 h-full">
         {statistic}
       </motion.div>
 
       {/* Slot 6: Journey (3,1) */}
-      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1">
+      <motion.div variants={itemVariants} className="md:col-span-1 md:row-span-1 h-full">
         {journey}
       </motion.div>
     </motion.section>

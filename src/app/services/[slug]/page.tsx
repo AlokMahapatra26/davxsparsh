@@ -520,32 +520,32 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 1: Stack & Standards
   const IntegrationsSlot = (
-    <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-between rounded-2xl overflow-hidden">
-      <CardHeader className="pb-3">
-        <CardTitle className="text-base sm:text-lg font-bold text-zinc-950">
+    <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-between rounded-2xl overflow-hidden p-5 sm:p-6">
+      <div>
+        <CardTitle className="text-base sm:text-lg font-bold text-zinc-950 mb-1">
           Stack & Standards
         </CardTitle>
-        <CardDescription className="text-xs sm:text-sm text-zinc-500">
+        <CardDescription className="text-xs sm:text-sm text-zinc-500 line-clamp-1">
           Production-grade tooling & modern engineering ecosystem.
         </CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-wrap items-center gap-2 pt-0 pb-6">
+      </div>
+      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2">
         {meta.stack.map((tool) => (
           <div
             key={tool}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100/90 text-xs font-semibold text-zinc-800 border border-zinc-200/70"
+            className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-zinc-100/90 text-xs font-semibold text-zinc-800 border border-zinc-200/70"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#ff7900]" />
             <span>{tool}</span>
           </div>
         ))}
-      </CardContent>
+      </div>
     </Card>
   );
 
   // Bento Grid Slot 2: Main Tall Centerpiece (Spans 3 Rows)
   const MainFeatureSlot = (
-    <Card className="relative h-full w-full min-h-[440px] md:min-h-full overflow-hidden rounded-2xl border border-zinc-200/80 shadow-none group">
+    <Card className="relative h-full w-full min-h-[440px] md:min-h-0 overflow-hidden rounded-2xl border border-zinc-200/80 shadow-none group">
       <img
         src={meta.mainImage}
         alt={service.title}
@@ -567,7 +567,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 3: Feature Tags
   const FeatureTagsSlot = (
-    <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-center p-6 gap-3 rounded-2xl">
+    <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-center p-5 sm:p-6 gap-2.5 sm:gap-3 rounded-2xl">
       <div className="mb-1">
         <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-bold">
           Core Tenets
@@ -578,7 +578,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
           <Badge
             key={tag}
             variant={idx % 2 === 0 ? 'outline' : 'secondary'}
-            className="w-fit items-center gap-1.5 py-1.5 px-3 text-xs font-semibold rounded-full border-zinc-300 text-zinc-800 bg-white/80"
+            className="w-fit items-center gap-1.5 py-1 px-2.5 sm:py-1.5 sm:px-3 text-xs font-semibold rounded-full border-zinc-300 text-zinc-800 bg-white/80"
           >
             {tag} <Plus className="h-3 w-3 text-zinc-400" />
           </Badge>
@@ -589,18 +589,18 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 4: Secondary Feature Quote & Visual
   const SecondaryFeatureSlot = (
-    <Card className="relative h-full w-full min-h-[220px] overflow-hidden rounded-2xl border border-zinc-200/80 shadow-none group">
+    <Card className="relative h-full w-full min-h-[186px] md:min-h-0 overflow-hidden rounded-2xl border border-zinc-200/80 shadow-none group">
       <img
         src={meta.secondaryImage}
         alt="Core capability visual"
         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-      <div className="absolute bottom-5 left-5 right-5 z-10">
+      <div className="absolute bottom-4 left-5 right-5 sm:bottom-5 z-10">
         <span className="text-[#9eff3e] text-[10px] font-mono uppercase tracking-widest block mb-1 font-semibold">
           Pillar • {service.capabilities[0]?.title || 'Architecture'}
         </span>
-        <p className="text-sm font-bold text-white leading-snug drop-shadow-sm">
+        <p className="text-xs sm:text-sm font-bold text-white leading-snug drop-shadow-sm line-clamp-2">
           {service.capabilities[0]?.detail || service.description.slice(0, 100) + '...'}
         </p>
       </div>
@@ -615,7 +615,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
           Verified Metric
         </span>
       </div>
-      <div className="my-6">
+      <div className="my-4 sm:my-6">
         <p className="text-5xl sm:text-6xl font-black text-zinc-950 tracking-tight">
           {meta.stat.value}
         </p>
@@ -623,7 +623,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
           {meta.stat.label}
         </p>
       </div>
-      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed border-t border-black/10 pt-4 font-sans">
+      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed border-t border-black/10 pt-4 font-sans line-clamp-3">
         {meta.stat.description}
       </p>
     </Card>
@@ -631,10 +631,10 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 6: Delivery Cadence & Team
   const JourneySlot = (
-    <Card className="relative h-full w-full overflow-hidden p-6 bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-between rounded-2xl">
+    <Card className="relative h-full w-full overflow-hidden p-5 sm:p-6 bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-between rounded-2xl">
       <div>
         <CardTitle className="text-base font-bold text-zinc-950 mb-1">Delivery Cadence</CardTitle>
-        <CardDescription className="text-xs text-zinc-500 leading-relaxed">
+        <CardDescription className="text-xs text-zinc-500 leading-relaxed line-clamp-2">
           {meta.delivery.description}
         </CardDescription>
       </div>
