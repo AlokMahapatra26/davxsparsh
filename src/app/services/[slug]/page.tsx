@@ -21,6 +21,38 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import AboutBento from '@/components/ui/about-bento';
+import { cn } from '@/lib/utils';
+
+type BentoSlotId = 'integrations' | 'mainFeature' | 'featureTags' | 'secondaryFeature' | 'statistic' | 'journey';
+
+const SERVICE_HIGHLIGHT_MAP: Record<string, BentoSlotId> = {
+  'web-development': 'statistic',          // Verified 99.99% Metric is colorful
+  'app-development': 'integrations',       // Stack & Standards is colorful
+  'ai-automation': 'mainFeature',          // Deep AI Centerpiece is colorful
+  'ui-ux-design': 'secondaryFeature',      // Design Pillar Architecture is colorful
+  'creative-logo-design': 'featureTags',   // Creative Tenets Badges is colorful
+  'logo-design': 'featureTags',            // Logo Tenets is colorful
+  'graphics-design': 'journey',            // Studio Delivery Cadence is colorful
+  'social-media-marketing': 'statistic',   // Growth Metric is colorful
+  'brand-identity': 'integrations',        // Identity Standards is colorful
+};
+
+const ALL_SLOTS: BentoSlotId[] = [
+  'mainFeature',
+  'statistic',
+  'integrations',
+  'featureTags',
+  'secondaryFeature',
+  'journey',
+];
+
+function getHighlightedSlot(slug: string): BentoSlotId {
+  if (SERVICE_HIGHLIGHT_MAP[slug]) {
+    return SERVICE_HIGHLIGHT_MAP[slug];
+  }
+  const hash = slug.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return ALL_SLOTS[hash % ALL_SLOTS.length];
+}
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -562,166 +594,366 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
   };
 
   const meta = SERVICE_BENTO_METADATA[normalizedSlug] || DEFAULT_METADATA;
+  const highlightedSlot = getHighlightedSlot(normalizedSlug);
 
   // Bento Grid Slot 1: Stack & Standards
+  const isIntegrationsColorful = highlightedSlot === 'integrations';
   const IntegrationsSlot = (
-    <Card className="relative h-full w-full overflow-hidden border border-zinc-200/80 shadow-none flex flex-col justify-between rounded-2xl p-5 sm:p-6 group">
-      <img
-        src={meta.stackImage || DEFAULT_METADATA.stackImage}
-        alt="Stack & Standards demo visual"
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/80 to-zinc-950/65" />
-      <div className="relative z-10">
-        <CardTitle className="text-base sm:text-lg font-bold text-white mb-1">
-          Stack & Standards
-        </CardTitle>
-        <CardDescription className="text-xs sm:text-sm text-zinc-300 line-clamp-1">
-          Production-grade tooling & modern engineering ecosystem.
-        </CardDescription>
-      </div>
-      <div className="relative z-10 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2">
-        {meta.stack.map((tool) => (
-          <div
-            key={tool}
-            className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white border border-white/20 backdrop-blur-md transition-colors"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#ff7900] shadow-[0_0_8px_#ff7900]" />
-            <span>{tool}</span>
+    <Card className={cn(
+      "relative h-full w-full overflow-hidden flex flex-col justify-between rounded-2xl p-5 sm:p-6 transition-all duration-300 group",
+      isIntegrationsColorful
+        ? "border border-zinc-200/80 shadow-lg"
+        : "bg-white border border-zinc-200/90 shadow-xs hover:border-zinc-300"
+    )}>
+      {isIntegrationsColorful ? (
+        <>
+          <img
+            src={meta.stackImage || DEFAULT_METADATA.stackImage}
+            alt="Stack & Standards visual"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/80 to-zinc-950/65" />
+          <div className="relative z-10">
+            <CardTitle className="text-base sm:text-lg font-bold !text-white mb-1">
+              Stack & Standards
+            </CardTitle>
+            <CardDescription className="text-xs sm:text-sm !text-zinc-300 line-clamp-1">
+              Production-grade tooling & modern engineering ecosystem.
+            </CardDescription>
           </div>
-        ))}
-      </div>
+          <div className="relative z-10 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2">
+            {meta.stack.map((tool) => (
+              <div
+                key={tool}
+                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold !text-white border border-white/20 backdrop-blur-md transition-colors"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#ff7900] shadow-[0_0_8px_#ff7900]" />
+                <span>{tool}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 font-bold">
+                Standards
+              </span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+            </div>
+            <CardTitle className="text-base sm:text-lg font-bold !text-zinc-950 mb-1">
+              Stack & Standards
+            </CardTitle>
+            <CardDescription className="text-xs sm:text-sm !text-zinc-500 line-clamp-1">
+              Production-grade tooling & modern engineering ecosystem.
+            </CardDescription>
+          </div>
+          <div className="relative z-10 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2">
+            {meta.stack.map((tool) => (
+              <div
+                key={tool}
+                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200/80 text-xs font-semibold !text-zinc-800 border border-zinc-200/80 transition-colors"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#ff7900]" />
+                <span>{tool}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </Card>
   );
 
   // Bento Grid Slot 2: Main Tall Centerpiece (Spans 3 Rows)
+  const isMainColorful = highlightedSlot === 'mainFeature';
   const MainFeatureSlot = (
-    <Card className="relative h-full w-full min-h-[440px] md:min-h-0 overflow-hidden rounded-2xl border border-zinc-200/80 shadow-none group">
-      <img
-        src={meta.mainImage}
-        alt={service.title}
-        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end p-6 sm:p-8 z-10">
-        <span className="text-[#9eff3e] text-xs font-mono uppercase tracking-widest font-bold mb-2">
-          Discipline Focus
-        </span>
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight mb-2">
-          {service.title}
-        </h3>
-        <p className="text-xs sm:text-sm text-zinc-200/90 leading-relaxed max-w-md line-clamp-3">
-          {service.lead}
-        </p>
-      </div>
+    <Card className={cn(
+      "relative h-full w-full min-h-[440px] md:min-h-0 overflow-hidden rounded-2xl transition-all duration-300 group",
+      isMainColorful
+        ? "border border-zinc-200/80 shadow-xl"
+        : "bg-white border border-zinc-200/90 shadow-xs flex flex-col justify-between p-6 sm:p-8"
+    )}>
+      {isMainColorful ? (
+        <>
+          <img
+            src={meta.mainImage}
+            alt={service.title}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end p-6 sm:p-8 z-10">
+            <span className="text-[#9eff3e] text-xs font-mono uppercase tracking-widest font-bold mb-2">
+              Discipline Focus
+            </span>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold !text-white tracking-tight leading-tight mb-2">
+              {service.title}
+            </h3>
+            <p className="text-xs sm:text-sm !text-zinc-200/90 leading-relaxed max-w-md line-clamp-3">
+              {service.lead}
+            </p>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="relative w-full h-[220px] sm:h-[260px] rounded-xl overflow-hidden border border-zinc-200/70 bg-zinc-50 group-hover:border-zinc-300 transition-colors">
+            <img
+              src={meta.mainImage}
+              alt={service.title}
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+            <div className="absolute bottom-3 left-3">
+              <span className="inline-flex px-2.5 py-1 rounded-md bg-white/90 backdrop-blur-xs text-[10px] font-mono uppercase tracking-widest text-zinc-900 font-bold border border-white/60 shadow-xs">
+                Featured
+              </span>
+            </div>
+          </div>
+          <div className="mt-4 flex-1 flex flex-col justify-end">
+            <span className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest font-bold mb-1.5 block">
+              Discipline Focus
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold !text-zinc-950 tracking-tight leading-tight mb-2">
+              {service.title}
+            </h3>
+            <p className="text-xs sm:text-sm !text-zinc-600 font-sans leading-relaxed line-clamp-3">
+              {service.lead}
+            </p>
+          </div>
+        </>
+      )}
     </Card>
   );
 
   // Bento Grid Slot 3: Feature Tags
+  const isTagsColorful = highlightedSlot === 'featureTags';
   const FeatureTagsSlot = (
-    <Card className="relative h-full w-full overflow-hidden border border-zinc-200/80 shadow-none flex flex-col justify-center p-5 sm:p-6 gap-2.5 sm:gap-3 rounded-2xl group">
-      <img
-        src={meta.tenetsImage || DEFAULT_METADATA.tenetsImage}
-        alt="Core Tenets demo visual"
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/80 to-zinc-950/65" />
-      <div className="relative z-10 mb-1">
-        <span className="text-xs font-mono uppercase tracking-wider text-[#9eff3e] font-bold">
-          Core Tenets
-        </span>
-      </div>
-      <div className="relative z-10 flex flex-wrap gap-2">
-        {meta.tags.map((tag) => (
-          <Badge
-            key={tag}
-            variant="outline"
-            className="w-fit items-center gap-1.5 py-1 px-2.5 sm:py-1.5 sm:px-3 text-xs font-semibold rounded-full border-white/20 text-white bg-white/10 hover:bg-white/15 backdrop-blur-md transition-colors"
-          >
-            {tag} <Plus className="h-3 w-3 text-zinc-400" />
-          </Badge>
-        ))}
-      </div>
+    <Card className={cn(
+      "relative h-full w-full overflow-hidden flex flex-col justify-center p-5 sm:p-6 gap-2.5 sm:gap-3 rounded-2xl transition-all duration-300 group",
+      isTagsColorful
+        ? "border border-zinc-200/80 shadow-lg"
+        : "bg-white border border-zinc-200/90 shadow-xs hover:border-zinc-300"
+    )}>
+      {isTagsColorful ? (
+        <>
+          <img
+            src={meta.tenetsImage || DEFAULT_METADATA.tenetsImage}
+            alt="Core Tenets visual"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/80 to-zinc-950/65" />
+          <div className="relative z-10 mb-1 flex items-center justify-between">
+            <span className="text-xs font-mono uppercase tracking-wider text-[#9eff3e] font-bold">
+              Core Tenets
+            </span>
+            <span className="text-[10px] font-mono text-zinc-400">Guaranteed</span>
+          </div>
+          <div className="relative z-10 flex flex-wrap gap-2">
+            {meta.tags.map((tag) => (
+              <Badge
+                key={tag}
+                variant="outline"
+                className="w-fit items-center gap-1.5 py-1 px-2.5 sm:py-1.5 sm:px-3 text-xs font-semibold rounded-full border-white/20 !text-white bg-white/10 hover:bg-white/15 backdrop-blur-md transition-colors"
+              >
+                {tag} <Plus className="h-3 w-3 text-zinc-400" />
+              </Badge>
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="relative z-10 mb-1 flex items-center justify-between">
+            <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-bold">
+              Core Tenets
+            </span>
+            <span className="text-[10px] font-mono text-zinc-400">Standards</span>
+          </div>
+          <div className="relative z-10 flex flex-wrap gap-2">
+            {meta.tags.map((tag) => (
+              <Badge
+                key={tag}
+                variant="outline"
+                className="w-fit items-center gap-1.5 py-1 px-2.5 sm:py-1.5 sm:px-3 text-xs font-semibold rounded-full border-zinc-200/90 !text-zinc-800 bg-zinc-100 hover:bg-zinc-200/70 transition-colors"
+              >
+                {tag} <Plus className="h-3 w-3 text-zinc-500" />
+              </Badge>
+            ))}
+          </div>
+        </>
+      )}
     </Card>
   );
 
   // Bento Grid Slot 4: Secondary Feature Quote & Visual
+  const isSecondaryColorful = highlightedSlot === 'secondaryFeature';
   const SecondaryFeatureSlot = (
-    <Card className="relative h-full w-full min-h-[186px] md:min-h-0 overflow-hidden rounded-2xl border border-zinc-200/80 shadow-none group">
-      <img
-        src={meta.secondaryImage}
-        alt="Core capability visual"
-        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-      <div className="absolute bottom-4 left-5 right-5 sm:bottom-5 z-10">
-        <span className="text-[#9eff3e] text-[10px] font-mono uppercase tracking-widest block mb-1 font-semibold">
-          Pillar • {service.capabilities[0]?.title || 'Architecture'}
-        </span>
-        <p className="text-xs sm:text-sm font-bold text-white leading-snug drop-shadow-sm line-clamp-2">
-          {service.capabilities[0]?.detail || service.description.slice(0, 100) + '...'}
-        </p>
-      </div>
+    <Card className={cn(
+      "relative h-full w-full min-h-[186px] md:min-h-0 overflow-hidden rounded-2xl transition-all duration-300 group",
+      isSecondaryColorful
+        ? "border border-zinc-200/80 shadow-lg"
+        : "bg-white border border-zinc-200/90 shadow-xs hover:border-zinc-300 p-5 sm:p-6 flex flex-col justify-between"
+    )}>
+      {isSecondaryColorful ? (
+        <>
+          <img
+            src={meta.secondaryImage}
+            alt="Core capability visual"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+          <div className="absolute bottom-4 left-5 right-5 sm:bottom-5 z-10">
+            <span className="text-[#9eff3e] text-[10px] font-mono uppercase tracking-widest block mb-1 font-semibold">
+              Pillar • {service.capabilities[0]?.title || 'Architecture'}
+            </span>
+            <p className="text-xs sm:text-sm font-bold !text-white leading-snug drop-shadow-sm line-clamp-2">
+              {service.capabilities[0]?.detail || service.description.slice(0, 100) + '...'}
+            </p>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="relative z-10">
+            <span className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest block mb-1.5 font-bold">
+              Pillar • Architecture
+            </span>
+            <h4 className="text-sm sm:text-base font-bold !text-zinc-950 leading-snug mb-2 line-clamp-1">
+              {service.capabilities[0]?.title || 'System Engineering'}
+            </h4>
+          </div>
+          <p className="relative z-10 text-xs sm:text-sm !text-zinc-600 font-sans leading-relaxed line-clamp-3">
+            {service.capabilities[0]?.detail || service.description.slice(0, 120) + '...'}
+          </p>
+        </>
+      )}
     </Card>
   );
 
   // Bento Grid Slot 5: Statistics & Verified Metric (Spans 2 Rows)
+  const isStatColorful = highlightedSlot === 'statistic';
   const StatisticSlot = (
-    <Card className="relative flex h-full flex-col justify-between overflow-hidden p-6 sm:p-8 rounded-2xl border border-zinc-200/80 shadow-none group">
-      <img
-        src={meta.statImage || DEFAULT_METADATA.statImage}
-        alt="Metric telemetry demo visual"
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-br from-[#9eff3e]/30 via-zinc-950/85 to-zinc-950/95" />
-      <div className="relative z-10 flex items-center justify-end">
-        <span className="text-[11px] font-mono uppercase tracking-widest text-black font-bold bg-[#9eff3e] px-3 py-1 rounded-full border border-[#9eff3e]/60 shadow-[0_0_12px_rgba(158,255,62,0.4)]">
-          Verified Metric
-        </span>
-      </div>
-      <div className="relative z-10 my-4 sm:my-6">
-        <p className="text-5xl sm:text-6xl font-black text-white tracking-tight drop-shadow-md">
-          {meta.stat.value}
-        </p>
-        <p className="text-sm sm:text-base font-bold text-[#9eff3e] mt-2">
-          {meta.stat.label}
-        </p>
-      </div>
-      <p className="relative z-10 text-xs sm:text-sm text-zinc-300 leading-relaxed border-t border-white/15 pt-4 font-sans line-clamp-3">
-        {meta.stat.description}
-      </p>
+    <Card className={cn(
+      "relative flex h-full flex-col justify-between overflow-hidden p-6 sm:p-8 rounded-2xl transition-all duration-300 group",
+      isStatColorful
+        ? "border border-zinc-200/80 shadow-xl"
+        : "bg-white border border-zinc-200/90 shadow-xs hover:border-zinc-300"
+    )}>
+      {isStatColorful ? (
+        <>
+          <img
+            src={meta.statImage || DEFAULT_METADATA.statImage}
+            alt="Metric telemetry visual"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#9eff3e]/30 via-zinc-950/85 to-zinc-950/95" />
+          <div className="relative z-10 flex items-center justify-end">
+            <span className="text-[11px] font-mono uppercase tracking-widest text-black font-bold bg-[#9eff3e] px-3 py-1 rounded-full border border-[#9eff3e]/60 shadow-[0_0_12px_rgba(158,255,62,0.4)]">
+              Verified Metric
+            </span>
+          </div>
+          <div className="relative z-10 my-4 sm:my-6">
+            <p className="text-5xl sm:text-6xl font-black !text-white tracking-tight drop-shadow-md">
+              {meta.stat.value}
+            </p>
+            <p className="text-sm sm:text-base font-bold text-[#9eff3e] mt-2">
+              {meta.stat.label}
+            </p>
+          </div>
+          <p className="relative z-10 text-xs sm:text-sm !text-zinc-300 leading-relaxed border-t border-white/15 pt-4 font-sans line-clamp-3">
+            {meta.stat.description}
+          </p>
+        </>
+      ) : (
+        <>
+          <div className="relative z-10 flex items-center justify-between">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 font-bold">
+              Telemetry
+            </span>
+            <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-800 font-bold bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200/80 shadow-2xs">
+              Verified Metric
+            </span>
+          </div>
+          <div className="relative z-10 my-4 sm:my-6">
+            <p className="text-5xl sm:text-6xl font-black !text-zinc-950 tracking-tight">
+              {meta.stat.value}
+            </p>
+            <p className="text-sm sm:text-base font-bold !text-zinc-700 mt-2">
+              {meta.stat.label}
+            </p>
+          </div>
+          <p className="relative z-10 text-xs sm:text-sm !text-zinc-600 leading-relaxed border-t border-zinc-100 pt-4 font-sans line-clamp-3">
+            {meta.stat.description}
+          </p>
+        </>
+      )}
     </Card>
   );
 
   // Bento Grid Slot 6: Delivery Cadence & Team
+  const isJourneyColorful = highlightedSlot === 'journey';
   const JourneySlot = (
-    <Card className="relative h-full w-full overflow-hidden p-5 sm:p-6 border border-zinc-200/80 shadow-none flex flex-col justify-between rounded-2xl group">
-      <img
-        src={meta.deliveryImage || DEFAULT_METADATA.deliveryImage}
-        alt="Delivery pipeline demo visual"
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/80 to-zinc-950/65" />
-      <div className="relative z-10">
-        <CardTitle className="text-base font-bold text-white mb-1">Delivery Cadence</CardTitle>
-        <CardDescription className="text-xs text-zinc-300 leading-relaxed line-clamp-2">
-          {meta.delivery.description}
-        </CardDescription>
-      </div>
-      <div className="relative z-10 mt-4 pt-4 border-t border-white/15 flex items-center justify-between">
-        <div className="flex -space-x-2">
-          <Avatar className="w-8 h-8 border-2 border-zinc-900">
-            <AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" />
-            <AvatarFallback>DL</AvatarFallback>
-          </Avatar>
-          <Avatar className="w-8 h-8 border-2 border-zinc-900">
-            <AvatarImage src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" />
-            <AvatarFallback>SD</AvatarFallback>
-          </Avatar>
-        </div>
-        <span className="text-[11px] font-mono text-white font-semibold bg-white/10 px-2.5 py-1 rounded-full border border-white/20 backdrop-blur-md">
-          {meta.delivery.cadence}
-        </span>
-      </div>
+    <Card className={cn(
+      "relative h-full w-full overflow-hidden p-5 sm:p-6 flex flex-col justify-between rounded-2xl transition-all duration-300 group",
+      isJourneyColorful
+        ? "border border-zinc-200/80 shadow-lg"
+        : "bg-white border border-zinc-200/90 shadow-xs hover:border-zinc-300"
+    )}>
+      {isJourneyColorful ? (
+        <>
+          <img
+            src={meta.deliveryImage || DEFAULT_METADATA.deliveryImage}
+            alt="Delivery pipeline visual"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/80 to-zinc-950/65" />
+          <div className="relative z-10">
+            <CardTitle className="text-base font-bold !text-white mb-1">Delivery Cadence</CardTitle>
+            <CardDescription className="text-xs !text-zinc-300 leading-relaxed line-clamp-2">
+              {meta.delivery.description}
+            </CardDescription>
+          </div>
+          <div className="relative z-10 mt-4 pt-4 border-t border-white/15 flex items-center justify-between">
+            <div className="flex -space-x-2">
+              <Avatar className="w-8 h-8 border-2 border-zinc-900">
+                <AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" />
+                <AvatarFallback>DL</AvatarFallback>
+              </Avatar>
+              <Avatar className="w-8 h-8 border-2 border-zinc-900">
+                <AvatarImage src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" />
+                <AvatarFallback>SD</AvatarFallback>
+              </Avatar>
+            </div>
+            <span className="text-[11px] font-mono !text-white font-semibold bg-white/10 px-2.5 py-1 rounded-full border border-white/20 backdrop-blur-md">
+              {meta.delivery.cadence}
+            </span>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="relative z-10">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 font-bold block mb-1">
+              Timeline
+            </span>
+            <CardTitle className="text-base font-bold !text-zinc-950 mb-1">Delivery Cadence</CardTitle>
+            <CardDescription className="text-xs !text-zinc-600 leading-relaxed line-clamp-2">
+              {meta.delivery.description}
+            </CardDescription>
+          </div>
+          <div className="relative z-10 mt-4 pt-4 border-t border-zinc-100 flex items-center justify-between">
+            <div className="flex -space-x-2">
+              <Avatar className="w-8 h-8 border-2 border-white shadow-xs">
+                <AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" />
+                <AvatarFallback>DL</AvatarFallback>
+              </Avatar>
+              <Avatar className="w-8 h-8 border-2 border-white shadow-xs">
+                <AvatarImage src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" />
+                <AvatarFallback>SD</AvatarFallback>
+              </Avatar>
+            </div>
+            <span className="text-[11px] font-mono !text-zinc-800 font-semibold bg-zinc-100 px-2.5 py-1 rounded-full border border-zinc-200/80">
+              {meta.delivery.cadence}
+            </span>
+          </div>
+        </>
+      )}
     </Card>
   );
 
