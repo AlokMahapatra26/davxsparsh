@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import ContactInfo from "@/components/ui/contact-01-utils/contact-info";
 import ContactForm from "@/components/ui/contact-01-utils/contact-form";
+import { ImageUploader } from "@/components/ui/image-uploader";
 
 export type ServiceInfo = {
   email: string;
@@ -46,6 +47,7 @@ export const SERVICE_ROUTING: Record<string, ServiceInfo> = {
 
 const Contact = () => {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [uploaderFiles, setUploaderFiles] = useState<File[]>([]);
 
   const routingData = useMemo(() => {
     if (selectedServices.length === 0) {
@@ -99,6 +101,44 @@ const Contact = () => {
               routingData={routingData}
             />
           </div>
+        </div>
+
+        {/* Center Bottom: Image Uploader */}
+        <div className="mt-20 sm:mt-24 pt-14 border-t border-zinc-300/60 max-w-2xl mx-auto w-full">
+          <div className="space-y-2 mb-6 text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0f172a]">
+              Image Uploader
+            </h2>
+            <p className="text-[15px] text-[#64748b]">
+              A component to upload and preview images with animations.
+            </p>
+          </div>
+
+          <ImageUploader
+            files={uploaderFiles}
+            onChange={setUploaderFiles}
+            maxFiles={5}
+            maxSize={4}
+            accept="image/jpeg, image/png, image/webp"
+          />
+
+          {uploaderFiles.length > 0 && (
+            <div className="mt-6 p-4 rounded-2xl bg-white/70 border border-zinc-200/80">
+              <h3 className="text-sm font-semibold text-[#0f172a]">
+                Uploaded Files ({uploaderFiles.length}):
+              </h3>
+              <ul className="list-disc list-inside mt-2 text-xs text-[#64748b] space-y-1">
+                {uploaderFiles.map((file, index) => (
+                  <li key={index} className="truncate">
+                    {file.name}{" "}
+                    <span className="text-zinc-400">
+                      ({(file.size / (1024 * 1024)).toFixed(2)} MB)
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </section>
