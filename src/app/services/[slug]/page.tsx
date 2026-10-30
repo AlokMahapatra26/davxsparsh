@@ -520,7 +520,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 1: Stack & Standards
   const IntegrationsSlot = (
-    <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-sm flex flex-col justify-between rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+    <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-between rounded-2xl overflow-hidden">
       <CardHeader className="pb-3">
         <CardTitle className="text-base sm:text-lg font-bold text-zinc-950">
           Stack & Standards
@@ -533,7 +533,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
         {meta.stack.map((tool) => (
           <div
             key={tool}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100/90 text-xs font-semibold text-zinc-800 border border-zinc-200/70 shadow-xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100/90 text-xs font-semibold text-zinc-800 border border-zinc-200/70"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#ff7900]" />
             <span>{tool}</span>
@@ -545,7 +545,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 2: Main Tall Centerpiece (Spans 3 Rows)
   const MainFeatureSlot = (
-    <Card className="relative h-full w-full min-h-[440px] md:min-h-full overflow-hidden rounded-2xl border border-zinc-200/80 shadow-md group">
+    <Card className="relative h-full w-full min-h-[440px] md:min-h-full overflow-hidden rounded-2xl border border-zinc-200/80 shadow-none group">
       <img
         src={meta.mainImage}
         alt={service.title}
@@ -567,7 +567,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 3: Feature Tags
   const FeatureTagsSlot = (
-    <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-sm flex flex-col justify-center p-6 gap-3 rounded-2xl hover:shadow-md transition-shadow">
+    <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-center p-6 gap-3 rounded-2xl">
       <div className="mb-1">
         <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-bold">
           Core Tenets
@@ -589,7 +589,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 4: Secondary Feature Quote & Visual
   const SecondaryFeatureSlot = (
-    <Card className="relative h-full w-full min-h-[220px] overflow-hidden rounded-2xl border border-zinc-200/80 shadow-sm group">
+    <Card className="relative h-full w-full min-h-[220px] overflow-hidden rounded-2xl border border-zinc-200/80 shadow-none group">
       <img
         src={meta.secondaryImage}
         alt="Core capability visual"
@@ -609,9 +609,9 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 5: Statistics & Verified Metric (Spans 2 Rows)
   const StatisticSlot = (
-    <Card className="flex h-full flex-col justify-between bg-gradient-to-br from-[#9eff3e]/20 via-[#9eff3e]/10 to-white/95 p-6 sm:p-8 rounded-2xl border border-[#9eff3e]/40 shadow-sm hover:shadow-md transition-shadow">
+    <Card className="flex h-full flex-col justify-between bg-gradient-to-br from-[#9eff3e]/20 via-[#9eff3e]/10 to-white/95 p-6 sm:p-8 rounded-2xl border border-[#9eff3e]/40 shadow-none">
       <div className="flex items-center justify-end">
-        <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-700 font-bold bg-white/90 px-3 py-1 rounded-full border border-zinc-200/80 shadow-xs">
+        <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-700 font-bold bg-white/90 px-3 py-1 rounded-full border border-zinc-200/80">
           Verified Metric
         </span>
       </div>
@@ -631,7 +631,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 6: Delivery Cadence & Team
   const JourneySlot = (
-    <Card className="relative h-full w-full overflow-hidden p-6 bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-sm flex flex-col justify-between rounded-2xl hover:shadow-md transition-shadow">
+    <Card className="relative h-full w-full overflow-hidden p-6 bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-between rounded-2xl">
       <div>
         <CardTitle className="text-base font-bold text-zinc-950 mb-1">Delivery Cadence</CardTitle>
         <CardDescription className="text-xs text-zinc-500 leading-relaxed">
@@ -640,11 +640,11 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
       </div>
       <div className="mt-4 pt-4 border-t border-zinc-100 flex items-center justify-between">
         <div className="flex -space-x-2">
-          <Avatar className="w-8 h-8 border-2 border-white shadow-xs">
+          <Avatar className="w-8 h-8 border-2 border-white">
             <AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" />
             <AvatarFallback>DL</AvatarFallback>
           </Avatar>
-          <Avatar className="w-8 h-8 border-2 border-white shadow-xs">
+          <Avatar className="w-8 h-8 border-2 border-white">
             <AvatarImage src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" />
             <AvatarFallback>SD</AvatarFallback>
           </Avatar>
@@ -713,7 +713,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
             {service.capabilities.map((item) => (
               <div
                 key={item.num}
-                className="p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-zinc-200/80 shadow-xs hover:shadow-md transition-all group"
+                className="p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-zinc-200/80 transition-all group"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span className="font-mono text-xs font-bold px-2 py-1 rounded-md bg-zinc-100 text-zinc-800 border border-zinc-200">
