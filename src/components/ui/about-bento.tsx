@@ -14,15 +14,6 @@ export function AboutBento({ className }: AboutBentoProps = {}) {
   return (
     <section className={cn("bg-slate-50/80 py-20 px-6 font-sans border-t border-zinc-200/60", className)}>
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 tracking-tight">
-            About Our Impact
-          </h2>
-          <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            We've helped thousands of creators and businesses achieve their
-            goals through innovative solutions and dedicated support.
-          </p>
-        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Main Large Card */}
