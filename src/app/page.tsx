@@ -371,10 +371,36 @@ export default function HomePage() {
                 <button
                   type="button"
                   onClick={() => router.push("/services")}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-[var(--ink-primary)] text-white hover:bg-black transition-all shadow-md cursor-pointer hover:scale-105"
+                  className="inline-flex items-center gap-3.5 pl-2.5 pr-6 py-2.5 rounded-[22px] bg-[#9eff3e] text-black hover:bg-white hover:shadow-[0_8px_32px_rgba(158,255,62,0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group shadow-md"
                 >
-                  <span>Explore All 8 Services</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span className="flex items-center justify-center w-12 h-12 bg-white rounded-[14px] border border-black/10 shadow-xs transition-transform duration-200 group-hover:translate-x-0.5">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        d="M3.125 10H16.875"
+                        stroke="black"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M11.25 4.375L16.875 10L11.25 15.625"
+                        stroke="black"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <span className="font-bold text-[17px] text-black tracking-tight">
+                    Explore All 8 Services
+                  </span>
                 </button>
               </div>
             </div>
