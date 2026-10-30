@@ -988,6 +988,11 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
         {/* Hairline Divider */}
         <div className="border-t border-zinc-200/80 mb-12 sm:mb-16" />
 
+        {/* Impact Showcase (AboutBento - Positioned directly above Service Bento Grid) */}
+        <div className="mb-16 sm:mb-20">
+          <AboutBento className="bg-transparent py-0 px-0 border-none" />
+        </div>
+
         {/* Bento Grid Showcase Integration */}
         <div className="mb-20 sm:mb-24">
           <BentoGridShowcase
@@ -1054,9 +1059,6 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
         </div>
       </main>
     </BackgroundPaths>
-
-    {/* About Bento Impact Showcase */}
-    <AboutBento />
   </div>
   );
 }
