@@ -7,6 +7,7 @@ import { ScrollStack, ScrollStackItem } from "@/components/ui/ScrollStack";
 import { CardNav } from "@/components/ui/CardNav";
 import { GlowCursor } from "@/components/ui/GlowCursor";
 import GradientHero01 from "@/components/ui/gradient-hero-01";
+import FigmaMotionHero from "@/components/ui/figma-motion-hero";
 import GlassFolder, { type FolderFile } from "@/components/ui/glass-folder-cards";
 import { CountingStatsSection } from "@/components/ui/counting-stats-section";
 import { ClipPathLinks } from "@/components/ui/clip-path-links";
@@ -259,17 +260,17 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Interactive Fluid GlowCursor Trail */}
+      {/* Interactive Fluid GlowCursor Trail on White Page */}
       <GlowCursor
         overlay
-        color="#3b82f6"
+        color="#ff6b00"
         secondaryColor="#8c4a2f"
-        intensity={1.2}
-        trailWidth={3.5}
-        linger={1.2}
-        glow={1.1}
+        intensity={1.4}
+        trailWidth={4}
+        linger={1.3}
+        glow={1.2}
         clickBurst
-        theme="dark"
+        theme="light"
         excludeSelector="#hero, footer, .footer-root, [data-thumbnail-trail], [data-glow-suppress]"
       />
 
@@ -324,17 +325,8 @@ export default function HomePage() {
       </header>
 
       <main>
-        {/* Gradient Hero Section */}
-        <GradientHero01
-          id="hero"
-          badge="Previewing Componentry Blocks"
-          title="Launch pages that feel finished from the first pass"
-          description="Simple sections with considered spacing, quiet motion, and production ready code you can paste into real product work."
-          primaryCtaText="Explore Blocks"
-          primaryCtaHref="#services"
-          secondaryCtaText="View Source"
-          secondaryCtaHref="/contact"
-        />
+        {/* Figma for Motion v2 Hero Section */}
+        <FigmaMotionHero id="hero" />
 
         {/* Scale & Impact Metrics with CountingNumber */}
         <CountingStatsSection />
