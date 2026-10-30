@@ -269,7 +269,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Interactive Fluid GlowCursor Trail on White Page - Color #ff7900 */}
+      {/* Interactive Fluid GlowCursor Trail across the page including Hero - Color #ff7900 */}
       <GlowCursor
         overlay
         color="#ff7900"
@@ -280,7 +280,7 @@ export default function HomePage() {
         glow={1.3}
         clickBurst
         theme="light"
-        excludeSelector="#hero, footer, .footer-root, [data-thumbnail-trail], [data-glow-suppress]"
+        excludeSelector="footer, .footer-root, [data-thumbnail-trail], [data-glow-suppress]"
       />
 
       {/* Top Floating CardNav (Centered 50% Width) */}

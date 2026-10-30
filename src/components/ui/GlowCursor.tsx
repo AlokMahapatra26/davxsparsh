@@ -335,7 +335,7 @@ export const GlowCursor: React.FC<GlowCursorProps> = ({
   maxDevicePixelRatio = 2,
   enabled = true,
   overlay = false,
-  excludeSelector = '#hero, footer, .footer-root, [data-thumbnail-trail], [data-glow-suppress]',
+  excludeSelector = 'footer, .footer-root, [data-thumbnail-trail], [data-glow-suppress]',
   children,
   className = '',
   style,
