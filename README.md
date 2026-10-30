@@ -17,16 +17,11 @@ An ultra-minimal, tasteful white/light single-page website built with **Next.js 
 
 ## Integrated Components
 1. **Tilted Grid Hero (`TiltedGridHero`)**:
-   - Location: [src/components/ui/tilted-grid-hero.tsx](file:///home/alok/All%20projects/our-services-page/src/components/ui/tilted-grid-hero.tsx) (and mirrored in [components/ui/tilted-grid-hero.tsx](file:///home/alok/All%20projects/our-services-page/components/ui/tilted-grid-hero.tsx))
-   - Demo: [src/demos/tilted-grid-hero-demo.tsx](file:///home/alok/All%20projects/our-services-page/src/demos/tilted-grid-hero-demo.tsx)
+   - Location: `src/components/ui/tilted-grid-hero.tsx`
    - Feature: Math-driven 3D cylinder with multi-slice curvature, zero layout drift, composited CSS transforms, and endless circular tile rotation.
-2. **Parallax Scrolling (`ParallaxComponent`)**:
-   - Location: [src/components/ui/parallax-scrolling.tsx](file:///home/alok/All%20projects/our-services-page/src/components/ui/parallax-scrolling.tsx)
-   - Demo: [src/demos/default.tsx](file:///home/alok/All%20projects/our-services-page/src/demos/default.tsx)
-   - Feature: Multi-layer depth scrolling powered by GSAP and Lenis.
-3. **Interactive Studio Lens / Spectrum**: Switch between *Combined Synergy*, *DAVLabs [IT Solutions]*, and *Sparsh Design [Design]*.
-4. **Interactive Engagement Blueprint & Estimator**: Real-time project scope, team configuration, timeline calculation, and auto-filling contact form.
-5. **Synergy Matrix**: Direct value comparison of engineering vs. design disciplines.
+2. **Interactive Studio Lens / Spectrum**: Switch between *Combined Synergy*, *DAVLabs [IT Solutions]*, and *Sparsh Design [Design]*.
+3. **Interactive Engagement Blueprint & Estimator**: Real-time project scope, team configuration, timeline calculation, and auto-filling contact form.
+4. **Synergy Matrix**: Direct value comparison of engineering vs. design disciplines.
 
 ---
 
