@@ -63,7 +63,6 @@ const DISCIPLINES = [
 ];
 
 import BackgroundPaths from '@/components/kokonutui/background-paths';
-import StudioNavbar from '@/components/ui/StudioNavbar';
 
 export default function ServicesIndexPage() {
   return (
@@ -75,11 +74,8 @@ export default function ServicesIndexPage() {
       speed={0.75}
       interactive={true}
     >
-      {/* Studio Floating CardNav */}
-      <StudioNavbar />
-
       {/* Main Container */}
-      <main className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-32 sm:pt-40 pb-32 text-zinc-900">
+      <main className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-12 sm:pt-16 pb-32 text-zinc-900">
         <div className="mb-10">
           <Button variant="push-outline" size="sm" asChild className="gap-2">
             <Link href="/">

@@ -8,7 +8,6 @@ import {
   Mail
 } from 'lucide-react';
 import BackgroundPaths from '@/components/kokonutui/background-paths';
-import { StudioNavbar } from '@/components/ui/StudioNavbar';
 import { Button } from '@/components/ui/button';
 import { ReturnToStudio } from '@/components/ui/return-to-studio';
 import { BentoGridShowcase } from '@/components/ui/bento-grid';
@@ -665,11 +664,8 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
       speed={0.75}
       interactive={true}
     >
-      {/* Studio Floating CardNav */}
-      <StudioNavbar />
-
       {/* Main Container */}
-      <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-32 sm:pt-40 pb-32 text-zinc-900">
+      <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-32 text-zinc-900">
         {/* Breadcrumb Return Navigation */}
         <div className="mb-8">
           <ReturnToStudio />
