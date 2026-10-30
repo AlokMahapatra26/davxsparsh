@@ -62,18 +62,11 @@ const DISCIPLINES = [
   },
 ];
 
-import BackgroundPaths from '@/components/kokonutui/background-paths';
+import MercuryBackground from '@/components/ui/mercury-background';
 
 export default function ServicesIndexPage() {
   return (
-    <BackgroundPaths
-      className="min-h-screen w-full bg-[#ebe8f9] !bg-[#ebe8f9] text-zinc-300/80 flex flex-col justify-start selection:bg-zinc-900 selection:text-white font-sans antialiased"
-      count={40}
-      spread={1.1}
-      angle={-7}
-      speed={0.75}
-      interactive={true}
-    >
+    <MercuryBackground>
       {/* Main Container */}
       <main className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-12 sm:pt-16 pb-32 text-zinc-900">
         <div className="mb-10">
@@ -135,6 +128,6 @@ export default function ServicesIndexPage() {
           <span>Available for select commissions</span>
         </div>
       </main>
-    </BackgroundPaths>
+    </MercuryBackground>
   );
 }

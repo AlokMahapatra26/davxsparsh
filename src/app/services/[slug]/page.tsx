@@ -7,7 +7,7 @@ import {
   CheckCircle2,
   Mail
 } from 'lucide-react';
-import BackgroundPaths from '@/components/kokonutui/background-paths';
+import MercuryBackground from '@/components/ui/mercury-background';
 import { Button } from '@/components/ui/button';
 import { ReturnToStudio } from '@/components/ui/return-to-studio';
 import { BentoGridShowcase } from '@/components/ui/bento-grid';
@@ -958,17 +958,9 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
   );
 
   return (
-    <div className="w-full min-h-screen flex flex-col bg-[#ebe8f9]">
-      <BackgroundPaths
-        className="w-full bg-[#ebe8f9] !bg-[#ebe8f9] text-zinc-300/80 flex flex-col justify-start selection:bg-zinc-900 selection:text-white font-sans antialiased"
-        count={40}
-        spread={1.1}
-        angle={-7}
-        speed={0.75}
-        interactive={true}
-      >
-        {/* Main Container */}
-        <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-32 text-zinc-900">
+    <MercuryBackground>
+      {/* Main Container */}
+      <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-32 text-zinc-900">
           {/* Page Hero Header with Right-Aligned Return Button */}
         <div className="space-y-4 mb-12 sm:mb-16">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
@@ -1056,8 +1048,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
           <span>Available for select enterprise and product commissions</span>
         </div>
       </main>
-    </BackgroundPaths>
-  </div>
+    </MercuryBackground>
   );
 }
 
