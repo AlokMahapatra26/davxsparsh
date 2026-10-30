@@ -967,18 +967,18 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
         speed={0.75}
         interactive={true}
       >
-      {/* Main Container */}
-      <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-32 text-zinc-900">
-        {/* Breadcrumb Return Navigation */}
-        <div className="mb-8">
-          <ReturnToStudio />
-        </div>
-
-        {/* Page Hero Header */}
+        {/* Main Container */}
+        <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-32 text-zinc-900">
+          {/* Page Hero Header with Right-Aligned Return Button */}
         <div className="space-y-4 mb-12 sm:mb-16">
-          <h1 className="font-bold text-4xl sm:text-6xl lg:text-7xl text-zinc-950 tracking-[-0.035em] capitalize leading-[1.05]">
-            {service.title}
-          </h1>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <h1 className="font-bold text-4xl sm:text-6xl lg:text-7xl text-zinc-950 tracking-[-0.035em] capitalize leading-[1.05]">
+              {service.title}
+            </h1>
+            <div className="shrink-0 self-start sm:self-center">
+              <ReturnToStudio />
+            </div>
+          </div>
 
           <p className="text-lg sm:text-xl lg:text-2xl text-zinc-600 max-w-3xl leading-relaxed font-normal tracking-[-0.012em]">
             {service.lead}

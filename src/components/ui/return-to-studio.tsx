@@ -4,7 +4,9 @@ import React from "react";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export function ReturnToStudio() {
+import { cn } from "@/lib/utils";
+
+export function ReturnToStudio({ className }: { className?: string } = {}) {
   const handleReturn = () => {
     if (typeof window !== "undefined") {
       sessionStorage.setItem("return_to_section", "services");
@@ -21,7 +23,7 @@ export function ReturnToStudio() {
       variant="push-outline"
       size="sm"
       onClick={handleReturn}
-      className="gap-2 cursor-pointer"
+      className={cn("gap-2 cursor-pointer", className)}
     >
       <ArrowLeft className="w-3.5 h-3.5" />
       <span>Return to Services</span>
