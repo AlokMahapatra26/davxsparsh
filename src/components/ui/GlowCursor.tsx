@@ -319,8 +319,8 @@ export interface GlowCursorProps {
 }
 
 export const GlowCursor: React.FC<GlowCursorProps> = ({
-  color = '#ff6d00',
-  secondaryColor = '#ff6d00',
+  color = '#ff7900',
+  secondaryColor = '#ff7900',
   intensity = 1.3,
   trailWidth = 3,
   linger = 1.4,

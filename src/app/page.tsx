@@ -269,11 +269,11 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Interactive Fluid GlowCursor Trail on White Page - Color #ff6d00 */}
+      {/* Interactive Fluid GlowCursor Trail on White Page - Color #ff7900 */}
       <GlowCursor
         overlay
-        color="#ff6d00"
-        secondaryColor="#ff6d00"
+        color="#ff7900"
+        secondaryColor="#ff7900"
         intensity={1.6}
         trailWidth={4.5}
         linger={1.4}
