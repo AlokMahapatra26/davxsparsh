@@ -57,8 +57,10 @@ export default function ContactInfo({
       </div>
 
       {/* Main Headline */}
-      <h1 className="text-[34px] sm:text-[42px] lg:text-[48px] font-bold text-[#0f172a] leading-[1.15] tracking-[-0.025em] mb-10">
-        Let’s discuss about your project<br />and take it to the next level.
+      <h1 className="text-[34px] sm:text-[46px] lg:text-[52px] xl:text-[56px] font-bold text-[#0f172a] leading-[1.15] tracking-[-0.025em] mb-10">
+        Let’s discuss about<br />
+        your project and take<br />
+        it to the next level.
       </h1>
 
       {/* Contact Details Grid */}
