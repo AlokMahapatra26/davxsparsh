@@ -2,11 +2,7 @@ import React, { Suspense } from 'react';
 import Link from 'next/link';
 import {
   ArrowUpRight,
-  Layers,
-  Sparkles,
   Plus,
-  Zap,
-  Compass,
   ArrowRight,
   CheckCircle2,
   Mail
@@ -522,18 +518,13 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   const meta = SERVICE_BENTO_METADATA[normalizedSlug] || DEFAULT_METADATA;
 
-  // Bento Grid Slot 1: Stack & Integrations
+  // Bento Grid Slot 1: Stack & Standards
   const IntegrationsSlot = (
     <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-sm flex flex-col justify-between rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
       <CardHeader className="pb-3">
-        <div className="flex items-center gap-2 mb-1.5">
-          <span className="p-1.5 rounded-lg bg-zinc-100 text-zinc-900 border border-zinc-200/60">
-            <Layers className="w-4 h-4 text-zinc-800" />
-          </span>
-          <CardTitle className="text-base sm:text-lg font-bold text-zinc-950">
-            Stack & Standards
-          </CardTitle>
-        </div>
+        <CardTitle className="text-base sm:text-lg font-bold text-zinc-950">
+          Stack & Standards
+        </CardTitle>
         <CardDescription className="text-xs sm:text-sm text-zinc-500">
           Production-grade tooling & modern engineering ecosystem.
         </CardDescription>
@@ -555,12 +546,6 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
   // Bento Grid Slot 2: Main Tall Centerpiece (Spans 3 Rows)
   const MainFeatureSlot = (
     <Card className="relative h-full w-full min-h-[440px] md:min-h-full overflow-hidden rounded-2xl border border-zinc-200/80 shadow-md group">
-      <div className="absolute top-5 left-5 z-20 flex items-center gap-2 rounded-full bg-black/65 px-3.5 py-1.5 backdrop-blur-md border border-white/20">
-        <span className="w-2 h-2 rounded-full bg-[#9eff3e] animate-pulse" />
-        <p className="text-[11px] font-bold tracking-wider text-white uppercase font-mono">
-          {service.division}
-        </p>
-      </div>
       <img
         src={meta.mainImage}
         alt={service.title}
@@ -583,10 +568,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
   // Bento Grid Slot 3: Feature Tags
   const FeatureTagsSlot = (
     <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-sm flex flex-col justify-center p-6 gap-3 rounded-2xl hover:shadow-md transition-shadow">
-      <div className="flex items-center gap-2 mb-1">
-        <span className="p-1.5 rounded-lg bg-purple-100 text-purple-700 border border-purple-200/60">
-          <Sparkles className="w-4 h-4" />
-        </span>
+      <div className="mb-1">
         <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-bold">
           Core Tenets
         </span>
@@ -628,10 +610,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
   // Bento Grid Slot 5: Statistics & Verified Metric (Spans 2 Rows)
   const StatisticSlot = (
     <Card className="flex h-full flex-col justify-between bg-gradient-to-br from-[#9eff3e]/20 via-[#9eff3e]/10 to-white/95 p-6 sm:p-8 rounded-2xl border border-[#9eff3e]/40 shadow-sm hover:shadow-md transition-shadow">
-      <div className="flex items-center justify-between">
-        <span className="p-3 rounded-2xl bg-[#9eff3e]/30 text-black border border-[#9eff3e]/40">
-          <Zap className="h-6 w-6 text-black" />
-        </span>
+      <div className="flex items-center justify-end">
         <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-700 font-bold bg-white/90 px-3 py-1 rounded-full border border-zinc-200/80 shadow-xs">
           Verified Metric
         </span>
@@ -654,12 +633,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
   const JourneySlot = (
     <Card className="relative h-full w-full overflow-hidden p-6 bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-sm flex flex-col justify-between rounded-2xl hover:shadow-md transition-shadow">
       <div>
-        <div className="flex items-center gap-2 mb-1.5">
-          <span className="p-1.5 rounded-lg bg-zinc-100 text-zinc-800 border border-zinc-200/60">
-            <Compass className="w-4 h-4 text-zinc-800" />
-          </span>
-          <CardTitle className="text-base font-bold text-zinc-950">Delivery Cadence</CardTitle>
-        </div>
+        <CardTitle className="text-base font-bold text-zinc-950 mb-1">Delivery Cadence</CardTitle>
         <CardDescription className="text-xs text-zinc-500 leading-relaxed">
           {meta.delivery.description}
         </CardDescription>
@@ -703,11 +677,6 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
         {/* Page Hero Header */}
         <div className="space-y-4 mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 text-white text-xs font-mono uppercase tracking-wider">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#9eff3e] animate-pulse" />
-            <span>{service.division}</span>
-          </div>
-
           <h1 className="font-bold text-4xl sm:text-6xl lg:text-7xl text-zinc-950 tracking-[-0.035em] capitalize leading-[1.05]">
             {service.title}
           </h1>
