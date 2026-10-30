@@ -94,16 +94,15 @@ const FRAGMENT_SHADER = `
     col += vec3(1.8) * bar1 * overhead;
     col += vec3(1.2) * bar2 * (1.0 - overhead);
     
-    // Deep Studio Occluders (Black Panels)
-    // This creates the "Mirror" contrast
+    // Studio Occluders (Soft Metallic Silver/Slate - subtle and clean for editorial backdrop)
     float panelA = smoothstep(0.4, 0.9, abs(r.x));
     float panelB = smoothstep(0.2, 0.7, abs(r.z));
-    col = mix(col, vec3(0.0), panelA * 0.85 * (1.0 - overhead));
-    col = mix(col, vec3(0.01), panelB * 0.65);
+    col = mix(col, vec3(0.45, 0.48, 0.52), panelA * 0.55 * (1.0 - overhead));
+    col = mix(col, vec3(0.55, 0.58, 0.62), panelB * 0.40);
     
     // Crisp Studio Strips (Secondary Gloss)
     float strips = pow(abs(cos(r.x * 2.5 + r.z * 1.5 + uTime * 0.05)), 60.0);
-    col = mix(col, vec3(1.5), strips * 0.4 * overhead);
+    col = mix(col, vec3(1.3), strips * 0.35 * overhead);
     
     return col;
   }
@@ -161,8 +160,8 @@ const FRAGMENT_SHADER = `
         col *= mix(1.0, 0.7, pow(curve, 3.5));
     }
     
-    // Final Toning (Contrast & Dynamic Range)
-    col = pow(col, vec3(0.85)); // Deepen chrome, pop highlights
+    // Final Toning (Contrast & Dynamic Range - silky bright silver)
+    col = pow(col, vec3(0.95));
     col = clamp(col, 0.0, 1.0);
     
     gl_FragColor = vec4(col, 1.0);
@@ -173,7 +172,7 @@ export interface MercuryBackgroundProps {
   children?: React.ReactNode;
   className?: string;
   canvasClassName?: string;
-  /** Controls canvas opacity/visibility (defaults to 0.65 for a refined, subtle backdrop) */
+  /** Controls canvas opacity/visibility (defaults to 0.40 for a refined, calm backdrop) */
   opacity?: number;
 }
 
@@ -181,7 +180,7 @@ export function MercuryBackground({
   children,
   className,
   canvasClassName,
-  opacity = 0.65,
+  opacity = 0.40,
 }: MercuryBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
