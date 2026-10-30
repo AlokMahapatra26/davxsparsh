@@ -691,15 +691,6 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
         {/* Bento Grid Showcase Integration */}
         <div className="mb-20 sm:mb-24">
-          <div className="flex items-center justify-between mb-6 pb-2 border-b border-zinc-200/80">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-500 font-bold">
-              Discipline Architecture & Blueprint
-            </span>
-            <span className="text-[11px] font-mono text-zinc-400">
-              6-Slot Bento Grid
-            </span>
-          </div>
-
           <BentoGridShowcase
             integrations={IntegrationsSlot}
             featureTags={FeatureTagsSlot}
@@ -712,12 +703,9 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
         {/* Core Capabilities Deep-Dive */}
         <div className="mb-20 sm:mb-24 space-y-8">
-          <div className="flex items-center justify-between pb-3 border-b border-zinc-200/80">
+          <div className="pb-3 border-b border-zinc-200/80">
             <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-500 font-bold">
               Core Capabilities & Deliverables
-            </span>
-            <span className="text-[11px] font-mono text-zinc-400">
-              {service.capabilities.length} Verified Standards
             </span>
           </div>
 
