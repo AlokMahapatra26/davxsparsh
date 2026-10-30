@@ -75,10 +75,10 @@ export function AboutBento({ className }: AboutBentoProps = {}) {
             <Card className="rounded-2xl p-6 sm:p-8 border border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 cursor-pointer bg-violet-600 hover:bg-violet-700 transition-all duration-300 overflow-hidden shadow-sm">
               <div className="space-y-2 relative z-10 transition-colors">
                 <h4 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter !text-white">
-                  Join the community
+                  Any project in mind?
                 </h4>
                 <p className="!text-white/80 text-sm sm:text-base">
-                  Connect with 12,000+ like-minded entrepreneurs.
+                  Let’s collaborate and build something exceptional together.
                 </p>
               </div>
               <div className="size-16 sm:size-20 rounded-full shrink-0 flex items-center justify-center bg-white text-violet-600 group-hover:scale-105 transition-transform duration-300 relative z-10 shadow-md">
