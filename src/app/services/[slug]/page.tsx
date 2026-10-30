@@ -20,7 +20,6 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import AboutBento from '@/components/ui/about-bento';
 import { cn } from '@/lib/utils';
 
 type BentoSlotId = 'integrations' | 'mainFeature' | 'featureTags' | 'secondaryFeature' | 'statistic' | 'journey';
@@ -958,15 +957,14 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
   );
 
   return (
-    <div className="w-full min-h-screen flex flex-col bg-[#ebe8f9]">
-      <BackgroundPaths
-        className="w-full bg-[#ebe8f9] !bg-[#ebe8f9] text-zinc-300/80 flex flex-col justify-start selection:bg-zinc-900 selection:text-white font-sans antialiased"
-        count={40}
-        spread={1.1}
-        angle={-7}
-        speed={0.75}
-        interactive={true}
-      >
+    <BackgroundPaths
+      className="min-h-screen w-full bg-[#ebe8f9] !bg-[#ebe8f9] text-zinc-300/80 flex flex-col justify-start selection:bg-zinc-900 selection:text-white font-sans antialiased"
+      count={40}
+      spread={1.1}
+      angle={-7}
+      speed={0.75}
+      interactive={true}
+    >
       {/* Main Container */}
       <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-32 text-zinc-900">
         {/* Breadcrumb Return Navigation */}
@@ -998,36 +996,6 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
             statistic={StatisticSlot}
             journey={JourneySlot}
           />
-        </div>
-
-        {/* Core Capabilities Deep-Dive */}
-        <div className="mb-20 sm:mb-24 space-y-8">
-          <div className="pb-3 border-b border-zinc-200/80">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-500 font-bold">
-              Core Capabilities & Deliverables
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {service.capabilities.map((item) => (
-              <div
-                key={item.num}
-                className="p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-zinc-200/80 transition-all group"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="font-mono text-xs font-bold px-2 py-1 rounded-md bg-zinc-100 text-zinc-800 border border-zinc-200">
-                    {item.num}
-                  </span>
-                  <h3 className="font-bold text-lg text-zinc-950 tracking-tight group-hover:text-zinc-700 transition-colors">
-                    {item.title}
-                  </h3>
-                </div>
-                <p className="text-xs sm:text-sm text-zinc-600 font-sans leading-relaxed">
-                  {item.detail}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Direct Commission CTA Card */}
@@ -1083,10 +1051,6 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
         </div>
       </main>
     </BackgroundPaths>
-
-    {/* About Bento Impact Showcase */}
-    <AboutBento />
-  </div>
   );
 }
 
