@@ -99,18 +99,20 @@ const Contact = () => {
               selectedServices={selectedServices}
               setSelectedServices={setSelectedServices}
               routingData={routingData}
+              attachments={uploaderFiles}
+              setAttachments={setUploaderFiles}
             />
           </div>
         </div>
 
-        {/* Center Bottom: Image Uploader */}
-        <div className="mt-20 sm:mt-24 pt-14 border-t border-zinc-300/60 max-w-2xl mx-auto w-full">
+        {/* Center Bottom: Project Brief & File Uploader */}
+        <div id="project-attachments" className="mt-20 sm:mt-24 pt-14 border-t border-zinc-300/60 max-w-2xl mx-auto w-full">
           <div className="space-y-2 mb-6 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0f172a]">
-              Image Uploader
+              Upload Project Details &amp; Attachments
             </h2>
             <p className="text-[15px] text-[#64748b]">
-              A component to upload and preview images with animations.
+              Attach project briefs, wireframes, RFP, PDF documents or reference images to help us understand your vision.
             </p>
           </div>
 
@@ -118,15 +120,20 @@ const Contact = () => {
             files={uploaderFiles}
             onChange={setUploaderFiles}
             maxFiles={5}
-            maxSize={4}
-            accept="image/jpeg, image/png, image/webp"
+            maxSize={10}
+            accept="image/*,application/pdf,.pdf,.doc,.docx"
           />
 
           {uploaderFiles.length > 0 && (
             <div className="mt-6 p-4 rounded-2xl bg-white/70 border border-zinc-200/80">
-              <h3 className="text-sm font-semibold text-[#0f172a]">
-                Uploaded Files ({uploaderFiles.length}):
-              </h3>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-semibold text-[#0f172a]">
+                  Attached Documents ({uploaderFiles.length}):
+                </h3>
+                <span className="text-xs text-[#4355ff] font-medium">
+                  Included with your inquiry
+                </span>
+              </div>
               <ul className="list-disc list-inside mt-2 text-xs text-[#64748b] space-y-1">
                 {uploaderFiles.map((file, index) => (
                   <li key={index} className="truncate">

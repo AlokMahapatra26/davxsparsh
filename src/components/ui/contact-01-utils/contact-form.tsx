@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown, Check } from "lucide-react";
+import { ChevronDown, Check, Paperclip } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const COUNTRIES = [
@@ -39,12 +39,16 @@ interface ContactFormProps {
   selectedServices?: string[];
   setSelectedServices?: React.Dispatch<React.SetStateAction<string[]>>;
   routingData?: RoutingData;
+  attachments?: File[];
+  setAttachments?: React.Dispatch<React.SetStateAction<File[]>>;
 }
 
 export default function ContactForm({
   selectedServices: externalServices,
   setSelectedServices: setExternalServices,
   routingData,
+  attachments = [],
+  setAttachments,
 }: ContactFormProps) {
   const [internalServices, setInternalServices] = useState<string[]>([]);
   const selectedServices = externalServices ?? internalServices;
@@ -84,7 +88,7 @@ export default function ContactForm({
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 5000);
+      setTimeout(() => setSubmitted(false), 6000);
     }, 700);
   };
 
@@ -104,7 +108,17 @@ export default function ContactForm({
             Inquiry Submitted Successfully
           </h4>
           <p className="text-[15px] text-[#64748b] max-w-md leading-relaxed">
-            Thank you! Your inquiry has been routed directly to{" "}
+            Thank you! Your project inquiry
+            {attachments.length > 0 && (
+              <>
+                {" "}along with{" "}
+                <span className="font-semibold text-zinc-900">
+                  {attachments.length} attachment{attachments.length > 1 ? "s" : ""}
+                </span>{" "}
+                (<span className="text-zinc-700 font-medium">{attachments.map((f) => f.name).join(", ")}</span>)
+              </>
+            )}{" "}
+            has been routed directly to{" "}
             <span className="font-bold text-[#4355ff]">
               {targetEmails.join(", ")}
             </span>
@@ -277,7 +291,35 @@ export default function ContactForm({
             />
           </div>
 
-          {/* Row 6: Checkbox and Terms */}
+          {/* Row 6: Attached Files Indicator */}
+          {attachments.length > 0 && (
+            <div className="mb-5 p-3 rounded-[12px] bg-white border border-[#e2e8f0] flex items-center justify-between">
+              <div className="flex items-center gap-2.5 overflow-hidden">
+                <div className="w-7 h-7 rounded-lg bg-[#4355ff]/10 text-[#4355ff] flex items-center justify-center shrink-0">
+                  <Paperclip className="w-4 h-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[13px] font-semibold text-[#0f172a] truncate">
+                    {attachments.length} document{attachments.length > 1 ? "s" : ""} attached
+                  </p>
+                  <p className="text-[11px] text-[#64748b] truncate">
+                    {attachments.map((f) => f.name).join(", ")}
+                  </p>
+                </div>
+              </div>
+              {setAttachments && (
+                <button
+                  type="button"
+                  onClick={() => setAttachments([])}
+                  className="text-[12px] text-zinc-400 hover:text-red-500 font-medium ml-3 cursor-pointer shrink-0 transition-colors"
+                >
+                  Remove all
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Row 7: Checkbox and Terms */}
           <div
             onClick={() => setAgreed(!agreed)}
             className="flex items-center gap-3.5 mb-7 cursor-pointer select-none group"
@@ -297,13 +339,17 @@ export default function ContactForm({
             </span>
           </div>
 
-          {/* Row 7: Submit Button */}
+          {/* Row 8: Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting || !agreed}
             className="w-full h-[54px] bg-[#4355ff] hover:bg-[#3848ea] active:scale-[0.99] text-white font-bold text-[16px] rounded-[14px] shadow-md hover:shadow-lg hover:shadow-[#4355ff]/25 transition-all flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
           >
-            {isSubmitting ? "Submitting..." : "Submit Inquiry"}
+            {isSubmitting
+              ? "Submitting..."
+              : attachments.length > 0
+              ? `Submit Inquiry (${attachments.length} File${attachments.length > 1 ? "s" : ""})`
+              : "Submit Inquiry"}
           </button>
         </form>
       )}
