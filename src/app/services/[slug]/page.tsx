@@ -801,7 +801,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
           <div className="absolute bottom-4 left-5 right-5 sm:bottom-5 z-10">
-            <span className="text-[#9eff3e] text-[10px] font-mono uppercase tracking-widest block mb-1 font-semibold">
+            <span className="text-[#9eff3e] text-[11px] font-mono uppercase tracking-wider block mb-1 font-black drop-shadow-xs">
               Pillar • {service.capabilities[0]?.title || 'Architecture'}
             </span>
             <p className="text-xs sm:text-sm font-bold !text-white leading-snug drop-shadow-sm line-clamp-2">
@@ -812,8 +812,8 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
       ) : (
         <>
           <div className="relative z-10">
-            <span className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest block mb-1.5 font-bold">
-              Pillar • Architecture
+            <span className="text-zinc-500 text-[11px] font-mono uppercase tracking-wider block mb-1.5 font-black">
+              Pillar • {service.capabilities[0]?.title || 'Architecture'}
             </span>
             <h4 className="text-sm sm:text-base font-bold !text-zinc-950 leading-snug mb-2 line-clamp-1">
               {service.capabilities[0]?.title || 'System Engineering'}
