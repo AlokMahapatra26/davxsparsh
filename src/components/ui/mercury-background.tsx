@@ -173,12 +173,15 @@ export interface MercuryBackgroundProps {
   children?: React.ReactNode;
   className?: string;
   canvasClassName?: string;
+  /** Controls canvas opacity/visibility (defaults to 0.65 for a refined, subtle backdrop) */
+  opacity?: number;
 }
 
 export function MercuryBackground({
   children,
   className,
   canvasClassName,
+  opacity = 0.65,
 }: MercuryBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -287,8 +290,9 @@ export function MercuryBackground({
       {/* High-Performance Fixed Procedural Mercury WebGL Canvas */}
       <canvas
         ref={canvasRef}
+        style={{ opacity }}
         className={cn(
-          "fixed inset-0 w-full h-full pointer-events-none z-0",
+          "fixed inset-0 w-full h-full pointer-events-none z-0 transition-opacity duration-500",
           canvasClassName
         )}
       />
