@@ -1007,46 +1007,44 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
 
         {/* Direct Commission CTA Card */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-zinc-950 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border border-zinc-800">
+        <div className="p-8 sm:p-12 rounded-3xl bg-zinc-950 text-white shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border border-zinc-800/90 relative overflow-hidden">
           <div className="max-w-xl space-y-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#9eff3e] font-semibold flex items-center gap-1.5">
-              <Mail className="w-3.5 h-3.5" />
-              Direct Engagement Brief
+            <span className="text-xs font-mono uppercase tracking-widest text-[#9eff3e] font-bold flex items-center gap-2">
+              <Mail className="w-3.5 h-3.5 text-[#9eff3e]" />
+              <span>Direct Engagement Brief</span>
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight !text-white drop-shadow-sm">
               Commission {service.title}
             </h2>
-            <p className="text-sm text-zinc-400 leading-relaxed font-sans">
+            <p className="text-sm sm:text-base !text-zinc-300 leading-relaxed font-sans max-w-xl">
               Engage directly with our practice lead. Send your project parameters or schedule a scoping consultation.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
             <Button
-              variant="default"
               size="lg"
               asChild
-              className="bg-[#9eff3e] text-black hover:bg-white hover:text-black font-bold rounded-full px-6 py-6 transition-all duration-200 shadow-md"
+              className="bg-[#9eff3e] hover:bg-white !text-black font-extrabold rounded-full px-7 py-6 transition-all duration-200 shadow-md border-0 cursor-pointer"
             >
               <a
                 href={`mailto:${service.email}?subject=${encodeURIComponent(
                   `Inquiry: ${service.title} Engagement`
                 )}`}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 !text-black font-extrabold"
               >
                 <span>Email {service.division.split(' ')[0]}</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <ArrowUpRight className="w-4 h-4 !text-black" />
               </a>
             </Button>
             <Button
-              variant="outline"
               size="lg"
               asChild
-              className="border-zinc-700 text-white hover:bg-zinc-800 font-bold rounded-full px-6 py-6 transition-all duration-200"
+              className="bg-zinc-900 hover:bg-zinc-800 !text-white border border-zinc-700 font-bold rounded-full px-7 py-6 transition-all duration-200 shadow-sm cursor-pointer"
             >
-              <Link href="/contact" className="flex items-center gap-2">
+              <Link href="/contact" className="flex items-center gap-2 !text-white font-bold">
                 <span>Contact Studio</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 !text-white" />
               </Link>
             </Button>
           </div>
