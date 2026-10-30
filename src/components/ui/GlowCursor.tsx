@@ -239,9 +239,12 @@ void main() {
     vec3 tint = mix(uSecondary, uColor, fresh);
     float halo = dot(bloom, vec3(0.2126, 0.7152, 0.0722));
     float density = 1.0 - exp(-((energy * 1.1 + gas * 0.8) * uIntensity + halo * 0.25));
-    float tone = dot(tint, vec3(0.2126, 0.7152, 0.0722));
-    vec3 ink = tint;
-    density = clamp(density * grain, 0.0, 1.0) * edge;
+    // Subtle warm golden-yellow blend with bright orange
+    vec3 yellowGlow = vec3(1.0, 0.82, 0.16);
+    float yellowFactor = clamp(heat * 0.28 * uHotspot + 0.12, 0.0, 0.38);
+    vec3 ink = mix(tint, yellowGlow, yellowFactor);
+    // Reduced solidness/opacity for an airy, elegant translucent fluid feel
+    density = clamp(density * 0.70 * grain, 0.0, 0.75) * edge;
     outColor = vec4(ink * density, density);
   } else {
     vec3 color = 1.0 - exp(-(light + bloom) * grain);
@@ -319,12 +322,12 @@ export interface GlowCursorProps {
 }
 
 export const GlowCursor: React.FC<GlowCursorProps> = ({
-  color = '#FF5500',
-  secondaryColor = '#FF6B00',
-  intensity = 1.3,
-  trailWidth = 3,
-  linger = 1.4,
-  glow = 1.2,
+  color = '#FF7A00',
+  secondaryColor = '#FFB300',
+  intensity = 1.1,
+  trailWidth = 3.5,
+  linger = 1.1,
+  glow = 1.1,
   hotspot = 0.8,
   followSpeed = 0.6,
   grain = 0,
