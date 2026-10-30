@@ -80,7 +80,7 @@ const Contact = () => {
   }, [selectedServices]);
 
   return (
-    <section className="relative w-full min-h-screen bg-[#ebe8f9] flex items-center justify-center py-16 sm:py-20 md:py-28 px-6 sm:px-10 lg:px-16 selection:bg-[#4355ff]/10">
+    <section className="relative w-full min-h-screen bg-[#ede5f9] flex items-center justify-center py-16 sm:py-20 md:py-28 px-6 sm:px-10 lg:px-16 selection:bg-[#4355ff]/10">
       <div className="w-full max-w-[1360px] mx-auto">
         <div className="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-16">
           {/* Left Column: Headline, Details, Trusted By */}
