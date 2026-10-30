@@ -72,9 +72,7 @@ export default function ContactForm({
   };
 
   const handleSelectService = (service: string) => {
-    setSelectedServices((prev) =>
-      prev.includes(service) ? [] : [service]
-    );
+    setSelectedServices([service]);
     setIsServicesOpen(false);
   };
 
@@ -125,7 +123,7 @@ export default function ContactForm({
                 placeholder="First name"
                 value={formData.firstName}
                 onChange={handleChange}
-                className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] transition-all"
+                className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] outline-none focus:outline-none focus:ring-0 focus:ring-transparent focus:shadow-none focus:border-[#94a3b8] shadow-none transition-colors"
               />
             </div>
             <div>
@@ -136,7 +134,7 @@ export default function ContactForm({
                 placeholder="Last name"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] transition-all"
+                className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] outline-none focus:outline-none focus:ring-0 focus:ring-transparent focus:shadow-none focus:border-[#94a3b8] shadow-none transition-colors"
               />
             </div>
           </div>
@@ -150,7 +148,7 @@ export default function ContactForm({
               placeholder="youremail@website.com"
               value={formData.email}
               onChange={handleChange}
-              className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] transition-all"
+              className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] outline-none focus:outline-none focus:ring-0 focus:ring-transparent focus:shadow-none focus:border-[#94a3b8] shadow-none transition-colors"
             />
           </div>
 
@@ -162,7 +160,7 @@ export default function ContactForm({
                 setIsCountryOpen(!isCountryOpen);
                 setIsServicesOpen(false);
               }}
-              className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[12px] flex items-center justify-between focus:outline-none focus:border-[#4355ff] transition-all cursor-pointer text-left"
+              className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[12px] flex items-center justify-between outline-none focus:outline-none focus:ring-0 focus:ring-transparent focus:shadow-none focus:border-[#94a3b8] shadow-none transition-colors cursor-pointer text-left"
             >
               <span className="font-medium">{country}</span>
               <ChevronDown
@@ -204,7 +202,7 @@ export default function ContactForm({
             )}
           </div>
 
-          {/* Row 4: Services Select Dropdown (Clean without checkboxes) */}
+          {/* Row 4: Services Select Dropdown (Clean without checkboxes, single select, auto-close) */}
           <div className="relative mb-5">
             <button
               type="button"
@@ -212,7 +210,7 @@ export default function ContactForm({
                 setIsServicesOpen(!isServicesOpen);
                 setIsCountryOpen(false);
               }}
-              className="w-full h-[52px] px-5 text-[15px] bg-white border border-[#e2e8f0] rounded-[12px] flex items-center justify-between focus:outline-none focus:border-[#4355ff] transition-all cursor-pointer text-left"
+              className="w-full h-[52px] px-5 text-[15px] bg-white border border-[#e2e8f0] rounded-[12px] flex items-center justify-between outline-none focus:outline-none focus:ring-0 focus:ring-transparent focus:shadow-none focus:border-[#94a3b8] shadow-none transition-colors cursor-pointer text-left"
             >
               <span
                 className={
@@ -275,7 +273,7 @@ export default function ContactForm({
               placeholder="Let us know about your project"
               value={formData.message}
               onChange={handleChange}
-              className="w-full px-5 py-4 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] transition-all resize-none min-h-[130px]"
+              className="w-full px-5 py-4 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] outline-none focus:outline-none focus:ring-0 focus:ring-transparent focus:shadow-none focus:border-[#94a3b8] shadow-none transition-colors resize-none min-h-[130px]"
             />
           </div>
 
