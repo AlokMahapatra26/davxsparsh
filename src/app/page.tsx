@@ -353,7 +353,6 @@ export default function HomePage() {
             axis={53}
             curve={78}
             fade={10}
-            onCardClick={(img) => img.href && router.push(img.href)}
             className="w-full h-[640px] sm:h-[740px] lg:h-[800px] bg-transparent"
           >
             <div className="relative z-10 flex h-full flex-col items-center justify-between py-6 sm:py-10 px-4 sm:px-6 text-center pointer-events-none">

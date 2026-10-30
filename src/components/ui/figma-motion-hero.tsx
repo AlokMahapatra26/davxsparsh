@@ -21,6 +21,11 @@ const NAV_LINKS = [
   { label: "the Maker", href: "#maker" },
 ];
 
+const toTitleCase = (str?: string) => {
+  if (!str) return "";
+  return str.replace(/\b\w+/g, (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase());
+};
+
 export interface FigmaMotionHeroProps {
   id?: string;
   showNav?: boolean;
@@ -41,7 +46,7 @@ export default function FigmaMotionHero({
   showNav = false,
   count = "50",
   titleLine1 = "Premium",
-  titleLine2 = "website",
+  titleLine2 = "Website",
   titleLine3 = "Templates",
   description = "Access a growing library of premium animations designed exclusively for your current stack.",
   primaryCtaText = "Get Access",
@@ -279,7 +284,7 @@ export default function FigmaMotionHero({
             </span>
 
             <span className="f4m-title text-white" style={{ color: "#ffffff" }}>
-              <span className="f4m-enter f4m-delay-2 text-white" style={{ color: "#ffffff" }}>{titleLine1}</span>
+              <span className="f4m-enter f4m-delay-2 text-white" style={{ color: "#ffffff" }}>{toTitleCase(titleLine1)}</span>
               <span className="f4m-enter f4m-delay-3 text-white" style={{ color: "#ffffff" }}>
                 {/* 3 Interactive Motion Preview Cards */}
                 <span className="f4m-hero-previews" aria-hidden="true">
@@ -296,9 +301,9 @@ export default function FigmaMotionHero({
                     </span>
                   ))}
                 </span>
-                {titleLine2}
+                {toTitleCase(titleLine2)}
               </span>
-              <span className="f4m-enter f4m-delay-4 text-white" style={{ color: "#ffffff" }}>{titleLine3}</span>
+              <span className="f4m-enter f4m-delay-4 text-white" style={{ color: "#ffffff" }}>{toTitleCase(titleLine3)}</span>
             </span>
           </h1>
 
@@ -419,8 +424,8 @@ export default function FigmaMotionHero({
           </div>
         </div>
 
-        {/* Bottom Centered Scroll Cue */}
-        <a href="#who-its-for" className="f4m-scroll-cue" aria-label="Discover who the templates are for">
+        {/* Bottom Centered Scroll Cue (decorative) */}
+        <div className="f4m-scroll-cue pointer-events-none" aria-hidden="true">
           <Image
             src="/figmaformotion/scroll.svg"
             alt=""
@@ -428,7 +433,7 @@ export default function FigmaMotionHero({
             height={147}
             priority
           />
-        </a>
+        </div>
       </section>
     </div>
   );

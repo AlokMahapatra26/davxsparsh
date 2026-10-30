@@ -68,7 +68,7 @@
     isolation: auto;
     min-height: 0;
     padding: 158.62px max(40px, 5.582vw) 96px;
-    overflow: visible;
+    overflow: clip;
   }
 }
 
@@ -318,27 +318,40 @@
 }
 
 /* Main Heading */
+.f4m-heading,
+.f4m-heading *,
+.f4m-title,
+.f4m-title *,
+.f4m-count,
+.f4m-count * {
+  font-family: var(--font-display, "Klarheit", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif) !important;
+}
+
 .f4m-heading {
-  text-transform: uppercase;
+  text-transform: none;
+  font-family: var(--font-display, "Klarheit", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif) !important;
   flex-direction: column;
   grid-area: 1 / 1;
   gap: 6px;
   margin: 0;
-  font-weight: 700;
+  font-weight: 800;
   display: flex;
   color: #ffffff !important;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.035em;
   line-height: 1.08;
 }
 
 @media (min-width: 768px) {
   .f4m-heading {
     width: min(680px, 50vw);
-    font: 700 clamp(56px, 5.556vw, 80px) / 1.08 'F4MTusker5700', 'Impact', 'Arial Narrow', sans-serif;
+    font-family: var(--font-display, "Klarheit", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+    font-weight: 800;
+    font-size: clamp(56px, 5.556vw, 80px);
+    line-height: 1.08;
     display: block;
     position: relative;
     color: #ffffff !important;
-    letter-spacing: 0.01em;
+    letter-spacing: -0.035em;
   }
 }
 
@@ -348,6 +361,7 @@
     font-size: clamp(44px, 5.556vw, 61px);
     line-height: 1.08;
     color: #ffffff !important;
+    letter-spacing: -0.035em;
   }
 }
 
@@ -357,9 +371,12 @@
   text-box-trim: trim-both;
   text-box-edge: cap alphabetic;
   align-items: baseline;
-  font: 700 112px / 0.94 'F4MTusker7700', 'Impact', 'Arial Narrow', sans-serif;
+  font-family: var(--font-display, "Klarheit", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  font-weight: 800;
+  font-size: 112px;
+  line-height: 0.94;
   display: flex;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.035em;
 }
 
 .f4m-plus {
@@ -369,10 +386,13 @@
 @media (min-width: 768px) {
   .f4m-count {
     font: inherit;
+    font-family: var(--font-display, "Klarheit", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+    font-weight: 800;
     text-box-trim: none;
     display: inline;
     color: var(--v2-pink) !important;
     margin-right: clamp(10px, 1.1vw, 18px);
+    letter-spacing: -0.035em;
   }
   .f4m-count::after {
     content: "";
@@ -385,10 +405,14 @@
 /* Title Words */
 .f4m-title {
   flex-direction: column;
-  font: 700 52px / 1.08 'F4MTusker5700', 'Impact', 'Arial Narrow', sans-serif;
+  font-family: var(--font-display, "Klarheit", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  font-weight: 800;
+  font-size: 52px;
+  line-height: 1.08;
   display: flex;
   color: #ffffff !important;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.035em;
+  text-transform: none;
 }
 
 .f4m-title > span {
@@ -399,10 +423,12 @@
 @media (min-width: 768px) {
   .f4m-title {
     font: inherit;
+    font-family: var(--font-display, "Klarheit", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+    font-weight: 800;
     line-height: inherit;
     display: inline;
     color: #ffffff !important;
-    letter-spacing: 0.01em;
+    letter-spacing: -0.035em;
   }
   .f4m-title > span {
     display: inline;
@@ -734,12 +760,7 @@
     bottom: 0;
     left: 50%;
     transform: translate(-50%);
-    pointer-events: auto;
-    transition: transform 0.3s ease;
-  }
-
-  .f4m-scroll-cue:hover {
-    transform: translate(-50%, 4px);
+    pointer-events: none;
   }
 
   .f4m-scroll-cue img {

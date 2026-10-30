@@ -214,8 +214,7 @@ export function TiltedGridHero({
     // Pausing rather than removing the motion keeps the band whole: every
     // tile is already placed by its negative delay, so it freezes as a
     // finished still.
-    `@media(prefers-reduced-motion:reduce){.${tile}{animation-play-state:paused}}` +
-    `@media(hover:hover){.${tile}:hover{animation-play-state:paused;filter:drop-shadow(0 20px 38px rgba(0,0,0,0.28)) brightness(1.05);}}`;
+    `@media(prefers-reduced-motion:reduce){.${tile}{animation-play-state:paused}}`;
 
   const share = aspectRatio / SLICES;
   const duration = columns * speed;
@@ -258,8 +257,8 @@ export function TiltedGridHero({
               aria-label={img?.title || img?.alt || "Service Card"}
               className={cn(
                 tile,
-                "absolute select-none group",
-                isClickable && "pointer-events-auto cursor-pointer transition-transform duration-300 hover:scale-[1.03]"
+                "absolute select-none",
+                isClickable && "pointer-events-auto cursor-pointer"
               )}
               style={{
                 left: `calc(50% - ${u(aspectRatio / 2)})`,
@@ -267,6 +266,7 @@ export function TiltedGridHero({
                 width: u(aspectRatio),
                 height: u(1),
                 transformStyle: "preserve-3d",
+                willChange: "transform",
                 filter: "drop-shadow(0 14px 28px rgba(0, 0, 0, 0.16))",
                 // Tile t starts t tiles along the loop.
                 animation: `${orbit} ${duration}s linear ${-t * speed}s infinite`,
@@ -304,7 +304,7 @@ export function TiltedGridHero({
                 <div
                   key={k}
                   className={cn(
-                    "absolute top-0 overflow-hidden bg-muted",
+                    "absolute top-0 overflow-hidden",
                     k === 0 && "rounded-l-xl",
                     k === SLICES - 1 && "rounded-r-xl",
                   )}
@@ -316,11 +316,12 @@ export function TiltedGridHero({
                     // overlap and no hairline opens between them. The last
                     // has no neighbour to cover.
                     width:
-                      k === SLICES - 1 ? u(share) : `calc(${u(share)} + 1px)`,
+                      k === SLICES - 1 ? u(share) : `calc(${u(share)} + 1.5px)`,
                     height: u(1),
                     transform: turn(
                       (aspectRatio / 2 - (k + 0.5) * share) * unit,
                     ),
+                    backfaceVisibility: "hidden",
                   }}
                 >
                   {img ? (
@@ -329,7 +330,7 @@ export function TiltedGridHero({
                         src={img.src}
                         alt={k === 0 ? (img.alt ?? "") : ""}
                         draggable={false}
-                        className="absolute top-0 max-w-none object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="absolute top-0 max-w-none object-cover"
                         style={{
                           left: u(-k * share),
                           width: u(aspectRatio),
@@ -345,12 +346,12 @@ export function TiltedGridHero({
                             height: u(1),
                           }}
                         >
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent transition-opacity duration-300 group-hover:from-black/90" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
                           <div className="relative z-10 flex items-center justify-between gap-3">
                             <span className="text-white text-sm sm:text-base font-bold tracking-tight drop-shadow-md">
                               {img.title}
                             </span>
-                            <span className="text-white/90 text-[11px] font-semibold uppercase tracking-wider flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 shadow-xs group-hover:bg-white group-hover:text-black transition-all">
+                            <span className="text-white/90 text-[11px] font-semibold uppercase tracking-wider flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 shadow-xs">
                               <span>Explore</span>
                               <span>&rarr;</span>
                             </span>
