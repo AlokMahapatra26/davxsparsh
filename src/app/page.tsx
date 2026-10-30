@@ -399,7 +399,7 @@ export default function HomePage() {
                     </svg>
                   </span>
                   <span className="font-bold text-[17px] text-black tracking-tight">
-                    Explore All 8 Services
+                    Get Started
                   </span>
                 </button>
               </div>
