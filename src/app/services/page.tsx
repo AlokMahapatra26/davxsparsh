@@ -68,7 +68,7 @@ import StudioNavbar from '@/components/ui/StudioNavbar';
 export default function ServicesIndexPage() {
   return (
     <BackgroundPaths
-      className="min-h-screen w-full bg-white !bg-white text-zinc-300/80 flex flex-col justify-start selection:bg-zinc-900 selection:text-white font-sans antialiased"
+      className="min-h-screen w-full bg-[#ebe8f9] !bg-[#ebe8f9] text-zinc-300/80 flex flex-col justify-start selection:bg-zinc-900 selection:text-white font-sans antialiased"
       count={40}
       spread={1.1}
       angle={-7}
@@ -89,13 +89,13 @@ export default function ServicesIndexPage() {
           </Button>
         </div>
 
-        <div className="space-y-6 mb-16 sm:mb-20">
-          <h1 className="font-serif italic text-5xl sm:text-7xl lg:text-8xl text-zinc-950 font-normal tracking-tight leading-[1.05]">
+        <div className="space-y-4 mb-16 sm:mb-20">
+          <h1 className="font-bold text-5xl sm:text-7xl lg:text-8xl text-zinc-950 tracking-[-0.035em] leading-[1.05]">
             Studio Disciplines
           </h1>
 
-          <p className="font-serif italic text-2xl sm:text-3xl text-zinc-600 max-w-3xl leading-snug font-normal">
-            &ldquo;Engineering precision paired with editorial craft. Dedicated practices for modern ambitious brands.&rdquo;
+          <p className="text-xl sm:text-2xl text-zinc-600 max-w-3xl leading-relaxed font-normal tracking-[-0.012em]">
+            Engineering precision paired with editorial craft. Dedicated practices for modern ambitious brands.
           </p>
         </div>
 
@@ -112,7 +112,7 @@ export default function ServicesIndexPage() {
                   <span className="font-mono text-xs text-zinc-400">0{idx + 1}</span>
                   <Link
                     href={`/services/${d.slug}`}
-                    className="font-serif italic text-2xl sm:text-3xl text-zinc-900 group-hover:text-zinc-600 transition-colors"
+                    className="font-bold text-2xl sm:text-3xl text-zinc-900 tracking-[-0.03em] group-hover:text-zinc-600 transition-colors"
                   >
                     {d.title}
                   </Link>

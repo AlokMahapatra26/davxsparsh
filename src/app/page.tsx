@@ -2,14 +2,14 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { WorksWheel, type WorksWheelItem } from "@/components/ui/works-wheel";
+import { TiltedGridHero, type TiltedGridImage } from "@/components/ui/tilted-grid-hero";
+import { ArrowRight } from "lucide-react";
 import { ScrollStack, ScrollStackItem } from "@/components/ui/ScrollStack";
 import { CardNav } from "@/components/ui/CardNav";
 import { GlowCursor } from "@/components/ui/GlowCursor";
-import GradientHero01 from "@/components/ui/gradient-hero-01";
 import FigmaMotionHero from "@/components/ui/figma-motion-hero";
+import FigmaTemplateScroll from "@/components/ui/figma-template-scroll";
 import GlassFolder, { type FolderFile } from "@/components/ui/glass-folder-cards";
-import { CountingStatsSection } from "@/components/ui/counting-stats-section";
 import { ClipPathLinks } from "@/components/ui/clip-path-links";
 import { Footer } from "@/components/ui/Footer";
 import GsapFlipCard, { type GsapFlipCardItem } from "@/components/ui/gsap-card-flip";
@@ -85,48 +85,57 @@ const getFileCaption = (name: string, meta?: string) => {
   return `Document specification for ${name} verified by DAVLabs × Sparsh Studio.`;
 };
 
-const SERVICES_WHEEL_ITEMS: WorksWheelItem[] = [
+const SERVICES_TILTED_GRID_IMAGES: TiltedGridImage[] = [
   {
     title: "Web Development",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop",
     href: "/services/web-development",
+    src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop",
+    alt: "Web Development — Modern Next.js & Distributed Systems",
   },
   {
     title: "App Development",
-    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80&auto=format&fit=crop",
     href: "/services/app-development",
+    src: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80&auto=format&fit=crop",
+    alt: "App Development — Native & Cross-Platform Mobile Engineering",
   },
   {
     title: "AI Automation",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80&auto=format&fit=crop",
     href: "/services/ai-automation",
+    src: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80&auto=format&fit=crop",
+    alt: "AI Automation — Autonomous Agents & LLM Pipelines",
   },
   {
     title: "UI/UX & Web Design",
-    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&q=80&auto=format&fit=crop",
     href: "/services/ui-ux-design",
+    src: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&q=80&auto=format&fit=crop",
+    alt: "UI/UX & Web Design — Bespoke Interfaces & Fluid Motion",
   },
   {
     title: "Creative Logo Design",
-    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1200&q=80&auto=format&fit=crop",
     href: "/services/creative-logo-design",
+    src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1200&q=80&auto=format&fit=crop",
+    alt: "Creative Logo Design — Symbolic Distillations & Vectors",
   },
   {
     title: "Graphics Design & Branding",
-    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80&auto=format&fit=crop",
     href: "/services/graphics-design",
+    src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80&auto=format&fit=crop",
+    alt: "Graphics Design & Branding — High-Touch Print & Editorial",
   },
   {
     title: "Social Media Marketing",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&q=80&auto=format&fit=crop",
     href: "/services/social-media-marketing",
+    src: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&q=80&auto=format&fit=crop",
+    alt: "Social Media Marketing — Algorithmic Distribution & Content",
   },
   {
     title: "Brand Identity & Packaging",
-    image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=1200&q=80&auto=format&fit=crop",
     href: "/services/brand-identity",
+    src: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=1200&q=80&auto=format&fit=crop",
+    alt: "Brand Identity & Packaging — Material Luxury & Sensory Details",
   },
 ];
+
 
 export default function HomePage() {
   const router = useRouter();
@@ -247,12 +256,12 @@ export default function HomePage() {
 
 
   const BrandLogo = (
-    <div className="flex items-center gap-1.5 text-xs sm:text-sm font-medium tracking-tight">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-current">
-        <circle cx="8" cy="12" r="6" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="16" cy="12" r="6" stroke="currentColor" strokeWidth="1.5" />
+    <div className="flex items-center gap-2 text-sm sm:text-base font-semibold tracking-tight">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-current">
+        <circle cx="8" cy="12" r="6" stroke="currentColor" strokeWidth="1.6" />
+        <circle cx="16" cy="12" r="6" stroke="currentColor" strokeWidth="1.6" />
       </svg>
-      <span className="font-semibold text-[var(--ink-primary)]">DAVLabs</span>
+      <span className="font-bold text-[var(--ink-primary)]">DAVLabs</span>
       <span className="opacity-40">&times;</span>
       <span className="opacity-75 text-[var(--ink-secondary)]">Sparsh</span>
     </div>
@@ -328,18 +337,50 @@ export default function HomePage() {
         {/* Figma for Motion v2 Hero Section */}
         <FigmaMotionHero id="hero" />
 
-        {/* Scale & Impact Metrics with CountingNumber */}
-        <CountingStatsSection />
+        {/* Figma for Motion v2 1:1 Scroll Stack & Audience Orbit Animation */}
+        <FigmaTemplateScroll heroId="hero" desktopHero={true} />
 
-        {/* Services 3D Interactive WorksWheel Section (Sticky Scroll Pinned Timeline) */}
-        <WorksWheel
-          id="services"
-          items={SERVICES_WHEEL_ITEMS}
-          label="Services '26"
-          action="Explore"
-          scrollPerItem={80}
-          className="border-b border-[var(--border-delicate)]"
-        />
+
+        {/* Services 3D Tilted Grid Hero Showcase Section */}
+        {/* Services 3D Tilted Grid Hero Showcase Section (Full Screen / Edge-to-Edge) */}
+        <section id="services" className="relative w-full py-12 sm:py-16 bg-[#ebe8f9] border-b border-[var(--border-delicate)] overflow-hidden">
+          <TiltedGridHero
+            images={SERVICES_TILTED_GRID_IMAGES}
+            speed={4.5}
+            tileHeight={32}
+            aspectRatio={16 / 9}
+            gap={6}
+            axis={53}
+            curve={78}
+            fade={10}
+            onCardClick={(img) => img.href && router.push(img.href)}
+            className="w-full h-[640px] sm:h-[740px] lg:h-[800px] bg-transparent"
+          >
+            <div className="relative z-10 flex h-full flex-col items-center justify-between py-6 sm:py-10 px-4 sm:px-6 text-center pointer-events-none">
+              {/* Top Section Header */}
+              <div className="pointer-events-auto flex flex-col items-center max-w-4xl px-4">
+                <h2 className="text-balance text-3xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-[var(--ink-primary)] leading-[1.08] mb-3">
+                  Every discipline, brought into focus.
+                </h2>
+                <p className="text-sm sm:text-base text-[var(--ink-secondary)] font-normal tracking-[-0.012em] max-w-xl mx-auto leading-relaxed">
+                  Where IT architecture harmonizes with digital craft &mdash; an infinite cylindrical stream across our active practices.
+                </p>
+              </div>
+
+              {/* Bottom CTA */}
+              <div className="pointer-events-auto flex flex-col items-center pb-2 px-4">
+                <button
+                  type="button"
+                  onClick={() => router.push("/services")}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-[var(--ink-primary)] text-white hover:bg-black transition-all shadow-md cursor-pointer hover:scale-105"
+                >
+                  <span>Explore All 8 Services</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          </TiltedGridHero>
+        </section>
 
         {/* Client Testimonials Section */}
         <section id="testimonials" className="relative w-full py-20 sm:py-28 overflow-hidden bg-[var(--bg-primary)] border-b border-[var(--border-delicate)]">

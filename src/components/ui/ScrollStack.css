@@ -136,12 +136,12 @@
 }
 
 .scroll-stack-card__title {
-  font-family: var(--font-serif, serif);
+  font-family: var(--font-display, "Klarheit", "Geist", sans-serif);
   font-size: clamp(2.2rem, 4.2vw, 3.4rem);
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 800;
+  font-style: normal;
   letter-spacing: -0.035em;
-  line-height: 1.1;
+  line-height: 1.08;
   color: #ffffff;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }

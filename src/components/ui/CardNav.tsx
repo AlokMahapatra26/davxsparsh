@@ -117,6 +117,7 @@ export interface CardNavProps {
   bounce?: number;
   speed?: number;
   cardHeight?: number;
+  barHeight?: number;
   maxWidth?: number | string;
   accentColor?: string;
   menuLabel?: boolean;
@@ -200,6 +201,7 @@ export const CardNav: React.FC<CardNavProps> = ({
   bounce = 0.2,
   speed = 1,
   cardHeight = 176,
+  barHeight = 72,
   maxWidth = '100%',
   accentColor,
   menuLabel = true,
@@ -245,11 +247,11 @@ export const CardNav: React.FC<CardNavProps> = ({
   const vars: Record<string, string> = {
     ...palette,
     '--cn-max': typeof maxWidth === 'number' ? `${maxWidth}px` : `${maxWidth}`,
-    '--cn-bar': '60px',
-    '--cn-inset': '8px',
+    '--cn-bar': `${barHeight}px`,
+    '--cn-inset': '9px',
     '--cn-gap': '8px',
     '--cn-radius': '9999px',
-    '--cn-logo': '24px',
+    '--cn-logo': '26px',
     '--cn-card': `${cardHeight}px`
   };
   if (surface === 'glass') vars['--cn-blur'] = 'blur(20px) saturate(1.6)';
@@ -285,13 +287,13 @@ export const CardNav: React.FC<CardNavProps> = ({
     const content = contentRef.current;
     if (!panel || !content) return undefined;
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-    const state = { p: settingsRef.current.open ? 1 : 0, v: 0, height: content.offsetHeight, bar: 60 };
+    const state = { p: settingsRef.current.open ? 1 : 0, v: 0, height: content.offsetHeight, bar: barHeight };
     let raf = 0;
     let last = 0;
 
     const render = () => {
       const s = settingsRef.current;
-      state.bar = parseFloat(getComputedStyle(panel).getPropertyValue('--cn-bar')) || 60;
+      state.bar = parseFloat(getComputedStyle(panel).getPropertyValue('--cn-bar')) || barHeight;
       panel.style.height = `${state.bar + Math.max(0, state.p) * state.height}px`;
       const cards = cardRefs.current.filter(Boolean) as HTMLElement[];
       const count = cards.length;

@@ -4,7 +4,7 @@
   max-width: var(--cn-max);
   height: var(--cn-bar);
   margin: 0 auto;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.4;
   -webkit-tap-highlight-color: transparent;
 }

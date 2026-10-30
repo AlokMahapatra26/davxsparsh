@@ -11,17 +11,6 @@ const PREVIEW_CARDS = [
   { id: "03", src: "/figmaformotion/24d00f7218a4afa7-480.webp", alt: "Step into Wonder 3D" },
 ];
 
-const TRAIL_IMAGES = [
-  "/figmaformotion/a2f05abe217e9823-480.webp",
-  "/figmaformotion/35d44c00ee2b820d-480.webp",
-  "/figmaformotion/24d00f7218a4afa7-480.webp",
-  "/figmaformotion/90cdd4bbe30bb3e4-480.webp",
-  "/figmaformotion/bc8a5cecc0783bb8-480.webp",
-  "/figmaformotion/c7a962bc3559eacf-480.webp",
-  "/figmaformotion/a710beb50d98696c-480.webp",
-  "/figmaformotion/ec8790939e0da733-480.webp",
-  "/figmaformotion/03260b49b8820236-480.webp",
-];
 
 const NAV_LINKS = [
   { label: "Home", href: "#top" },
@@ -34,6 +23,7 @@ const NAV_LINKS = [
 
 export interface FigmaMotionHeroProps {
   id?: string;
+  showNav?: boolean;
   count?: string;
   badgeCount?: string;
   titleLine1?: string;
@@ -48,6 +38,7 @@ export interface FigmaMotionHeroProps {
 
 export default function FigmaMotionHero({
   id = "top",
+  showNav = false,
   count = "50",
   titleLine1 = "Premium",
   titleLine2 = "website",
@@ -60,7 +51,6 @@ export default function FigmaMotionHero({
 }: FigmaMotionHeroProps) {
   const containerRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const trailLayerRef = useRef<HTMLDivElement>(null);
   const [activeNav, setActiveNav] = useState("Home");
   const [navStyle, setNavStyle] = useState({ left: 8, width: 74 });
   const navContainerRef = useRef<HTMLDivElement>(null);
@@ -216,135 +206,61 @@ export default function FigmaMotionHero({
     };
   }, []);
 
-  // Cursor Thumbnail Stamp Trail Engine
-  useEffect(() => {
-    const container = containerRef.current;
-    const trailLayer = trailLayerRef.current;
-    if (!container || !trailLayer) return;
-
-    // Guard on touch/mobile
-    const hoverMatch = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!hoverMatch.matches || reducedMotion.matches) return;
-
-    const preloadedImages: HTMLImageElement[] = [];
-    TRAIL_IMAGES.forEach((src) => {
-      const img = new window.Image();
-      img.src = src;
-      img.onload = () => preloadedImages.push(img);
-    });
-
-    let lastX = 0;
-    let lastY = 0;
-    let lastTime = 0;
-    let count = 0;
-    const ROTATIONS = [-7, 4, -3, 7, 0];
-
-    const onPointerMove = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse" || preloadedImages.length === 0) return;
-
-      // Don't stamp when hovering over interactive buttons/links
-      const target = e.target as HTMLElement | null;
-      if (target && target.closest('a, button, [role="button"]')) return;
-
-      const now = performance.now();
-      const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const dist = Math.hypot(x - lastX, y - lastY);
-      if (dist < 32 || now - lastTime < 40) return;
-
-      lastX = x;
-      lastY = y;
-      lastTime = now;
-
-      // Pick an image
-      const chosen = preloadedImages[Math.floor(Math.random() * preloadedImages.length)];
-      const card = chosen.cloneNode() as HTMLImageElement;
-      card.className = "f4m-trail-card";
-      card.alt = "";
-      card.draggable = false;
-      card.style.left = `${x}px`;
-      card.style.top = `${y}px`;
-      card.style.setProperty("--trail-rotation", `${ROTATIONS[count % ROTATIONS.length]}deg`);
-
-      card.addEventListener(
-        "animationend",
-        () => {
-          card.remove();
-        },
-        { once: true }
-      );
-
-      while (trailLayer.childElementCount >= 12) {
-        trailLayer.firstElementChild?.remove();
-      }
-
-      trailLayer.appendChild(card);
-      count++;
-    };
-
-    container.addEventListener("pointermove", onPointerMove, { passive: true });
-
-    return () => {
-      container.removeEventListener("pointermove", onPointerMove);
-      trailLayer.replaceChildren();
-    };
-  }, []);
 
   return (
     <div className="f4m-page-scope">
-      {/* Top Floating Header & Nav */}
-      <header className="f4m-header">
-        <div className="f4m-header-bar">
-          <Link href="#top" className="f4m-brand" aria-label="Figma for Motion home">
-            <Image
-              src="/figmaformotion/symble.svg"
-              alt="Figma for Motion"
-              width={29}
-              height={29}
-              className="f4m-brand-symbol"
-              priority
-            />
-          </Link>
+      {/* Top Floating Header & Nav (Hidden by default to prevent overlapping main site nav) */}
+      {showNav && (
+        <header className="f4m-header">
+          <div className="f4m-header-bar">
+            <Link href="#top" className="f4m-brand" aria-label="Figma for Motion home">
+              <Image
+                src="/figmaformotion/symble.svg"
+                alt="Figma for Motion"
+                width={29}
+                height={29}
+                className="f4m-brand-symbol"
+                priority
+              />
+            </Link>
 
-          {/* Desktop Nav Pill */}
-          <nav className="f4m-nav-pill" ref={navContainerRef} aria-label="Main navigation">
-            <div
-              className="f4m-nav-indicator"
-              style={{
-                transform: `translateX(${navStyle.left}px)`,
-                width: `${navStyle.width}px`,
-              }}
-            />
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="f4m-nav-link"
-                data-active={activeNav === link.label}
-                onClick={(e) => handleNavClick(link.label, e)}
-              >
-                {link.label}
+            {/* Desktop Nav Pill */}
+            <nav className="f4m-nav-pill" ref={navContainerRef} aria-label="Main navigation">
+              <div
+                className="f4m-nav-indicator"
+                style={{
+                  transform: `translateX(${navStyle.left}px)`,
+                  width: `${navStyle.width}px`,
+                }}
+              />
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="f4m-nav-link"
+                  data-active={activeNav === link.label}
+                  onClick={(e) => handleNavClick(link.label, e)}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+
+            {/* Right Header Action Button */}
+            <div className="f4m-header-cta">
+              <a href="#pricing" className="f4m-pill-btn">
+                Get Access
               </a>
-            ))}
-          </nav>
+            </div>
 
-          {/* Right Header Action Button */}
-          <div className="f4m-header-cta">
-            <a href="#pricing" className="f4m-pill-btn">
-              Get Access
-            </a>
+            {/* Mobile Menu Toggle */}
+            <button type="button" className="f4m-mobile-toggle" aria-label="Open navigation">
+              <span />
+              <span />
+            </button>
           </div>
-
-          {/* Mobile Menu Toggle */}
-          <button type="button" className="f4m-mobile-toggle" aria-label="Open navigation">
-            <span />
-            <span />
-          </button>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* Main Hero Section */}
       <section id={id} ref={containerRef} className="f4m-hero" aria-label="Figma for Motion">
@@ -352,9 +268,6 @@ export default function FigmaMotionHero({
         <div className="f4m-dot-field-layer" aria-hidden="true">
           <canvas ref={canvasRef} />
         </div>
-
-        {/* Cursor Thumbnail Stamp Trail Layer */}
-        <div ref={trailLayerRef} className="f4m-trail-layer" aria-hidden="true" />
 
         {/* Composition Container */}
         <div className="f4m-composition">

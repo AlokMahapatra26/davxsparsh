@@ -1,0 +1,161 @@
+/* ==========================================================================
+   Figma for Motion v2 - 1:1 Pixel-Perfect Template Scroll Stack & Circle Engine
+   Calibrated scroll-distance & pacing: Luxurious, smooth, cinematic speed.
+   ========================================================================== */
+
+.f4m-scroll-section {
+  --stack-width: min(calc(100vw - 50px), 390px);
+  --overlap: calc(var(--stack-width) * 0.25);
+  --background-start: calc(50svh - var(--stack-width) * 0.280769 + var(--overlap));
+  z-index: 2;
+  margin-top: calc(-1 * var(--background-start));
+  height: var(--scroll-height, 360svh);
+  background: linear-gradient(to bottom, transparent var(--background-start), #ebe8f9 var(--background-start));
+  color: #000;
+  pointer-events: none;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .f4m-scroll-section {
+    --stack-width: min(calc(100vw - 80px), 680px);
+    --overlap: 75px;
+  }
+
+  .f4m-scroll-section.f4m-hero-journey {
+    --desktop-hero-height: max(956px, 100svh);
+    margin-top: calc(-1 * var(--desktop-hero-height));
+    height: calc(var(--desktop-hero-height) + var(--desktop-scroll-height, 350svh));
+    background: linear-gradient(to bottom, transparent var(--desktop-hero-height), #ebe8f9 var(--desktop-hero-height));
+    pointer-events: none;
+    scroll-margin-top: calc(-1 * var(--desktop-hero-height));
+  }
+
+  .f4m-scroll-section.f4m-hero-journey .f4m-audience-anchor {
+    top: var(--audience-anchor, calc(var(--desktop-hero-height) + 180svh));
+  }
+
+  .f4m-scroll-section.f4m-hero-journey .f4m-card {
+    transform: translate(-50%, -50%) translate(calc(min(100vw, 1440px) * 0.289), calc(var(--desktop-hero-height) * 0.615 - 50svh + var(--index) * 22px)) scale(calc(min(534px, calc(min(100vw, 1440px) * 0.371)) / var(--stack-width) * (1 - var(--index) * 0.055)));
+    border-radius: 26.3px;
+  }
+}
+
+.f4m-audience-anchor {
+  top: var(--audience-anchor, 200svh);
+  width: 1px;
+  height: 1px;
+  scroll-margin-top: -100px;
+  position: absolute;
+  left: 0;
+}
+
+.f4m-stage {
+  width: 100%;
+  max-width: 1440px;
+  height: 100svh;
+  margin-inline: auto;
+  position: sticky;
+  top: 0;
+  overflow: clip;
+}
+
+.f4m-cards-layer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.f4m-card {
+  width: var(--stack-width);
+  aspect-ratio: 390 / 219;
+  transform: translate(-50%, -50%) translateY(calc(var(--index) * 16px)) scale(calc(1 - var(--index) * 0.055));
+  z-index: calc(20 - var(--index));
+  will-change: transform, opacity;
+  border-radius: 15.088px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.f4m-card:nth-child(n+6) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.f4m-preview {
+  background: #161616;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.f4m-preview > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  inset: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+.f4m-audience {
+  --design-scale: 1;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 30;
+  position: absolute;
+  inset: 0;
+}
+
+.f4m-audience-label {
+  transform: translate(-50%, -50%) translateY(calc(-60px * var(--design-scale)));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font: 500 calc(14px * var(--design-scale)) / 1.4 'F4MTrap', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  color: #111;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+}
+
+.f4m-audience-roles {
+  font: 700 calc(52px * var(--design-scale)) / 1.1 'F4MTusker5700', 'Impact', 'Arial Narrow', sans-serif;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-align: center;
+  position: absolute;
+  inset: 0;
+  color: #000;
+}
+
+.f4m-audience-roles > span {
+  white-space: nowrap;
+  transform-origin: 50%;
+  will-change: transform, opacity;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.f4m-screen-reader {
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+}

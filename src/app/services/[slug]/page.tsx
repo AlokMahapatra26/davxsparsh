@@ -332,7 +332,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   return (
     <BackgroundPaths
-      className="min-h-screen w-full bg-white !bg-white text-zinc-300/80 flex flex-col justify-start selection:bg-zinc-900 selection:text-white font-sans antialiased"
+      className="min-h-screen w-full bg-[#ebe8f9] !bg-[#ebe8f9] text-zinc-300/80 flex flex-col justify-start selection:bg-zinc-900 selection:text-white font-sans antialiased"
       count={40}
       spread={1.1}
       angle={-7}
@@ -349,14 +349,14 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
           <ReturnToStudio />
         </div>
 
-        {/* Title & Editorial Lead */}
-        <div className="space-y-6 mb-16 sm:mb-20">
-          <h1 className="font-serif italic text-5xl sm:text-7xl lg:text-8xl text-zinc-950 font-normal tracking-tight capitalize leading-[1.05]">
+        {/* Title & Lead */}
+        <div className="space-y-4 mb-16 sm:mb-20">
+          <h1 className="font-bold text-5xl sm:text-7xl lg:text-8xl text-zinc-950 tracking-[-0.035em] capitalize leading-[1.05]">
             {service.title}
           </h1>
 
-          <p className="font-serif italic text-2xl sm:text-3xl lg:text-4xl text-zinc-600 max-w-3xl leading-snug font-normal">
-            &ldquo;{service.lead}&rdquo;
+          <p className="text-xl sm:text-2xl lg:text-3xl text-zinc-600 max-w-3xl leading-snug font-normal tracking-[-0.012em]">
+            {service.lead}
           </p>
         </div>
 
@@ -382,7 +382,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
                 <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-400">
                   Direct Inquiries
                 </span>
-                <p className="font-serif italic text-lg text-zinc-900">
+                <p className="font-bold text-lg text-zinc-900 tracking-tight">
                   Commission this discipline
                 </p>
               </div>
@@ -424,7 +424,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
                     <span className="font-mono text-xs text-zinc-400 font-normal">
                       {item.num}
                     </span>
-                    <h3 className="font-serif italic text-xl sm:text-2xl text-zinc-900 font-normal group-hover:text-zinc-600 transition-colors">
+                    <h3 className="font-bold text-xl sm:text-2xl text-zinc-900 tracking-tight group-hover:text-zinc-600 transition-colors">
                       {item.title}
                     </h3>
                   </div>
@@ -451,7 +451,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-white text-zinc-400 flex items-center justify-center font-mono text-xs">
+        <div className="min-h-screen bg-[#ebe8f9] text-zinc-400 flex items-center justify-center font-mono text-xs">
           Loading service...
         </div>
       }

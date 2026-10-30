@@ -190,11 +190,11 @@ export function DossierCardFace({
                 <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-widest block">
                   2. Editorial Typography Scales
                 </span>
-                <p className="text-sm font-serif italic text-zinc-800">
+                <p className="text-sm font-bold text-zinc-900 tracking-tight">
                   &ldquo;Design is sensory craft meet tactile precision.&rdquo;
                 </p>
                 <p className="text-xs font-mono text-zinc-500">
-                  Headline: Serif Display &bull; Body: Inter / Geist &bull; Code: Mono 13px
+                  Headline: Bold Display &bull; Body: Inter / Sans &bull; Code: Mono 13px
                 </p>
               </div>
             </div>

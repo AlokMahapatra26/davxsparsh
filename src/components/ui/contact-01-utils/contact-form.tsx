@@ -92,7 +92,7 @@ export default function ContactForm({
   };
 
   return (
-    <div className="w-full max-w-[620px] bg-white rounded-[26px] border border-[#e2e8f0] p-8 sm:p-10 md:p-11 shadow-[0_12px_45px_rgba(0,0,0,0.05)]">
+    <div className="w-full max-w-[620px] bg-white/80 backdrop-blur-xl rounded-[26px] border border-white/70 p-8 sm:p-10 md:p-11 shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
       {/* Card Title */}
       <h2 className="text-[24px] sm:text-[28px] font-bold text-[#0f172a] tracking-tight mb-7">
         Start the project

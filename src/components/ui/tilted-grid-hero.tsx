@@ -90,6 +90,8 @@ export type TiltedGridImage = {
   src: string;
   /** Only used if you drop the decorative treatment; the band is aria-hidden. */
   alt?: string;
+  title?: string;
+  href?: string;
 };
 
 export type TiltedGridHeroProps = {
@@ -121,6 +123,8 @@ export type TiltedGridHeroProps = {
   curve?: number;
   /** Width of the fade at each end, as a percentage of the hero's width. @default 12 */
   fade?: number;
+  /** Callback when a card is clicked */
+  onCardClick?: (image: TiltedGridImage, index: number) => void;
   /** Content rendered above the band. */
   children?: React.ReactNode;
   className?: string;
@@ -135,6 +139,7 @@ export function TiltedGridHero({
   axis = 56,
   curve = 80,
   fade = 12,
+  onCardClick,
   children,
   className,
   ...props
@@ -180,31 +185,6 @@ export function TiltedGridHero({
     for (const { src } of images) new Image().src = src;
   }, [images]);
 
-  // Track scroll position to tilt the cylinder in 3D as the user scrolls
-  const [scrollAngle, setScrollAngle] = React.useState(0);
-
-  React.useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (!ref.current) return;
-          const rect = ref.current.getBoundingClientRect();
-          const windowH = window.innerHeight;
-          if (rect.top < windowH && rect.bottom > 0) {
-            const progress = (windowH - rect.top) / (windowH + rect.height);
-            setScrollAngle((progress - 0.5) * 22);
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const { columns, sweep, unit, limit } =
     layout ?? measure(1200, 560, tileHeight, aspectRatio, gap, bend);
 
@@ -234,7 +214,8 @@ export function TiltedGridHero({
     // Pausing rather than removing the motion keeps the band whole: every
     // tile is already placed by its negative delay, so it freezes as a
     // finished still.
-    `@media(prefers-reduced-motion:reduce){.${tile}{animation-play-state:paused}}`;
+    `@media(prefers-reduced-motion:reduce){.${tile}{animation-play-state:paused}}` +
+    `@media(hover:hover){.${tile}:hover{animation-play-state:paused;filter:drop-shadow(0 20px 38px rgba(0,0,0,0.28)) brightness(1.05);}}`;
 
   const share = aspectRatio / SLICES;
   const duration = columns * speed;
@@ -252,17 +233,15 @@ export function TiltedGridHero({
       <style>{css}</style>
 
       <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 transition-opacity duration-500"
+        className="pointer-events-none absolute inset-0 transition-opacity duration-500 z-[5]"
         style={{
           opacity: layout ? 1 : 0,
+          // A shared vanishing point on the row's centre line, so the ends
+          // grow evenly above and below it as they come toward the viewer.
           perspective: `${+(r * CAMERA).toFixed(3)}cqw`,
           perspectiveOrigin: `50% ${axis}%`,
           maskImage: mask,
           WebkitMaskImage: mask,
-          transform: `rotateY(${scrollAngle}deg) rotateX(${scrollAngle * 0.12}deg)`,
-          transformOrigin: "center center",
-          transition: "transform 0.15s ease-out",
         }}
       >
         {Array.from({ length: columns }, (_, t) => {
@@ -270,18 +249,47 @@ export function TiltedGridHero({
           // back, so this numbers tiles in the order they come on.
           const first = columns - 1 - t;
           const img = images[(shown[t] ?? first) % Math.max(images.length, 1)];
+          const isClickable = Boolean(img?.href || onCardClick);
           return (
             <div
               key={t}
-              className={cn(tile, "absolute")}
+              role={isClickable ? "button" : undefined}
+              tabIndex={isClickable ? 0 : undefined}
+              aria-label={img?.title || img?.alt || "Service Card"}
+              className={cn(
+                tile,
+                "absolute select-none group",
+                isClickable && "pointer-events-auto cursor-pointer transition-transform duration-300 hover:scale-[1.03]"
+              )}
               style={{
                 left: `calc(50% - ${u(aspectRatio / 2)})`,
                 top: `calc(${axis}% - ${u(0.5)})`,
                 width: u(aspectRatio),
                 height: u(1),
                 transformStyle: "preserve-3d",
+                filter: "drop-shadow(0 14px 28px rgba(0, 0, 0, 0.16))",
                 // Tile t starts t tiles along the loop.
                 animation: `${orbit} ${duration}s linear ${-t * speed}s infinite`,
+              }}
+              onClick={(e) => {
+                if (!isClickable) return;
+                e.stopPropagation();
+                if (onCardClick && img) {
+                  onCardClick(img, t);
+                } else if (img?.href && typeof window !== "undefined") {
+                  window.location.href = img.href;
+                }
+              }}
+              onKeyDown={(e) => {
+                if (!isClickable) return;
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  if (onCardClick && img) {
+                    onCardClick(img, t);
+                  } else if (img?.href && typeof window !== "undefined") {
+                    window.location.href = img.href;
+                  }
+                }
               }}
               onAnimationIteration={(e) => {
                 // elapsedTime counts whole loops, missed events included.
@@ -297,8 +305,8 @@ export function TiltedGridHero({
                   key={k}
                   className={cn(
                     "absolute top-0 overflow-hidden bg-muted",
-                    k === 0 && "rounded-l-lg",
-                    k === SLICES - 1 && "rounded-r-lg",
+                    k === 0 && "rounded-l-xl",
+                    k === SLICES - 1 && "rounded-r-xl",
                   )}
                   style={{
                     // Every strip starts at the tile's centre and is turned
@@ -316,17 +324,40 @@ export function TiltedGridHero({
                   }}
                 >
                   {img ? (
-                    <img
-                      src={img.src}
-                      alt={k === 0 ? (img.alt ?? "") : ""}
-                      draggable={false}
-                      className="absolute top-0 max-w-none object-cover"
-                      style={{
-                        left: u(-k * share),
-                        width: u(aspectRatio),
-                        height: u(1),
-                      }}
-                    />
+                    <>
+                      <img
+                        src={img.src}
+                        alt={k === 0 ? (img.alt ?? "") : ""}
+                        draggable={false}
+                        className="absolute top-0 max-w-none object-cover transition-transform duration-500 group-hover:scale-105"
+                        style={{
+                          left: u(-k * share),
+                          width: u(aspectRatio),
+                          height: u(1),
+                        }}
+                      />
+                      {img.title ? (
+                        <div
+                          className="absolute inset-0 flex flex-col justify-end p-5 pointer-events-none"
+                          style={{
+                            left: u(-k * share),
+                            width: u(aspectRatio),
+                            height: u(1),
+                          }}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent transition-opacity duration-300 group-hover:from-black/90" />
+                          <div className="relative z-10 flex items-center justify-between gap-3">
+                            <span className="text-white text-sm sm:text-base font-bold tracking-tight drop-shadow-md">
+                              {img.title}
+                            </span>
+                            <span className="text-white/90 text-[11px] font-semibold uppercase tracking-wider flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 shadow-xs group-hover:bg-white group-hover:text-black transition-all">
+                              <span>Explore</span>
+                              <span>&rarr;</span>
+                            </span>
+                          </div>
+                        </div>
+                      ) : null}
+                    </>
                   ) : null}
                 </div>
               ))}
