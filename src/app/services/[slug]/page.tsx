@@ -10,7 +10,7 @@ import {
 import BackgroundPaths from '@/components/kokonutui/background-paths';
 import { Button } from '@/components/ui/button';
 import { ReturnToStudio } from '@/components/ui/return-to-studio';
-import { BentoGridShowcase } from '@/components/ui/bento-grid';
+import { BentoGridShowcase, type BentoPattern } from '@/components/ui/bento-grid';
 import {
   Card,
   CardHeader,
@@ -49,6 +49,7 @@ interface ServiceData {
 }
 
 interface BentoMetadata {
+  pattern?: BentoPattern;
   mainImage: string;
   secondaryImage: string;
   stackImage?: string;
@@ -344,6 +345,7 @@ const SERVICE_REGISTRY: Record<string, ServiceData> = {
 
 const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
   'web-development': {
+    pattern: 'center-tall',
     mainImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80&auto=format&fit=crop',
     stackImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80&auto=format&fit=crop',
@@ -363,6 +365,7 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
     }
   },
   'app-development': {
+    pattern: 'hero-left-tall',
     mainImage: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80&auto=format&fit=crop',
     stackImage: 'https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=800&q=80&auto=format&fit=crop',
@@ -382,6 +385,7 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
     }
   },
   'ai-automation': {
+    pattern: 'hero-top-right',
     mainImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80&auto=format&fit=crop',
     stackImage: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80&auto=format&fit=crop',
@@ -401,6 +405,7 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
     }
   },
   'ui-ux-design': {
+    pattern: 'hero-top-left',
     mainImage: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&q=80&auto=format&fit=crop',
     stackImage: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&q=80&auto=format&fit=crop',
@@ -420,6 +425,7 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
     }
   },
   'creative-logo-design': {
+    pattern: 'hero-top-left',
     mainImage: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=800&q=80&auto=format&fit=crop',
     stackImage: 'https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=800&q=80&auto=format&fit=crop',
@@ -439,6 +445,7 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
     }
   },
   'logo-design': {
+    pattern: 'hero-top-left',
     mainImage: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=800&q=80&auto=format&fit=crop',
     stackImage: 'https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=800&q=80&auto=format&fit=crop',
@@ -458,6 +465,7 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
     }
   },
   'graphics-design': {
+    pattern: 'split-editorial',
     mainImage: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=800&q=80&auto=format&fit=crop',
     stackImage: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=800&q=80&auto=format&fit=crop',
@@ -477,6 +485,7 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
     }
   },
   'social-media-marketing': {
+    pattern: 'hero-top-right',
     mainImage: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80&auto=format&fit=crop',
     stackImage: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80&auto=format&fit=crop',
@@ -496,6 +505,7 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
     }
   },
   'brand-identity': {
+    pattern: 'split-editorial',
     mainImage: 'https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&q=80&auto=format&fit=crop',
     stackImage: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&q=80&auto=format&fit=crop',
@@ -517,6 +527,7 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
 };
 
 const DEFAULT_METADATA: BentoMetadata = {
+  pattern: 'hero-top-left',
   mainImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop',
   secondaryImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80&auto=format&fit=crop',
   stackImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80&auto=format&fit=crop',
@@ -602,13 +613,14 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end p-6 sm:p-8 z-10">
-        <span className="text-[#9eff3e] text-xs font-mono uppercase tracking-widest font-bold mb-2">
-          Discipline Focus
-        </span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#9eff3e] text-xs font-mono font-bold uppercase tracking-wider mb-3 w-fit">
+          <span className="w-2 h-2 rounded-full bg-[#9eff3e] animate-pulse shadow-[0_0_8px_#9eff3e]" />
+          <span>Discipline Focus</span>
+        </div>
         <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight mb-2">
           {service.title}
         </h3>
-        <p className="text-xs sm:text-sm text-zinc-200/90 leading-relaxed max-w-md line-clamp-3">
+        <p className="text-xs sm:text-sm text-zinc-200/90 leading-relaxed max-w-xl line-clamp-3">
           {service.lead}
         </p>
       </div>
@@ -663,29 +675,29 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
     </Card>
   );
 
-  // Bento Grid Slot 5: Statistics & Verified Metric (Spans 2 Rows)
+  // Bento Grid Slot 5: Statistics & Verified Metric (Adaptive for 1-row and 2-row heights)
   const StatisticSlot = (
-    <Card className="relative flex h-full flex-col justify-between overflow-hidden p-6 sm:p-8 rounded-2xl border border-zinc-200/80 shadow-none group">
+    <Card className="relative flex h-full flex-col justify-between overflow-hidden p-5 sm:p-6 rounded-2xl border border-zinc-200/80 shadow-none group">
       <img
         src={meta.statImage || DEFAULT_METADATA.statImage}
         alt="Metric telemetry demo visual"
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-br from-[#9eff3e]/30 via-zinc-950/85 to-zinc-950/95" />
-      <div className="relative z-10 flex items-center justify-end">
-        <span className="text-[11px] font-mono uppercase tracking-widest text-black font-bold bg-[#9eff3e] px-3 py-1 rounded-full border border-[#9eff3e]/60 shadow-[0_0_12px_rgba(158,255,62,0.4)]">
+      <div className="relative z-10 flex items-center justify-between">
+        <span className="text-[10px] font-mono uppercase tracking-widest text-black font-bold bg-[#9eff3e] px-2.5 py-0.5 rounded-full border border-[#9eff3e]/60 shadow-[0_0_12px_rgba(158,255,62,0.4)]">
           Verified Metric
         </span>
       </div>
-      <div className="relative z-10 my-4 sm:my-6">
-        <p className="text-5xl sm:text-6xl font-black text-white tracking-tight drop-shadow-md">
+      <div className="relative z-10 my-2 sm:my-3">
+        <p className="text-4xl sm:text-5xl font-black text-white tracking-tight drop-shadow-md">
           {meta.stat.value}
         </p>
-        <p className="text-sm sm:text-base font-bold text-[#9eff3e] mt-2">
+        <p className="text-xs sm:text-sm font-bold text-[#9eff3e] mt-1">
           {meta.stat.label}
         </p>
       </div>
-      <p className="relative z-10 text-xs sm:text-sm text-zinc-300 leading-relaxed border-t border-white/15 pt-4 font-sans line-clamp-3">
+      <p className="relative z-10 text-xs text-zinc-300 leading-relaxed border-t border-white/15 pt-3 font-sans line-clamp-2">
         {meta.stat.description}
       </p>
     </Card>
@@ -757,12 +769,14 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
         {/* Bento Grid Showcase Integration */}
         <div className="mb-20 sm:mb-24">
           <BentoGridShowcase
+            defaultPattern={meta.pattern || 'hero-top-left'}
             integrations={IntegrationsSlot}
             featureTags={FeatureTagsSlot}
             mainFeature={MainFeatureSlot}
             secondaryFeature={SecondaryFeatureSlot}
             statistic={StatisticSlot}
             journey={JourneySlot}
+            showPatternSwitcher={true}
           />
         </div>
 

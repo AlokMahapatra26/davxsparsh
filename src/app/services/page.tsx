@@ -7,41 +7,15 @@ const DISCIPLINES = [
   {
     slug: 'ui-ux-design',
     title: 'UI/UX & Web Design',
+    patternName: 'Alpha • Wide Hero',
     division: 'Sparsh Design Studio',
     lead: 'Responsive web designs, CMS architectures, portfolio websites, and e-commerce platforms.',
     email: 'contact@sparshdesign.com',
   },
   {
-    slug: 'creative-logo-design',
-    title: 'Creative Logo Design',
-    division: 'Sparsh Design Studio',
-    lead: 'Unique, custom logo designs that declare your presence and establish your brand authority.',
-    email: 'contact@sparshdesign.com',
-  },
-  {
-    slug: 'graphics-design',
-    title: 'Graphics Design & Branding',
-    division: 'Sparsh Design Studio',
-    lead: 'Outdoor branding, corporate stationery, daily marketing creatives, and packaging.',
-    email: 'contact@sparshdesign.com',
-  },
-  {
-    slug: 'social-media-marketing',
-    title: 'Social Media Marketing',
-    division: 'Sparsh Design Digital Marketing',
-    lead: 'Gaining targeted website traffic, driving leads, and running high-conversion social campaigns.',
-    email: 'contact@sparshdesign.com',
-  },
-  {
-    slug: 'brand-identity',
-    title: 'Brand Identity & Packaging',
-    division: 'Sparsh Design Studio',
-    lead: 'Enduring visual systems and comprehensive brand guidelines that outlast market cycles.',
-    email: 'contact@sparshdesign.com',
-  },
-  {
     slug: 'web-development',
     title: 'Web Development',
+    patternName: 'Beta • Center Tall',
     division: 'DAVLabs Systems Engineering',
     lead: 'Sub-second edge speeds, resilient cloud architectures, and zero runtime drift.',
     email: 'contact@davlabs.in',
@@ -49,6 +23,7 @@ const DISCIPLINES = [
   {
     slug: 'app-development',
     title: 'App Development',
+    patternName: 'Delta • Left Pillar',
     division: 'DAVLabs Systems Engineering',
     lead: 'Native 120Hz gesture response with offline CRDT certainty on iOS and Android.',
     email: 'contact@davlabs.in',
@@ -56,9 +31,42 @@ const DISCIPLINES = [
   {
     slug: 'ai-automation',
     title: 'AI Automation',
+    patternName: 'Gamma • Top-Right',
     division: 'DAVLabs Intelligence Systems',
     lead: 'Autonomous multi-agent execution loops and enterprise semantic RAG workflows.',
     email: 'contact@davlabs.in',
+  },
+  {
+    slug: 'creative-logo-design',
+    title: 'Creative Logo Design',
+    patternName: 'Alpha • Wide Hero',
+    division: 'Sparsh Design Studio',
+    lead: 'Unique, custom logo designs that declare your presence and establish your brand authority.',
+    email: 'contact@sparshdesign.com',
+  },
+  {
+    slug: 'graphics-design',
+    title: 'Graphics Design & Branding',
+    patternName: 'Epsilon • Editorial',
+    division: 'Sparsh Design Studio',
+    lead: 'Outdoor branding, corporate stationery, daily marketing creatives, and packaging.',
+    email: 'contact@sparshdesign.com',
+  },
+  {
+    slug: 'social-media-marketing',
+    title: 'Social Media Marketing',
+    patternName: 'Gamma • Top-Right',
+    division: 'Sparsh Design Digital Marketing',
+    lead: 'Gaining targeted website traffic, driving leads, and running high-conversion social campaigns.',
+    email: 'contact@sparshdesign.com',
+  },
+  {
+    slug: 'brand-identity',
+    title: 'Brand Identity & Packaging',
+    patternName: 'Epsilon • Editorial',
+    division: 'Sparsh Design Studio',
+    lead: 'Enduring visual systems and comprehensive brand guidelines that outlast market cycles.',
+    email: 'contact@sparshdesign.com',
   },
 ];
 
@@ -106,12 +114,17 @@ export default function ServicesIndexPage() {
               <div className="space-y-2 max-w-xl">
                 <div className="flex items-baseline gap-3">
                   <span className="font-mono text-xs text-zinc-400">0{idx + 1}</span>
-                  <Link
-                    href={`/services/${d.slug}`}
-                    className="font-bold text-2xl sm:text-3xl text-zinc-900 tracking-[-0.03em] group-hover:text-zinc-600 transition-colors"
-                  >
-                    {d.title}
-                  </Link>
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <Link
+                      href={`/services/${d.slug}`}
+                      className="font-bold text-2xl sm:text-3xl text-zinc-900 tracking-[-0.03em] group-hover:text-zinc-600 transition-colors"
+                    >
+                      {d.title}
+                    </Link>
+                    <span className="text-[11px] font-mono tracking-wide text-zinc-500 bg-white/70 border border-zinc-200/90 px-2.5 py-0.5 rounded-full shadow-2xs">
+                      {d.patternName}
+                    </span>
+                  </div>
                 </div>
                 <p className="pl-7 text-xs sm:text-sm text-zinc-600 font-sans leading-relaxed">
                   {d.lead}
