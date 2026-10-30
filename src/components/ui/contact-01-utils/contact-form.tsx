@@ -71,12 +71,11 @@ export default function ContactForm({
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const toggleService = (service: string) => {
+  const handleSelectService = (service: string) => {
     setSelectedServices((prev) =>
-      prev.includes(service)
-        ? prev.filter((item) => item !== service)
-        : [...prev, service]
+      prev.includes(service) ? [] : [service]
     );
+    setIsServicesOpen(false);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -92,7 +91,7 @@ export default function ContactForm({
   };
 
   return (
-    <div className="w-full max-w-[620px] bg-[#ede5f9] rounded-[26px] border border-zinc-200/80 p-8 sm:p-10 md:p-11 shadow-none">
+    <div className="w-full max-w-[620px] bg-[#ede5f9] rounded-[26px] border-0 p-8 sm:p-10 md:p-11 shadow-none">
       {/* Card Title */}
       <h2 className="text-[24px] sm:text-[28px] font-bold text-[#0f172a] tracking-tight mb-7">
         Start the project
@@ -126,7 +125,7 @@ export default function ContactForm({
                 placeholder="First name"
                 value={formData.firstName}
                 onChange={handleChange}
-                className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all"
+                className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] transition-all"
               />
             </div>
             <div>
@@ -137,7 +136,7 @@ export default function ContactForm({
                 placeholder="Last name"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all"
+                className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] transition-all"
               />
             </div>
           </div>
@@ -151,7 +150,7 @@ export default function ContactForm({
               placeholder="youremail@website.com"
               value={formData.email}
               onChange={handleChange}
-              className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all"
+              className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] transition-all"
             />
           </div>
 
@@ -163,7 +162,7 @@ export default function ContactForm({
                 setIsCountryOpen(!isCountryOpen);
                 setIsServicesOpen(false);
               }}
-              className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[12px] flex items-center justify-between focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all cursor-pointer text-left"
+              className="w-full h-[52px] px-5 text-[15px] text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[12px] flex items-center justify-between focus:outline-none focus:border-[#4355ff] transition-all cursor-pointer text-left"
             >
               <span className="font-medium">{country}</span>
               <ChevronDown
@@ -205,7 +204,7 @@ export default function ContactForm({
             )}
           </div>
 
-          {/* Row 4: Services Multi-Select Dropdown with Checkboxes (Clean without extra pills/banners) */}
+          {/* Row 4: Services Select Dropdown (Clean without checkboxes) */}
           <div className="relative mb-5">
             <button
               type="button"
@@ -213,7 +212,7 @@ export default function ContactForm({
                 setIsServicesOpen(!isServicesOpen);
                 setIsCountryOpen(false);
               }}
-              className="w-full h-[52px] px-5 text-[15px] bg-white border border-[#e2e8f0] rounded-[12px] flex items-center justify-between focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all cursor-pointer text-left"
+              className="w-full h-[52px] px-5 text-[15px] bg-white border border-[#e2e8f0] rounded-[12px] flex items-center justify-between focus:outline-none focus:border-[#4355ff] transition-all cursor-pointer text-left"
             >
               <span
                 className={
@@ -224,9 +223,7 @@ export default function ContactForm({
               >
                 {selectedServices.length === 0
                   ? "Select services"
-                  : selectedServices.length === 1
-                  ? selectedServices[0]
-                  : `${selectedServices.length} services selected`}
+                  : selectedServices[0]}
               </span>
               <ChevronDown
                 className={cn(
@@ -243,48 +240,25 @@ export default function ContactForm({
                   onClick={() => setIsServicesOpen(false)}
                 />
                 <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-[#e2e8f0] rounded-[14px] shadow-2xl z-30 py-2.5 max-h-72 overflow-y-auto">
-                  <div className="px-5 py-2 flex items-center justify-between border-b border-[#f1f5f9] mb-1.5">
-                    <span className="text-[12px] font-bold tracking-wider uppercase text-[#64748b]">
-                      Select Services ({selectedServices.length} selected)
-                    </span>
-                    {selectedServices.length > 0 && (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedServices([]);
-                        }}
-                        className="text-[13px] text-[#4355ff] hover:text-[#3142e6] hover:underline font-semibold cursor-pointer"
-                      >
-                        Clear all
-                      </button>
-                    )}
-                  </div>
                   {SERVICES.map((service) => {
-                    const isChecked = selectedServices.includes(service);
+                    const isSelected = selectedServices.includes(service);
                     return (
-                      <div
+                      <button
                         key={service}
-                        onClick={() => toggleService(service)}
+                        type="button"
+                        onClick={() => handleSelectService(service)}
                         className={cn(
-                          "w-full px-5 py-3 text-left text-[15px] hover:bg-[#f8fafc] transition-colors cursor-pointer flex items-center gap-3.5 select-none",
-                          isChecked && "bg-[#4355ff]/5 text-[#4355ff]"
+                          "w-full px-5 py-3 text-left text-[15px] hover:bg-[#f8fafc] transition-colors cursor-pointer flex items-center justify-between",
+                          isSelected
+                            ? "text-[#4355ff] font-semibold bg-[#4355ff]/5"
+                            : "text-[#0f172a]"
                         )}
                       >
-                        <div
-                          className={cn(
-                            "w-5 h-5 rounded-[6px] border-2 flex items-center justify-center transition-all shrink-0",
-                            isChecked
-                              ? "bg-[#4355ff] border-[#4355ff] text-white shadow-xs"
-                              : "border-[#cbd5e1] bg-white group-hover:border-[#94a3b8]"
-                          )}
-                        >
-                          {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                        </div>
-                        <span className="flex-1 font-medium select-none">
-                          {service}
-                        </span>
-                      </div>
+                        <span>{service}</span>
+                        {isSelected && (
+                          <Check className="w-4 h-4 text-[#4355ff]" />
+                        )}
+                      </button>
                     );
                   })}
                 </div>
@@ -301,7 +275,7 @@ export default function ContactForm({
               placeholder="Let us know about your project"
               value={formData.message}
               onChange={handleChange}
-              className="w-full px-5 py-4 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] focus:ring-4 focus:ring-[#4355ff]/10 transition-all resize-none min-h-[130px]"
+              className="w-full px-5 py-4 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] bg-white border border-[#e2e8f0] rounded-[12px] focus:outline-none focus:border-[#4355ff] transition-all resize-none min-h-[130px]"
             />
           </div>
 
