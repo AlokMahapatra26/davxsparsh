@@ -469,11 +469,12 @@ export const CardNav: React.FC<CardNavProps> = ({
     }
     const isInternal = target.href.startsWith('/') || target.href.startsWith('#');
     const isMailOrTel = target.href.startsWith('mailto:') || target.href.startsWith('tel:');
-    const Component = isInternal ? LinkComponent : 'a';
+    const isService = target.href.startsWith('/services');
+    const Component = isInternal && !isService ? LinkComponent : 'a';
     const linkProps = {
       ...props,
       href: target.href,
-      ...(!isInternal && !isMailOrTel ? { target: '_blank', rel: 'noopener noreferrer' } : {})
+      ...(isService || (!isInternal && !isMailOrTel) ? { target: '_blank', rel: 'noopener noreferrer' } : {})
     };
     return (
       <Component {...linkProps}>

@@ -277,7 +277,7 @@ export function TiltedGridHero({
                 if (onCardClick && img) {
                   onCardClick(img, t);
                 } else if (img?.href && typeof window !== "undefined") {
-                  window.location.href = img.href;
+                  window.open(img.href, "_blank", "noopener,noreferrer");
                 }
               }}
               onKeyDown={(e) => {
@@ -287,7 +287,7 @@ export function TiltedGridHero({
                   if (onCardClick && img) {
                     onCardClick(img, t);
                   } else if (img?.href && typeof window !== "undefined") {
-                    window.location.href = img.href;
+                    window.open(img.href, "_blank", "noopener,noreferrer");
                   }
                 }
               }}

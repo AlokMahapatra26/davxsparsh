@@ -370,7 +370,7 @@ export default function HomePage() {
               <div className="pointer-events-auto flex flex-col items-center pb-2 px-4">
                 <button
                   type="button"
-                  onClick={() => router.push("/services")}
+                  onClick={() => window.open("/services", "_blank", "noopener,noreferrer")}
                   className="inline-flex items-center gap-3.5 pl-2.5 pr-6 py-2.5 rounded-[22px] bg-[#9eff3e] text-black hover:bg-white hover:shadow-[0_8px_32px_rgba(158,255,62,0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group shadow-md"
                 >
                   <span className="flex items-center justify-center w-12 h-12 bg-white rounded-[14px] border border-black/10 shadow-xs transition-transform duration-200 group-hover:translate-x-0.5">

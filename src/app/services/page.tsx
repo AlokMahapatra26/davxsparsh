@@ -108,6 +108,8 @@ export default function ServicesIndexPage() {
                   <span className="font-mono text-xs text-zinc-400">0{idx + 1}</span>
                   <Link
                     href={`/services/${d.slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="font-bold text-2xl sm:text-3xl text-zinc-900 tracking-[-0.03em] group-hover:text-zinc-600 transition-colors"
                   >
                     {d.title}
@@ -120,7 +122,7 @@ export default function ServicesIndexPage() {
 
               <div className="flex items-center gap-4 pl-7 md:pl-0">
                 <Button variant="push" size="sm" asChild className="gap-1.5">
-                  <Link href={`/services/${d.slug}`}>
+                  <Link href={`/services/${d.slug}`} target="_blank" rel="noopener noreferrer">
                     <span>View Discipline</span>
                     <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/button:translate-x-0.5 group-hover/button:-translate-y-0.5" />
                   </Link>
