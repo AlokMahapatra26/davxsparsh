@@ -51,6 +51,11 @@ interface ServiceData {
 interface BentoMetadata {
   mainImage: string;
   secondaryImage: string;
+  stackImage?: string;
+  tenetsImage?: string;
+  statImage?: string;
+  deliveryImage?: string;
+  videoUrl?: string;
   stack: string[];
   tags: string[];
   stat: {
@@ -341,6 +346,10 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
   'web-development': {
     mainImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80&auto=format&fit=crop',
+    stackImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80&auto=format&fit=crop',
+    tenetsImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop',
+    statImage: 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80&auto=format&fit=crop',
+    deliveryImage: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&q=80&auto=format&fit=crop',
     stack: ['Next.js 16', 'TypeScript', 'React 19', 'Tailwind v4', 'Docker', 'Turbopack'],
     tags: ['Sub-Second TTFB', '100/100 Vitals', 'Zero Downtime', 'Type-Safe APIs'],
     stat: {
@@ -356,6 +365,10 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
   'app-development': {
     mainImage: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80&auto=format&fit=crop',
+    stackImage: 'https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=800&q=80&auto=format&fit=crop',
+    tenetsImage: 'https://images.unsplash.com/photo-1556656793-08538906a9f8?w=800&q=80&auto=format&fit=crop',
+    statImage: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80&auto=format&fit=crop',
+    deliveryImage: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80&auto=format&fit=crop',
     stack: ['SwiftUI', 'Kotlin', 'React Native', 'CoreHaptics', 'CRDTs', 'SQLite'],
     tags: ['120 FPS Fluid', 'Offline First', 'Tactile Haptics', 'Zero Battery Leak'],
     stat: {
@@ -371,6 +384,10 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
   'ai-automation': {
     mainImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80&auto=format&fit=crop',
+    stackImage: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80&auto=format&fit=crop',
+    tenetsImage: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80&auto=format&fit=crop',
+    statImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop',
+    deliveryImage: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80&auto=format&fit=crop',
     stack: ['LangChain', 'OpenAI / Claude', 'Python 3.12', 'Vector RAG', 'FastAPI', 'Temporal'],
     tags: ['Autonomous Loops', 'Semantic RAG', 'Deterministic Gates', 'Zero Data Leak'],
     stat: {
@@ -386,6 +403,10 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
   'ui-ux-design': {
     mainImage: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&q=80&auto=format&fit=crop',
+    stackImage: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&q=80&auto=format&fit=crop',
+    tenetsImage: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&q=80&auto=format&fit=crop',
+    statImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80&auto=format&fit=crop',
+    deliveryImage: 'https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80&auto=format&fit=crop',
     stack: ['Figma Master Lib', 'Design Tokens', 'Framer Motion', 'Storybook', 'Principle', 'UserTesting'],
     tags: ['Spatial Rhythm', 'Token Parity', 'Spring Physics', 'WCAG 2.2 AA'],
     stat: {
@@ -401,6 +422,10 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
   'creative-logo-design': {
     mainImage: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=800&q=80&auto=format&fit=crop',
+    stackImage: 'https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=800&q=80&auto=format&fit=crop',
+    tenetsImage: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80&auto=format&fit=crop',
+    statImage: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=800&q=80&auto=format&fit=crop',
+    deliveryImage: 'https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80&auto=format&fit=crop',
     stack: ['Adobe Illustrator', 'Geometric Grids', 'SVG Vector', 'Pantone Matching', 'Glyphs 3', 'PDF/X-1a'],
     tags: ['Optical Balance', '100% Vector', 'Trademark Ready', 'Multi-Lockup Suite'],
     stat: {
@@ -416,6 +441,10 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
   'logo-design': {
     mainImage: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=800&q=80&auto=format&fit=crop',
+    stackImage: 'https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=800&q=80&auto=format&fit=crop',
+    tenetsImage: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80&auto=format&fit=crop',
+    statImage: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=800&q=80&auto=format&fit=crop',
+    deliveryImage: 'https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80&auto=format&fit=crop',
     stack: ['Adobe Illustrator', 'Geometric Grids', 'SVG Vector', 'Pantone Matching', 'Glyphs 3', 'PDF/X-1a'],
     tags: ['Optical Balance', '100% Vector', 'Trademark Ready', 'Multi-Lockup Suite'],
     stat: {
@@ -431,6 +460,10 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
   'graphics-design': {
     mainImage: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=800&q=80&auto=format&fit=crop',
+    stackImage: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=800&q=80&auto=format&fit=crop',
+    tenetsImage: 'https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80&auto=format&fit=crop',
+    statImage: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&q=80&auto=format&fit=crop',
+    deliveryImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80&auto=format&fit=crop',
     stack: ['Adobe InDesign', 'Photoshop', 'Illustrator', 'CMYK 300 DPI', 'After Effects', 'Cinema 4D'],
     tags: ['Large Format Ready', 'Packaging Craft', 'Stationery Suites', 'Animated Creatives'],
     stat: {
@@ -446,6 +479,10 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
   'social-media-marketing': {
     mainImage: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80&auto=format&fit=crop',
+    stackImage: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80&auto=format&fit=crop',
+    tenetsImage: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80&auto=format&fit=crop',
+    statImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop',
+    deliveryImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop',
     stack: ['Meta Ads Manager', 'Google Analytics 4', 'CapCut Pro', 'LinkedIn Campaign', 'Looker Studio'],
     tags: ['Lead Funnels', 'High ROAS', 'Daily Content', 'A/B Creative Tests'],
     stat: {
@@ -461,6 +498,10 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
   'brand-identity': {
     mainImage: 'https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&q=80&auto=format&fit=crop',
     secondaryImage: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&q=80&auto=format&fit=crop',
+    stackImage: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&q=80&auto=format&fit=crop',
+    tenetsImage: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&q=80&auto=format&fit=crop',
+    statImage: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80&auto=format&fit=crop',
+    deliveryImage: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80&auto=format&fit=crop',
     stack: ['Brand Standards', 'Pantone Solid', 'Font Hierarchy', 'Packaging Dielines', 'Motion Tokens'],
     tags: ['Living Guidelines', 'Optical Marks', 'Color Science', 'Editorial Rules'],
     stat: {
@@ -478,6 +519,10 @@ const SERVICE_BENTO_METADATA: Record<string, BentoMetadata> = {
 const DEFAULT_METADATA: BentoMetadata = {
   mainImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop',
   secondaryImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80&auto=format&fit=crop',
+  stackImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80&auto=format&fit=crop',
+  tenetsImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop',
+  statImage: 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80&auto=format&fit=crop',
+  deliveryImage: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&q=80&auto=format&fit=crop',
   stack: ['Architecture', 'Engineering', 'Editorial Polish', 'Design Systems'],
   tags: ['High Precision', 'Resilient Speed', 'Production Ready', 'Tailored Craft'],
   stat: {
@@ -519,22 +564,28 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 1: Stack & Standards
   const IntegrationsSlot = (
-    <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-between rounded-2xl overflow-hidden p-5 sm:p-6">
-      <div>
-        <CardTitle className="text-base sm:text-lg font-bold text-zinc-950 mb-1">
+    <Card className="relative h-full w-full overflow-hidden border border-zinc-200/80 shadow-none flex flex-col justify-between rounded-2xl p-5 sm:p-6 group">
+      <img
+        src={meta.stackImage || DEFAULT_METADATA.stackImage}
+        alt="Stack & Standards demo visual"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/80 to-zinc-950/65" />
+      <div className="relative z-10">
+        <CardTitle className="text-base sm:text-lg font-bold text-white mb-1">
           Stack & Standards
         </CardTitle>
-        <CardDescription className="text-xs sm:text-sm text-zinc-500 line-clamp-1">
+        <CardDescription className="text-xs sm:text-sm text-zinc-300 line-clamp-1">
           Production-grade tooling & modern engineering ecosystem.
         </CardDescription>
       </div>
-      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2">
+      <div className="relative z-10 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2">
         {meta.stack.map((tool) => (
           <div
             key={tool}
-            className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-zinc-100/90 text-xs font-semibold text-zinc-800 border border-zinc-200/70"
+            className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white border border-white/20 backdrop-blur-md transition-colors"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#ff7900]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#ff7900] shadow-[0_0_8px_#ff7900]" />
             <span>{tool}</span>
           </div>
         ))}
@@ -566,18 +617,24 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 3: Feature Tags
   const FeatureTagsSlot = (
-    <Card className="h-full bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-center p-5 sm:p-6 gap-2.5 sm:gap-3 rounded-2xl">
-      <div className="mb-1">
-        <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-bold">
+    <Card className="relative h-full w-full overflow-hidden border border-zinc-200/80 shadow-none flex flex-col justify-center p-5 sm:p-6 gap-2.5 sm:gap-3 rounded-2xl group">
+      <img
+        src={meta.tenetsImage || DEFAULT_METADATA.tenetsImage}
+        alt="Core Tenets demo visual"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/80 to-zinc-950/65" />
+      <div className="relative z-10 mb-1">
+        <span className="text-xs font-mono uppercase tracking-wider text-[#9eff3e] font-bold">
           Core Tenets
         </span>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {meta.tags.map((tag, idx) => (
+      <div className="relative z-10 flex flex-wrap gap-2">
+        {meta.tags.map((tag) => (
           <Badge
             key={tag}
-            variant={idx % 2 === 0 ? 'outline' : 'secondary'}
-            className="w-fit items-center gap-1.5 py-1 px-2.5 sm:py-1.5 sm:px-3 text-xs font-semibold rounded-full border-zinc-300 text-zinc-800 bg-white/80"
+            variant="outline"
+            className="w-fit items-center gap-1.5 py-1 px-2.5 sm:py-1.5 sm:px-3 text-xs font-semibold rounded-full border-white/20 text-white bg-white/10 hover:bg-white/15 backdrop-blur-md transition-colors"
           >
             {tag} <Plus className="h-3 w-3 text-zinc-400" />
           </Badge>
@@ -608,21 +665,27 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 5: Statistics & Verified Metric (Spans 2 Rows)
   const StatisticSlot = (
-    <Card className="flex h-full flex-col justify-between bg-gradient-to-br from-[#9eff3e]/20 via-[#9eff3e]/10 to-white/95 p-6 sm:p-8 rounded-2xl border border-[#9eff3e]/40 shadow-none">
-      <div className="flex items-center justify-end">
-        <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-700 font-bold bg-white/90 px-3 py-1 rounded-full border border-zinc-200/80">
+    <Card className="relative flex h-full flex-col justify-between overflow-hidden p-6 sm:p-8 rounded-2xl border border-zinc-200/80 shadow-none group">
+      <img
+        src={meta.statImage || DEFAULT_METADATA.statImage}
+        alt="Metric telemetry demo visual"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#9eff3e]/30 via-zinc-950/85 to-zinc-950/95" />
+      <div className="relative z-10 flex items-center justify-end">
+        <span className="text-[11px] font-mono uppercase tracking-widest text-black font-bold bg-[#9eff3e] px-3 py-1 rounded-full border border-[#9eff3e]/60 shadow-[0_0_12px_rgba(158,255,62,0.4)]">
           Verified Metric
         </span>
       </div>
-      <div className="my-4 sm:my-6">
-        <p className="text-5xl sm:text-6xl font-black text-zinc-950 tracking-tight">
+      <div className="relative z-10 my-4 sm:my-6">
+        <p className="text-5xl sm:text-6xl font-black text-white tracking-tight drop-shadow-md">
           {meta.stat.value}
         </p>
-        <p className="text-sm sm:text-base font-bold text-zinc-900 mt-2">
+        <p className="text-sm sm:text-base font-bold text-[#9eff3e] mt-2">
           {meta.stat.label}
         </p>
       </div>
-      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed border-t border-black/10 pt-4 font-sans line-clamp-3">
+      <p className="relative z-10 text-xs sm:text-sm text-zinc-300 leading-relaxed border-t border-white/15 pt-4 font-sans line-clamp-3">
         {meta.stat.description}
       </p>
     </Card>
@@ -630,25 +693,31 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
   // Bento Grid Slot 6: Delivery Cadence & Team
   const JourneySlot = (
-    <Card className="relative h-full w-full overflow-hidden p-5 sm:p-6 bg-white/90 backdrop-blur-md border border-zinc-200/90 shadow-none flex flex-col justify-between rounded-2xl">
-      <div>
-        <CardTitle className="text-base font-bold text-zinc-950 mb-1">Delivery Cadence</CardTitle>
-        <CardDescription className="text-xs text-zinc-500 leading-relaxed line-clamp-2">
+    <Card className="relative h-full w-full overflow-hidden p-5 sm:p-6 border border-zinc-200/80 shadow-none flex flex-col justify-between rounded-2xl group">
+      <img
+        src={meta.deliveryImage || DEFAULT_METADATA.deliveryImage}
+        alt="Delivery pipeline demo visual"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/80 to-zinc-950/65" />
+      <div className="relative z-10">
+        <CardTitle className="text-base font-bold text-white mb-1">Delivery Cadence</CardTitle>
+        <CardDescription className="text-xs text-zinc-300 leading-relaxed line-clamp-2">
           {meta.delivery.description}
         </CardDescription>
       </div>
-      <div className="mt-4 pt-4 border-t border-zinc-100 flex items-center justify-between">
+      <div className="relative z-10 mt-4 pt-4 border-t border-white/15 flex items-center justify-between">
         <div className="flex -space-x-2">
-          <Avatar className="w-8 h-8 border-2 border-white">
+          <Avatar className="w-8 h-8 border-2 border-zinc-900">
             <AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" />
             <AvatarFallback>DL</AvatarFallback>
           </Avatar>
-          <Avatar className="w-8 h-8 border-2 border-white">
+          <Avatar className="w-8 h-8 border-2 border-zinc-900">
             <AvatarImage src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" />
             <AvatarFallback>SD</AvatarFallback>
           </Avatar>
         </div>
-        <span className="text-[11px] font-mono text-zinc-700 font-semibold bg-zinc-100 px-2.5 py-1 rounded-full border border-zinc-200">
+        <span className="text-[11px] font-mono text-white font-semibold bg-white/10 px-2.5 py-1 rounded-full border border-white/20 backdrop-blur-md">
           {meta.delivery.cadence}
         </span>
       </div>
