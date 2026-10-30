@@ -104,10 +104,10 @@ export const ImageUploader = React.forwardRef<HTMLDivElement, ImageUploaderProps
       <div ref={ref} className={cn("space-y-4", className)} {...props}>
         <div
           className={cn(
-            "border-2 border-dashed rounded-2xl p-8 text-center transition-all duration-300 cursor-pointer bg-white/70 hover:bg-white border-zinc-300 hover:border-[#4355ff] shadow-xs",
+            "border-2 border-dashed rounded-xl p-5 sm:p-6 text-center transition-all duration-300 cursor-pointer bg-white/80 hover:bg-white border-zinc-300 hover:border-[#4355ff] shadow-2xs",
             isDragging
               ? "border-[#4355ff] bg-[#4355ff]/10"
-              : "border-zinc-300 bg-white/70"
+              : "border-zinc-300 bg-white/80"
           )}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
@@ -126,15 +126,15 @@ export const ImageUploader = React.forwardRef<HTMLDivElement, ImageUploaderProps
             className="hidden"
             onChange={(e) => handleFileChange(e.target.files)}
           />
-          <div className="flex flex-col items-center gap-3">
-            <Button type="button" variant="outline" size="icon" className="h-13 w-13 rounded-full bg-white border-zinc-200 shadow-xs hover:border-[#4355ff] text-[#4355ff]">
-              <Upload className="h-5 w-5" />
+          <div className="flex flex-col items-center gap-2.5">
+            <Button type="button" variant="outline" size="icon" className="h-11 w-11 rounded-full bg-white border-zinc-200 shadow-2xs hover:border-[#4355ff] text-[#4355ff]">
+              <Upload className="h-4 w-4" />
             </Button>
             <div>
-              <p className="font-semibold text-zinc-900 text-[15px]">
+              <p className="font-semibold text-zinc-900 text-[14px]">
                 Choose project documents or drag &amp; drop here
               </p>
-              <p className="text-xs text-zinc-500 mt-1">
+              <p className="text-xs text-zinc-500 mt-0.5">
                 PDF, PNG, JPG, WEBP, DOCX. Max {maxSize}MB per file.
               </p>
             </div>

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { ChevronDown, Check, Paperclip } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ImageUploader } from "@/components/ui/image-uploader";
 
 const COUNTRIES = [
   "India",
@@ -47,12 +48,16 @@ export default function ContactForm({
   selectedServices: externalServices,
   setSelectedServices: setExternalServices,
   routingData,
-  attachments = [],
-  setAttachments,
+  attachments: externalAttachments,
+  setAttachments: setExternalAttachments,
 }: ContactFormProps) {
   const [internalServices, setInternalServices] = useState<string[]>([]);
   const selectedServices = externalServices ?? internalServices;
   const setSelectedServices = setExternalServices ?? setInternalServices;
+
+  const [internalAttachments, setInternalAttachments] = useState<File[]>([]);
+  const attachments = externalAttachments ?? internalAttachments;
+  const setAttachments = setExternalAttachments ?? setInternalAttachments;
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -291,33 +296,19 @@ export default function ContactForm({
             />
           </div>
 
-          {/* Row 6: Attached Files Indicator */}
-          {attachments.length > 0 && (
-            <div className="mb-5 p-3 rounded-[12px] bg-white border border-[#e2e8f0] flex items-center justify-between">
-              <div className="flex items-center gap-2.5 overflow-hidden">
-                <div className="w-7 h-7 rounded-lg bg-[#4355ff]/10 text-[#4355ff] flex items-center justify-center shrink-0">
-                  <Paperclip className="w-4 h-4" />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[13px] font-semibold text-[#0f172a] truncate">
-                    {attachments.length} document{attachments.length > 1 ? "s" : ""} attached
-                  </p>
-                  <p className="text-[11px] text-[#64748b] truncate">
-                    {attachments.map((f) => f.name).join(", ")}
-                  </p>
-                </div>
-              </div>
-              {setAttachments && (
-                <button
-                  type="button"
-                  onClick={() => setAttachments([])}
-                  className="text-[12px] text-zinc-400 hover:text-red-500 font-medium ml-3 cursor-pointer shrink-0 transition-colors"
-                >
-                  Remove all
-                </button>
-              )}
-            </div>
-          )}
+          {/* Row 6: Project Documents & Attachments Uploader */}
+          <div className="mb-6">
+            <label className="block text-[13px] font-semibold text-[#0f172a] mb-2">
+              Attach Project Documents &amp; Details <span className="text-zinc-400 font-normal">(Optional)</span>
+            </label>
+            <ImageUploader
+              files={attachments}
+              onChange={setAttachments}
+              maxFiles={5}
+              maxSize={10}
+              accept="image/*,application/pdf,.pdf,.doc,.docx"
+            />
+          </div>
 
           {/* Row 7: Checkbox and Terms */}
           <div
