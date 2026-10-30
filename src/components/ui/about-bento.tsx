@@ -69,24 +69,24 @@ export function AboutBento({ className }: AboutBentoProps = {}) {
           </Card>
 
           {/* System Card */}
-          <Card className="bg-gray-900 rounded-2xl p-8 sm:p-10 text-white flex flex-col justify-center gap-4 border border-gray-800 shadow-sm min-h-[220px]">
+          <Card className="bg-gray-900 rounded-2xl p-8 sm:p-10 !text-white flex flex-col justify-center gap-4 border border-gray-800 shadow-sm min-h-[220px]">
             <div className="size-10 rounded-lg bg-violet-500 flex items-center justify-center">
               <div className="size-4 bg-white rounded-full" />
             </div>
             <div>
-              <h4 className="text-xl font-bold leading-tight">Atomic Habits</h4>
-              <p className="text-xs text-gray-400 font-mono mt-1">System Stable V4</p>
+              <h4 className="text-xl font-bold leading-tight !text-white">Atomic Habits</h4>
+              <p className="text-xs !text-gray-400 font-mono mt-1">System Stable V4</p>
             </div>
           </Card>
 
           {/* Join Community Card */}
           <Link href="/contact" className="md:col-span-2 block group">
             <Card className="rounded-2xl p-6 sm:p-8 border border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 cursor-pointer bg-violet-600 hover:bg-violet-700 transition-all duration-300 overflow-hidden shadow-sm">
-              <div className="space-y-2 relative z-10 transition-colors text-white">
-                <h4 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter">
+              <div className="space-y-2 relative z-10 transition-colors">
+                <h4 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter !text-white">
                   Join the community
                 </h4>
-                <p className="text-white/80 text-sm sm:text-base">
+                <p className="!text-white/80 text-sm sm:text-base">
                   Connect with 12,000+ like-minded entrepreneurs.
                 </p>
               </div>

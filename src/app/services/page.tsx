@@ -63,13 +63,11 @@ const DISCIPLINES = [
 ];
 
 import BackgroundPaths from '@/components/kokonutui/background-paths';
-import AboutBento from '@/components/ui/about-bento';
 
 export default function ServicesIndexPage() {
   return (
-    <div className="min-h-screen w-full flex flex-col bg-[#ebe8f9]">
-      <BackgroundPaths
-        className="w-full bg-[#ebe8f9] !bg-[#ebe8f9] text-zinc-300/80 flex flex-col justify-start selection:bg-zinc-900 selection:text-white font-sans antialiased"
+    <BackgroundPaths
+      className="min-h-screen w-full bg-[#ebe8f9] !bg-[#ebe8f9] text-zinc-300/80 flex flex-col justify-start selection:bg-zinc-900 selection:text-white font-sans antialiased"
       count={40}
       spread={1.1}
       angle={-7}
@@ -138,9 +136,5 @@ export default function ServicesIndexPage() {
         </div>
       </main>
     </BackgroundPaths>
-
-    {/* Impact Bento Grid Section */}
-    <AboutBento />
-  </div>
   );
 }
