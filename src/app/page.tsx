@@ -15,6 +15,9 @@ import { Footer } from "@/components/ui/Footer";
 import GsapFlipCard, { type GsapFlipCardItem } from "@/components/ui/gsap-card-flip";
 import DossierCardFace from "@/components/ui/dossier-card-face";
 import { AnimatedTestimonials, testimonials } from "@/components/ui/testimonial";
+import FAQDemo from "@/components/ui/demo";
+import { DossierPopupModal } from "@/components/ui/dossier-popup-modal";
+import StatsBand from "@/components/ui/stats-band";
 
 
 const getFileDescription = (name: string, meta?: string) => {
@@ -171,7 +174,7 @@ export default function HomePage() {
     // Continuously track current visible section
     const handleScroll = () => {
       sessionStorage.setItem("home_scroll_pos", window.scrollY.toString());
-      const sections = ["services", "testimonials", "archives", "approach", "hero"];
+      const sections = ["services", "testimonials", "archives", "approach", "faq", "hero"];
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el) {
@@ -208,12 +211,11 @@ export default function HomePage() {
     { name: "Audit Report v4", meta: "PDF · 1.4 MB" },
   ]);
 
-  const [activeFlipGallery, setActiveFlipGallery] = useState<{
-    title: string;
-    meta: string;
-    description: string;
-    items: GsapFlipCardItem[];
-    initialSelectedIndex?: number;
+  const [activeDossierPopup, setActiveDossierPopup] = useState<{
+    folderName: string;
+    folderMeta: string;
+    files: FolderFile[];
+    activeFile: FolderFile;
   } | null>(null);
 
   const handleOpenFileGallery = (
@@ -228,28 +230,11 @@ export default function HomePage() {
     };
     const folderMeta = folderMetaMap[folderKey] || "DAVLabs × Sparsh";
 
-    const items: GsapFlipCardItem[] = currentFiles.map((f, i) => ({
-      id: f.name + "-" + i,
-      title: f.name,
-      meta: `${folderMeta} · ${f.meta || "Dossier Record"}`,
-      description: getFileDescription(f.name, f.meta),
-      caption: getFileCaption(f.name, f.meta),
-      art: typeof f.art === "string" ? f.art : undefined,
-      image: f.image,
-      isDocument: !f.art && !f.image,
-      renderContent: (isHero, item) => (
-        <DossierCardFace item={item} isHero={isHero} />
-      ),
-    }));
-
-    const targetIdx = currentFiles.findIndex((f) => f.name === clickedFile.name);
-
-    setActiveFlipGallery({
-      title: clickedFile.name,
-      meta: `${folderMeta} · ${clickedFile.meta || "Dossier Record"}`,
-      description: getFileDescription(clickedFile.name, clickedFile.meta),
-      items,
-      initialSelectedIndex: targetIdx >= 0 ? targetIdx : 0,
+    setActiveDossierPopup({
+      folderName: folderKey,
+      folderMeta,
+      files: currentFiles,
+      activeFile: clickedFile,
     });
   };
 
@@ -335,15 +320,29 @@ export default function HomePage() {
 
       <main>
         {/* Figma for Motion v2 Hero Section */}
-        <FigmaMotionHero id="hero" titleLine1="we make brands" titleLine2="impossible" titleLine3="to ignore" />
+        <FigmaMotionHero
+          id="hero"
+          titleLine1="we make brands"
+          titleLine2="impossible"
+          titleLine3="to ignore"
+          primaryCtaHref="#services"
+        />
 
         {/* Figma for Motion v2 1:1 Scroll Stack & Audience Orbit Animation */}
         <FigmaTemplateScroll heroId="hero" desktopHero={true} />
 
+        {/* Stats Band Metrics Section */}
+        <section className="relative w-full border-t border-[var(--border-delicate)] bg-[#ebe8f9]">
+          <StatsBand
+            layout="divided"
+            title="Fast, steady, and close to everyone"
+            description="Measured across every region from October 2025 to September 2026."
+          />
+        </section>
 
         {/* Services 3D Tilted Grid Hero Showcase Section */}
         {/* Services 3D Tilted Grid Hero Showcase Section (Full Screen / Edge-to-Edge) */}
-        <section id="services" className="relative w-full py-12 sm:py-16 bg-[#ebe8f9] border-b border-[var(--border-delicate)] overflow-hidden">
+        <section id="services" className="scroll-mt-16 sm:scroll-mt-20 relative w-full py-12 sm:py-16 bg-[#ebe8f9] border-b border-[var(--border-delicate)] overflow-hidden">
           <TiltedGridHero
             images={SERVICES_TILTED_GRID_IMAGES}
             speed={4.5}
@@ -435,6 +434,7 @@ export default function HomePage() {
                 meta="Sparsh Design"
                 art="aurora"
                 seed={3}
+                action="none"
                 appearDelay={0}
                 files={designFiles}
                 onFilesChange={setDesignFiles}
@@ -444,17 +444,12 @@ export default function HomePage() {
                 label="Cloud Topologies"
                 meta="DAVLabs IT"
                 art="none"
-                action="more"
+                action="none"
                 labelPlacement="top-left"
                 appearDelay={140}
                 files={cloudFiles}
                 onFilesChange={setCloudFiles}
                 onFileSelect={(file) => handleOpenFileGallery("Cloud Topologies", file, cloudFiles)}
-                menu={[
-                  { label: "Inspect Topology", onSelect: () => handleOpenFileGallery("Cloud Topologies", cloudFiles[0], cloudFiles) },
-                  { label: "Export Architecture" },
-                  { label: "Purge Stale Pods", danger: true },
-                ]}
               />
               <GlassFolder
                 label="Tactile Artifacts"
@@ -472,7 +467,7 @@ export default function HomePage() {
             </div>
 
             <p className="relative mt-16 font-mono text-[11px] tracking-[0.2em] text-[var(--ink-muted)] uppercase">
-              Click any card to open interactive Flip dossier &bull; + to add files
+              Click any card to open interactive Flip dossier
             </p>
           </div>
         </section>
@@ -667,29 +662,26 @@ export default function HomePage() {
             </ScrollStackItem>
           </ScrollStack>
         </section>
+
+        {/* Knowledge & FAQ Section right above Footer */}
+        <FAQDemo id="faq" className="scroll-mt-20 border-t border-[var(--border-delicate)]" />
       </main>
 
-      {/* Fullscreen GSAP Flip Card Dossier Viewer */}
-      {activeFlipGallery && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-2xl flex flex-col justify-center items-center overflow-hidden animate-in fade-in duration-300"
-        >
-          <GsapFlipCard
-            items={activeFlipGallery.items}
-            title={activeFlipGallery.title}
-            meta={activeFlipGallery.meta}
-            description={activeFlipGallery.description}
-            backgroundColor="transparent"
-            textColor="#ffffff"
-            mutedColor="#a1a1aa"
-            defaultOpen={true}
-            initialSelectedIndex={activeFlipGallery.initialSelectedIndex}
-            onClose={() => setActiveFlipGallery(null)}
-            className="w-full h-full"
-          />
-        </div>
+      {/* Bada Sa Popup Modal for Folder Cards */}
+      {activeDossierPopup && (
+        <DossierPopupModal
+          isOpen={!!activeDossierPopup}
+          onClose={() => setActiveDossierPopup(null)}
+          folderName={activeDossierPopup.folderName}
+          folderMeta={activeDossierPopup.folderMeta}
+          files={activeDossierPopup.files}
+          activeFile={activeDossierPopup.activeFile}
+          onSelectFile={(file) =>
+            setActiveDossierPopup((prev) => (prev ? { ...prev, activeFile: file } : null))
+          }
+          getFileDescription={getFileDescription}
+          getFileCaption={getFileCaption}
+        />
       )}
 
       {/* Sleek Tasteful Footer */}

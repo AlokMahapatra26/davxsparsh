@@ -511,7 +511,7 @@ export function GlassFolder({
   seed = 3,
   image,
   files: initialFiles = SAMPLE_FILES,
-  action = "add",
+  action = "none",
   onAdd,
   onFilesChange,
   menu = [],
@@ -794,17 +794,19 @@ export function GlassFolder({
               }
               return (
                 <div key={id} role="listitem" className="gf-sheet-slot">
-                  {file.href ? (
-                    <a {...common} href={file.href} onClick={() => onFileSelect?.(file, start + v)}>
-                      {inner}
-                    </a>
-                  ) : (
-                    <button {...common} type="button" onClick={() => onFileSelect?.(file, start + v)}>
-                      {inner}
-                    </button>
-                  )}
+                  <button
+                    {...common}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onFileSelect?.(file, start + v);
+                    }}
+                  >
+                    {inner}
+                  </button>
                 </div>
-              )
+              );
             })}
           </div>
 

@@ -145,11 +145,11 @@ export function DossierCardFace({
 
           {/* Document Title Header */}
           <div className="mt-5">
-            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900">
+            <h3 className="text-xl sm:text-2xl font-black tracking-tight !text-zinc-950">
               {name}
             </h3>
-            <p className="text-xs font-mono text-zinc-500 mt-1">
-              DAVLabs &times; Sparsh Studio &bull; Archive Reference Record
+            <p className="text-xs font-mono !text-zinc-500 mt-1">
+              DAVLabs × Sparsh Studio • Archive Reference Record
             </p>
           </div>
         </div>
@@ -277,7 +277,7 @@ export function DossierCardFace({
       )}
 
       {/* Soft Ambient Overlay for Readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/60 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40" />
 
       {/* Hero Content HUD */}
       <div className="relative z-10 w-full h-full p-6 sm:p-8 flex flex-col justify-between">
@@ -285,85 +285,19 @@ export function DossierCardFace({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/20 text-white backdrop-blur-md border border-white/20 shadow-sm uppercase font-bold tracking-wider">
-              {item.art ? `Shader &bull; ${item.art}` : "Tactile Media"}
+              {item.art ? `Shader • ${item.art}` : "Tactile Media"}
             </span>
             <span className="text-xs font-mono text-zinc-300/90">{meta}</span>
           </div>
-
-          <div className="flex items-center gap-1.5 text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 backdrop-blur-md border border-emerald-500/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Interactive Node</span>
-          </div>
-        </div>
-
-        {/* Center Architectural Spec HUD */}
-        <div className="my-auto py-6 space-y-3">
-          {name.includes("Hierarchy") ? (
-            <div className="p-4 rounded-2xl bg-black/50 backdrop-blur-md border border-white/15 space-y-3">
-              <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-widest block">
-                Figma 48 Component Architecture
-              </span>
-              <div className="grid grid-cols-3 gap-2 text-center text-xs font-mono">
-                <div className="p-2.5 rounded-xl bg-white/10 border border-white/10">
-                  <span className="block text-lg font-bold text-white">16</span>
-                  <span className="text-zinc-400 text-[10px]">Atoms</span>
-                </div>
-                <div className="p-2.5 rounded-xl bg-white/10 border border-white/10">
-                  <span className="block text-lg font-bold text-white">20</span>
-                  <span className="text-zinc-400 text-[10px]">Molecules</span>
-                </div>
-                <div className="p-2.5 rounded-xl bg-white/10 border border-white/10">
-                  <span className="block text-lg font-bold text-white">12</span>
-                  <span className="text-zinc-400 text-[10px]">Organisms</span>
-                </div>
-              </div>
-            </div>
-          ) : name.includes("Tokens") ? (
-            <div className="p-4 rounded-2xl bg-black/50 backdrop-blur-md border border-white/15 space-y-2 text-xs font-mono">
-              <span className="text-[11px] text-zinc-400 uppercase tracking-widest block">
-                Storybook v2.4 Live Tokens
-              </span>
-              <p className="text-zinc-200">&bull; --color-primary: oklch(0.78 0.16 65)</p>
-              <p className="text-zinc-200">&bull; --font-display: serif, Newsreader (48px)</p>
-              <p className="text-zinc-200">&bull; --radius-card: 20px &bull; --blur: 24px</p>
-            </div>
-          ) : name.includes("Zero-Trust") ? (
-            <div className="p-4 rounded-2xl bg-black/50 backdrop-blur-md border border-white/15 space-y-2 text-xs font-mono">
-              <span className="text-[11px] text-zinc-400 uppercase tracking-widest block">
-                K8s Zero-Trust Topologies
-              </span>
-              <p className="text-emerald-400">&#10003; Mutual TLS (mTLS) Enabled</p>
-              <p className="text-emerald-400">&#10003; Automated IAM Boundary Scopes</p>
-              <p className="text-emerald-400">&#10003; Terraform Infrastructure as Code</p>
-            </div>
-          ) : name.includes("Microservices") ? (
-            <div className="p-4 rounded-2xl bg-black/50 backdrop-blur-md border border-white/15 space-y-2 text-xs font-mono">
-              <span className="text-[11px] text-zinc-400 uppercase tracking-widest block">
-                Go &amp; gRPC Distributed Routes
-              </span>
-              <p className="text-indigo-300">&bull; /rpc.auth.Authenticate &bull; 1.2ms</p>
-              <p className="text-indigo-300">&bull; /rpc.event.StreamPipeline &bull; 2.4ms</p>
-              <p className="text-indigo-300">&bull; /rpc.telemetry.Collect &bull; 0.9ms</p>
-            </div>
-          ) : (
-            <div className="p-4 rounded-2xl bg-black/50 backdrop-blur-md border border-white/15 space-y-2">
-              <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-widest block">
-                Liquid Shader Specifications
-              </span>
-              <p className="text-xs text-zinc-300 font-mono">
-                Domain-warped noise field shaded as a continuous liquid surface with 60fps dynamics.
-              </p>
-            </div>
-          )}
         </div>
 
         {/* Bottom Title Bar */}
-        <div className="pt-4 border-t border-white/15">
-          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white drop-shadow-md">
+        <div className="pt-4 border-t border-white/20">
+          <h3 className="text-2xl sm:text-3xl font-black tracking-tight !text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
             {name}
           </h3>
-          <p className="text-xs font-mono text-zinc-300 mt-1">
-            Studio Dossier &bull; {meta}
+          <p className="text-xs sm:text-sm font-mono !text-zinc-200 mt-1.5 font-medium drop-shadow-sm">
+            Studio Dossier • {meta}
           </p>
         </div>
       </div>

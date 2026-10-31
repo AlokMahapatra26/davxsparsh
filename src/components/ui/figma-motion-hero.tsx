@@ -50,15 +50,28 @@ export default function FigmaMotionHero({
   titleLine3 = "to ignore",
   description = "Access a growing library of premium animations designed exclusively for your current stack.",
   primaryCtaText = "Get Access",
-  primaryCtaHref = "#pricing",
+  primaryCtaHref = "#services",
   secondaryCtaText = "Explore",
-  secondaryCtaHref = "#templates",
+  secondaryCtaHref = "#archives",
 }: FigmaMotionHeroProps) {
   const containerRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activeNav, setActiveNav] = useState("Home");
   const [navStyle, setNavStyle] = useState({ left: 8, width: 74 });
   const navContainerRef = useRef<HTMLDivElement>(null);
+
+  // Smooth scroll handler for anchor links
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href?: string) => {
+    if (href && href.startsWith("#")) {
+      const targetId = href.replace("#", "");
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.history.pushState(null, "", href);
+      }
+    }
+  };
 
   // Update active pill position in nav bar
   const handleNavClick = (label: string, e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -253,8 +266,12 @@ export default function FigmaMotionHero({
 
             {/* Right Header Action Button */}
             <div className="f4m-header-cta">
-              <a href="#pricing" className="f4m-pill-btn">
-                Get Access
+              <a
+                href={primaryCtaHref}
+                onClick={(e) => handleScrollTo(e, primaryCtaHref)}
+                className="f4m-pill-btn"
+              >
+                {primaryCtaText}
               </a>
             </div>
 
@@ -399,7 +416,11 @@ export default function FigmaMotionHero({
           {/* Action CTA Buttons */}
           <div className="f4m-actions">
             {/* Primary Action Button */}
-            <a href={primaryCtaHref} className="f4m-btn f4m-btn-primary f4m-enter f4m-delay-btn1">
+            <a
+              href={primaryCtaHref}
+              onClick={(e) => handleScrollTo(e, primaryCtaHref)}
+              className="f4m-btn f4m-btn-primary f4m-enter f4m-delay-btn1"
+            >
               <span className="f4m-btn-icon-box">
                 <Image
                   src="/figmaformotion/arrow-right.svg"
@@ -413,7 +434,11 @@ export default function FigmaMotionHero({
             </a>
 
             {/* Secondary Action Button */}
-            <a href={secondaryCtaHref} className="f4m-btn f4m-btn-secondary f4m-enter f4m-delay-btn2">
+            <a
+              href={secondaryCtaHref}
+              onClick={(e) => handleScrollTo(e, secondaryCtaHref)}
+              className="f4m-btn f4m-btn-secondary f4m-enter f4m-delay-btn2"
+            >
               <span className="f4m-btn-icon-box">
                 <Image
                   src="/figmaformotion/squares-four.svg"

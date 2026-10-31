@@ -636,11 +636,10 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
       ) : (
         <>
           <div className="relative z-10">
-            <div className="flex items-center justify-between mb-2">
+            <div className="mb-2">
               <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 font-bold">
                 Standards
               </span>
-              <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
             </div>
             <CardTitle className="text-base sm:text-lg font-bold !text-zinc-950 mb-1">
               Stack & Standards
@@ -983,8 +982,14 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
           <AboutBento className="bg-transparent py-0 px-0 border-none" />
         </div>
 
-        {/* Bento Grid Showcase Integration */}
-        <div className="mb-20 sm:mb-24">
+        {/* Bento Grid Showcase Integration - Flow Section */}
+        <section id="flow" className="mb-20 sm:mb-24 scroll-mt-20">
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-950 tracking-[-0.035em] font-display">
+              Flow
+            </h2>
+          </div>
+
           <BentoGridShowcase
             integrations={IntegrationsSlot}
             featureTags={FeatureTagsSlot}
@@ -993,7 +998,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
             statistic={StatisticSlot}
             journey={JourneySlot}
           />
-        </div>
+        </section>
 
 
         {/* Direct Commission CTA Card */}

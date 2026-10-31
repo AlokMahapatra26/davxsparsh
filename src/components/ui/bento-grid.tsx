@@ -86,14 +86,6 @@ export interface BentoGridShowcaseProps {
   showPatternSwitcher?: boolean;
 }
 
-const PATTERN_OPTIONS: { id: BentoPattern; label: string; desc: string }[] = [
-  { id: "hero-top-left", label: "Alpha • Top-Left", desc: "Wide 2x2 Hero (Reference 1)" },
-  { id: "center-tall", label: "Beta • Center", desc: "Center Tall (Reference 2)" },
-  { id: "hero-top-right", label: "Gamma • Top-Right", desc: "Wide 2x2 Hero on Right" },
-  { id: "hero-left-tall", label: "Delta • Left Pillar", desc: "Mobile Viewport Pillar on Left" },
-  { id: "split-editorial", label: "Epsilon • Editorial", desc: "Editorial Magazine Top Row" },
-];
-
 /**
  * A responsive, polymorphic Bento Grid layout component.
  * Supports 5 distinct architectural patterns, including the wide hero (Image 1)
@@ -109,60 +101,11 @@ export const BentoGridShowcase = ({
   className,
   pattern,
   defaultPattern = "hero-top-left",
-  showPatternSwitcher = true,
 }: BentoGridShowcaseProps) => {
-  const [internalPattern, setInternalPattern] = React.useState<BentoPattern>(
-    pattern || defaultPattern
-  );
-
-  // Sync if prop changes externally
-  React.useEffect(() => {
-    if (pattern) {
-      setInternalPattern(pattern);
-    }
-  }, [pattern]);
-
-  const activePattern = pattern || internalPattern;
+  const activePattern = pattern || defaultPattern;
 
   return (
     <div className="w-full">
-      {/* Interactive Bento Architecture Pattern Switcher */}
-      {showPatternSwitcher && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 px-1">
-          <div className="flex items-center gap-2.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#00e1c2] shadow-[0_0_8px_#00e1c2] shrink-0" />
-            <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-500 font-bold">
-              Bento Architecture
-            </span>
-            <span className="text-zinc-300 font-medium hidden sm:inline">•</span>
-            <span className="text-xs text-zinc-600 font-medium hidden sm:inline capitalize">
-              {activePattern.replace(/-/g, " ")} Pattern
-            </span>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-full bg-white/80 border border-zinc-200/90 shadow-2xs backdrop-blur-md self-start sm:self-auto">
-            {PATTERN_OPTIONS.map((p) => {
-              const isActive = activePattern === p.id;
-              return (
-                <button
-                  key={p.id}
-                  type="button"
-                  onClick={() => setInternalPattern(p.id)}
-                  className={cn(
-                    "px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer",
-                    isActive
-                      ? "bg-zinc-950 text-white shadow-xs"
-                      : "text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100"
-                  )}
-                  title={p.desc}
-                >
-                  {p.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
 
       {/* Dynamic Animated Grid */}
       <motion.section
