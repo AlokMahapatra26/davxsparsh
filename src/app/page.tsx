@@ -335,7 +335,7 @@ export default function HomePage() {
 
       <main>
         {/* Figma for Motion v2 Hero Section */}
-        <FigmaMotionHero id="hero" />
+        <FigmaMotionHero id="hero" titleLine1="we make brands" titleLine2="impossible" titleLine3="to ignore" />
 
         {/* Figma for Motion v2 1:1 Scroll Stack & Audience Orbit Animation */}
         <FigmaTemplateScroll heroId="hero" desktopHero={true} />
@@ -407,21 +407,6 @@ export default function HomePage() {
           </TiltedGridHero>
         </section>
 
-        {/* Client Testimonials Section */}
-        <section id="testimonials" className="relative w-full py-20 sm:py-28 overflow-hidden bg-[var(--bg-primary)] border-b border-[var(--border-delicate)]">
-          <div className="relative max-w-5xl mx-auto px-6 text-center mb-6 sm:mb-10">
-            <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 block mb-2">
-              Client Endorsements &amp; Trust
-            </span>
-            <h2 className="services-title mb-4">What Our Partners Say</h2>
-            <p className="text-sm sm:text-base text-[var(--ink-secondary)] max-w-xl mx-auto leading-relaxed">
-              Engineering excellence and artisanal digital craft validated by industry leaders, founders, and creative directors.
-            </p>
-          </div>
-
-          <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
-        </section>
-
         {/* Interactive Tactile Glass Folder Archives Section */}
         <section id="archives" className="relative w-full py-24 sm:py-32 overflow-hidden bg-[var(--bg-secondary)] border-y border-[var(--border-delicate)]">
           <div
@@ -490,6 +475,21 @@ export default function HomePage() {
               Click any card to open interactive Flip dossier &bull; + to add files
             </p>
           </div>
+        </section>
+
+        {/* Client Testimonials Section */}
+        <section id="testimonials" className="relative w-full py-20 sm:py-28 overflow-hidden bg-[var(--bg-primary)] border-b border-[var(--border-delicate)]">
+          <div className="relative max-w-5xl mx-auto px-6 text-center mb-6 sm:mb-10">
+            <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 block mb-2">
+              Client Endorsements &amp; Trust
+            </span>
+            <h2 className="services-title mb-4">What Our Partners Say</h2>
+            <p className="text-sm sm:text-base text-[var(--ink-secondary)] max-w-xl mx-auto leading-relaxed">
+              Engineering excellence and artisanal digital craft validated by industry leaders, founders, and creative directors.
+            </p>
+          </div>
+
+          <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
         </section>
 
         {/* Approach / Architecture Section using ScrollStack */}

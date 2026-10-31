@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
 const DISCIPLINES = [
@@ -62,38 +65,40 @@ const DISCIPLINES = [
   },
 ];
 
-import MercuryBackground from '@/components/ui/mercury-background';
-
 export default function ServicesIndexPage() {
   return (
-    <MercuryBackground>
-      {/* Main Container */}
-      <main className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-12 sm:pt-16 pb-32 text-zinc-900">
-        <div className="mb-10">
-          <Button variant="push-outline" size="sm" asChild className="gap-2">
-            <Link href="/">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Return to Studio</span>
-            </Link>
-          </Button>
-        </div>
+    <main className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-28 sm:pt-32 pb-32 text-zinc-900 overflow-hidden">
+      <div className="mb-10">
+        <Button variant="push-outline" size="sm" asChild className="gap-2">
+          <Link href="/">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Return to Studio</span>
+          </Link>
+        </Button>
+      </div>
 
-        <div className="space-y-4 mb-16 sm:mb-20">
-          <h1 className="font-bold text-5xl sm:text-7xl lg:text-8xl text-zinc-950 tracking-[-0.035em] leading-[1.05]">
-            Studio Disciplines
-          </h1>
+      <div className="space-y-4 mb-16 sm:mb-20">
+        <h1 className="font-bold text-5xl sm:text-7xl lg:text-8xl text-zinc-950 tracking-[-0.035em] leading-[1.05]">
+          Studio Disciplines
+        </h1>
 
-          <p className="text-xl sm:text-2xl text-zinc-600 max-w-3xl leading-relaxed font-normal tracking-[-0.012em]">
-            Engineering precision paired with editorial craft. Dedicated practices for modern ambitious brands.
-          </p>
-        </div>
+        <p className="text-xl sm:text-2xl text-zinc-600 max-w-3xl leading-relaxed font-normal tracking-[-0.012em]">
+          Engineering precision paired with editorial craft. Dedicated practices for modern ambitious brands.
+        </p>
+      </div>
 
-        <div className="border-t border-zinc-200/80 mb-12" />
+      <div className="border-t border-zinc-200/80 mb-12" />
 
-        <div className="divide-y divide-zinc-200/70">
-          {DISCIPLINES.map((d, idx) => (
-            <div
+      <div className="divide-y divide-zinc-200/70">
+        {DISCIPLINES.map((d, idx) => {
+          const isLeft = idx % 2 === 0;
+          return (
+            <motion.div
               key={d.slug}
+              initial={{ opacity: 0, x: isLeft ? -75 : 75 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
               className="py-8 first:pt-0 last:pb-0 flex flex-col md:flex-row md:items-baseline justify-between gap-6 group"
             >
               <div className="space-y-2 max-w-xl">
@@ -119,15 +124,16 @@ export default function ServicesIndexPage() {
                   </Link>
                 </Button>
               </div>
-            </div>
-          ))}
-        </div>
+            </motion.div>
+          );
+        })}
+      </div>
 
-        <div className="mt-24 pt-8 border-t border-zinc-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-zinc-400">
-          <span>DAVLabs &times; Sparsh Design Collaborative Studio</span>
-          <span>Available for select commissions</span>
-        </div>
-      </main>
-    </MercuryBackground>
+      <div className="mt-24 pt-8 border-t border-zinc-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-zinc-400">
+        <span>DAVLabs &times; Sparsh Design Collaborative Studio</span>
+        <span>Available for select commissions</span>
+      </div>
+    </main>
   );
 }
+

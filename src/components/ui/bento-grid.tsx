@@ -16,19 +16,46 @@ const containerVariants: Variants = {
   },
 };
 
-// Animation variants for each grid item
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 15 },
+// Left card variant - enters smoothly from the left on scroll
+const cardFromLeftVariants: Variants = {
+  hidden: { opacity: 0, x: -75 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.75,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
+// Right card variant - enters smoothly from the right on scroll
+const cardFromRightVariants: Variants = {
+  hidden: { opacity: 0, x: 75 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.75,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
+// Center card variant - enters smoothly from bottom on scroll
+const cardCenterVariants: Variants = {
+  hidden: { opacity: 0, y: 50 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
-      stiffness: 110,
-      damping: 14,
+      duration: 0.75,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
+
+const itemVariants: Variants = cardCenterVariants;
 
 export type BentoPattern =
   | "hero-top-left"   // Pattern 1 (Image 1): 2x2 Wide Hero on Top-Left
@@ -142,64 +169,65 @@ export const BentoGridShowcase = ({
         layout
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
         key={activePattern}
         className={cn(
-          "grid w-full grid-cols-1 gap-6 md:grid-cols-3 md:grid-rows-[repeat(3,186px)]",
+          "grid w-full grid-cols-1 gap-6 md:grid-cols-3 md:grid-rows-[repeat(3,186px)] overflow-hidden sm:overflow-visible",
           className
         )}
       >
         {activePattern === "hero-top-left" && (
           <>
-            {/* Slot: Main Feature (Top Left 2x2) */}
+            {/* Slot: Main Feature (Top Left 2x2 - Enters from LEFT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromLeftVariants}
               className="md:col-span-2 md:row-span-2 md:col-start-1 md:row-start-1 h-full min-h-[380px] md:min-h-0"
             >
               {mainFeature}
             </motion.div>
 
-            {/* Slot: Statistic (Top Right 1x1) */}
+            {/* Slot: Statistic (Top Right 1x1 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-1 h-full min-h-[186px] md:min-h-0"
             >
               {statistic}
             </motion.div>
 
-            {/* Slot: Feature Tags (Middle Right 1x1) */}
+            {/* Slot: Feature Tags (Middle Right 1x1 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-2 h-full min-h-[186px] md:min-h-0"
             >
               {featureTags}
             </motion.div>
 
-            {/* Slot: Journey (Bottom Left 1x1) */}
+            {/* Slot: Journey (Bottom Left 1x1 - Enters from LEFT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromLeftVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-1 md:row-start-3 h-full min-h-[186px] md:min-h-0"
             >
               {journey}
             </motion.div>
 
-            {/* Slot: Integrations (Bottom Center 1x1) */}
+            {/* Slot: Integrations (Bottom Center 1x1 - Enters from CENTER) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardCenterVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-2 md:row-start-3 h-full min-h-[186px] md:min-h-0"
             >
               {integrations}
             </motion.div>
 
-            {/* Slot: Secondary Feature (Bottom Right 1x1) */}
+            {/* Slot: Secondary Feature (Bottom Right 1x1 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-3 h-full min-h-[186px] md:min-h-0"
             >
               {secondaryFeature}
@@ -209,55 +237,55 @@ export const BentoGridShowcase = ({
 
         {activePattern === "center-tall" && (
           <>
-            {/* Slot: Integrations (Top Left 1x1) */}
+            {/* Slot: Integrations (Top Left 1x1 - Enters from LEFT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromLeftVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-1 md:row-start-1 h-full min-h-[186px] md:min-h-0"
             >
               {integrations}
             </motion.div>
 
-            {/* Slot: Main Feature (Center Tall 1x3) */}
+            {/* Slot: Main Feature (Center Tall 1x3 - Enters from CENTER) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardCenterVariants}
               className="md:col-span-1 md:row-span-3 md:col-start-2 md:row-start-1 h-full min-h-[440px] md:min-h-0"
             >
               {mainFeature}
             </motion.div>
 
-            {/* Slot: Feature Tags (Top Right 1x1) */}
+            {/* Slot: Feature Tags (Top Right 1x1 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-1 h-full min-h-[186px] md:min-h-0"
             >
               {featureTags}
             </motion.div>
 
-            {/* Slot: Secondary Feature (Middle Left 1x1) */}
+            {/* Slot: Secondary Feature (Middle Left 1x1 - Enters from LEFT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromLeftVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-1 md:row-start-2 h-full min-h-[186px] md:min-h-0"
             >
               {secondaryFeature}
             </motion.div>
 
-            {/* Slot: Statistic (Right Tall 1x2) */}
+            {/* Slot: Statistic (Right Tall 1x2 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-1 md:row-span-2 md:col-start-3 md:row-start-2 h-full min-h-[300px] md:min-h-0"
             >
               {statistic}
             </motion.div>
 
-            {/* Slot: Journey (Bottom Left 1x1) */}
+            {/* Slot: Journey (Bottom Left 1x1 - Enters from LEFT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromLeftVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-1 md:row-start-3 h-full min-h-[186px] md:min-h-0"
             >
               {journey}
@@ -267,55 +295,55 @@ export const BentoGridShowcase = ({
 
         {activePattern === "hero-top-right" && (
           <>
-            {/* Slot: Integrations (Top Left 1x1) */}
+            {/* Slot: Integrations (Top Left 1x1 - Enters from LEFT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromLeftVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-1 md:row-start-1 h-full min-h-[186px] md:min-h-0"
             >
               {integrations}
             </motion.div>
 
-            {/* Slot: Feature Tags (Middle Left 1x1) */}
+            {/* Slot: Feature Tags (Middle Left 1x1 - Enters from LEFT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromLeftVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-1 md:row-start-2 h-full min-h-[186px] md:min-h-0"
             >
               {featureTags}
             </motion.div>
 
-            {/* Slot: Main Feature (Top Right 2x2) */}
+            {/* Slot: Main Feature (Top Right 2x2 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-2 md:row-span-2 md:col-start-2 md:row-start-1 h-full min-h-[380px] md:min-h-0"
             >
               {mainFeature}
             </motion.div>
 
-            {/* Slot: Secondary Feature (Bottom Left 1x1) */}
+            {/* Slot: Secondary Feature (Bottom Left 1x1 - Enters from LEFT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromLeftVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-1 md:row-start-3 h-full min-h-[186px] md:min-h-0"
             >
               {secondaryFeature}
             </motion.div>
 
-            {/* Slot: Journey (Bottom Center 1x1) */}
+            {/* Slot: Journey (Bottom Center 1x1 - Enters from CENTER) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardCenterVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-2 md:row-start-3 h-full min-h-[186px] md:min-h-0"
             >
               {journey}
             </motion.div>
 
-            {/* Slot: Statistic (Bottom Right 1x1) */}
+            {/* Slot: Statistic (Bottom Right 1x1 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-3 h-full min-h-[186px] md:min-h-0"
             >
               {statistic}
@@ -325,55 +353,55 @@ export const BentoGridShowcase = ({
 
         {activePattern === "hero-left-tall" && (
           <>
-            {/* Slot: Main Feature (Left Tall 1x3) */}
+            {/* Slot: Main Feature (Left Tall 1x3 - Enters from LEFT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromLeftVariants}
               className="md:col-span-1 md:row-span-3 md:col-start-1 md:row-start-1 h-full min-h-[440px] md:min-h-0"
             >
               {mainFeature}
             </motion.div>
 
-            {/* Slot: Integrations (Top Center 1x1) */}
+            {/* Slot: Integrations (Top Center 1x1 - Enters from CENTER) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardCenterVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-2 md:row-start-1 h-full min-h-[186px] md:min-h-0"
             >
               {integrations}
             </motion.div>
 
-            {/* Slot: Feature Tags (Top Right 1x1) */}
+            {/* Slot: Feature Tags (Top Right 1x1 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-1 h-full min-h-[186px] md:min-h-0"
             >
               {featureTags}
             </motion.div>
 
-            {/* Slot: Secondary Feature (Middle Center 1x1) */}
+            {/* Slot: Secondary Feature (Middle Center 1x1 - Enters from CENTER) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardCenterVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-2 md:row-start-2 h-full min-h-[186px] md:min-h-0"
             >
               {secondaryFeature}
             </motion.div>
 
-            {/* Slot: Journey (Middle Right 1x1) */}
+            {/* Slot: Journey (Middle Right 1x1 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-2 h-full min-h-[186px] md:min-h-0"
             >
               {journey}
             </motion.div>
 
-            {/* Slot: Statistic (Bottom Right 2x1) */}
+            {/* Slot: Statistic (Bottom Right 2x1 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-2 md:row-span-1 md:col-start-2 md:row-start-3 h-full min-h-[186px] md:min-h-0"
             >
               {statistic}
@@ -383,55 +411,55 @@ export const BentoGridShowcase = ({
 
         {activePattern === "split-editorial" && (
           <>
-            {/* Slot: Integrations (Top Left 1x1) */}
+            {/* Slot: Integrations (Top Left 1x1 - Enters from LEFT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromLeftVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-1 md:row-start-1 h-full min-h-[186px] md:min-h-0"
             >
               {integrations}
             </motion.div>
 
-            {/* Slot: Feature Tags (Top Center 1x1) */}
+            {/* Slot: Feature Tags (Top Center 1x1 - Enters from CENTER) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardCenterVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-2 md:row-start-1 h-full min-h-[186px] md:min-h-0"
             >
               {featureTags}
             </motion.div>
 
-            {/* Slot: Secondary Feature (Top Right 1x1) */}
+            {/* Slot: Secondary Feature (Top Right 1x1 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-1 h-full min-h-[186px] md:min-h-0"
             >
               {secondaryFeature}
             </motion.div>
 
-            {/* Slot: Main Feature (Bottom Left 2x2) */}
+            {/* Slot: Main Feature (Bottom Left 2x2 - Enters from LEFT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromLeftVariants}
               className="md:col-span-2 md:row-span-2 md:col-start-1 md:row-start-2 h-full min-h-[380px] md:min-h-0"
             >
               {mainFeature}
             </motion.div>
 
-            {/* Slot: Journey (Middle Right 1x1) */}
+            {/* Slot: Journey (Middle Right 1x1 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-2 h-full min-h-[186px] md:min-h-0"
             >
               {journey}
             </motion.div>
 
-            {/* Slot: Statistic (Bottom Right 1x1) */}
+            {/* Slot: Statistic (Bottom Right 1x1 - Enters from RIGHT) */}
             <motion.div
               layout
-              variants={itemVariants}
+              variants={cardFromRightVariants}
               className="md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-3 h-full min-h-[186px] md:min-h-0"
             >
               {statistic}

@@ -44,10 +44,10 @@ export interface FigmaMotionHeroProps {
 export default function FigmaMotionHero({
   id = "top",
   showNav = false,
-  count = "50",
-  titleLine1 = "Premium",
-  titleLine2 = "Website",
-  titleLine3 = "Templates",
+  count = "",
+  titleLine1 = "we make brands",
+  titleLine2 = "impossible",
+  titleLine3 = "to ignore",
   description = "Access a growing library of premium animations designed exclusively for your current stack.",
   primaryCtaText = "Get Access",
   primaryCtaHref = "#pricing",
@@ -278,13 +278,17 @@ export default function FigmaMotionHero({
         <div className="f4m-composition">
           {/* Main Massive Heading */}
           <h1 className="f4m-heading text-white" style={{ color: "#ffffff" }}>
-            <span className="f4m-count f4m-enter f4m-delay-1">
-              <span>{count}</span>
-              <span className="f4m-plus">+</span>
-            </span>
+            {count ? (
+              <span className="f4m-count f4m-enter f4m-delay-1">
+                <span>{count}</span>
+                <span className="f4m-plus">+</span>
+              </span>
+            ) : null}
 
             <span className="f4m-title text-white" style={{ color: "#ffffff" }}>
-              <span className="f4m-enter f4m-delay-2 text-white" style={{ color: "#ffffff" }}>{toTitleCase(titleLine1)}</span>
+              <span className={`f4m-enter ${count ? 'f4m-delay-2' : 'f4m-delay-1'} text-white`} style={{ color: "#ffffff" }}>
+                {toTitleCase(titleLine1)}
+              </span>
               <span className="f4m-enter f4m-delay-3 text-white" style={{ color: "#ffffff" }}>
                 {/* 3 Interactive Motion Preview Cards */}
                 <span className="f4m-hero-previews" aria-hidden="true">

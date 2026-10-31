@@ -3,28 +3,32 @@
 import React from 'react';
 import { CardNav } from '@/components/ui/CardNav';
 
-export function StudioNavbar() {
+export interface StudioNavbarProps {
+  logoHref?: string;
+}
+
+export function StudioNavbar({ logoHref = '/' }: StudioNavbarProps = {}) {
   const BrandLogo = (
-    <div className="flex items-center gap-1.5 text-xs sm:text-sm font-medium tracking-tight">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-current">
-        <circle cx="8" cy="12" r="6" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="16" cy="12" r="6" stroke="currentColor" strokeWidth="1.5" />
+    <div className="flex items-center gap-2 text-sm sm:text-base font-semibold tracking-tight">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-current">
+        <circle cx="8" cy="12" r="6" stroke="currentColor" strokeWidth="1.6" />
+        <circle cx="16" cy="12" r="6" stroke="currentColor" strokeWidth="1.6" />
       </svg>
-      <span className="font-semibold text-zinc-950">DAVLabs</span>
+      <span className="font-bold text-[var(--ink-primary,#09090b)]">DAVLabs</span>
       <span className="opacity-40">&times;</span>
-      <span className="opacity-75 text-zinc-600">Sparsh</span>
+      <span className="opacity-75 text-[var(--ink-secondary,#52525b)]">Sparsh</span>
     </div>
   );
 
   return (
-    <header className="fixed top-3 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none">
-      <div className="w-full pointer-events-auto">
+    <header className="fixed top-3 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none flex justify-center">
+      <div className="w-[94%] sm:w-[80%] md:w-[65%] lg:w-[50%] mx-auto pointer-events-auto">
         <CardNav
           logo={BrandLogo}
           logoAlt="DAVLabs and Sparsh Design"
-          logoHref="/"
+          logoHref={logoHref}
           theme="light"
-          surface="transparent"
+          surface="solid"
           cardEffect="rise"
           maxWidth="100%"
           cta={{ label: "Contact", href: "/contact" }}
@@ -69,3 +73,4 @@ export function StudioNavbar() {
 }
 
 export default StudioNavbar;
+
