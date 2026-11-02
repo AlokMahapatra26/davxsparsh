@@ -107,6 +107,7 @@ export interface CardNavProps {
   logo?: ReactNode;
   logoAlt?: string;
   logoHref?: string;
+  onLogoClick?: (event: React.MouseEvent) => void;
   items?: CardNavItem[];
   cta?: CardNavCta;
   theme?: 'dark' | 'light';
@@ -191,6 +192,7 @@ export const CardNav: React.FC<CardNavProps> = ({
   logo,
   logoAlt = 'Logo',
   logoHref = '#',
+  onLogoClick,
   items = DEFAULT_CARD_NAV_ITEMS,
   cta,
   theme = 'light',
@@ -522,7 +524,17 @@ export const CardNav: React.FC<CardNavProps> = ({
       <nav ref={panelRef} className={PANEL} aria-label={ariaLabel}>
         <div ref={barRef} className={BAR}>
           {logo && (
-            <LinkComponent href={logoHref} className={LOGO} aria-label={logoAlt}>
+            <LinkComponent
+              href={logoHref}
+              className={LOGO}
+              aria-label={logoAlt}
+              onClick={(e: React.MouseEvent) => {
+                if (open) setOpen(false);
+                if (onLogoClick) {
+                  onLogoClick(e);
+                }
+              }}
+            >
               {typeof logo === 'string' ? <img src={logo} alt="" draggable={false} /> : logo}
             </LinkComponent>
           )}

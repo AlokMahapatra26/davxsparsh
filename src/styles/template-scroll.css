@@ -36,7 +36,7 @@
   }
 
   .f4m-scroll-section.f4m-hero-journey .f4m-card {
-    transform: translate(-50%, -50%) translate(calc(min(100vw, 1440px) * 0.289), calc(var(--desktop-hero-height) * 0.615 - 50svh + var(--index) * 22px)) scale(calc(min(534px, calc(min(100vw, 1440px) * 0.371)) / var(--stack-width) * (1 - var(--index) * 0.055)));
+    transform: translate(-50%, -50%) translate(calc(min(100vw, 1440px) * 0.289), calc(var(--desktop-hero-height) * 0.650 - 50svh + var(--index) * 22px)) scale(calc(min(534px, calc(min(100vw, 1440px) * 0.371)) / var(--stack-width) * (1 - var(--index) * 0.055)));
     border-radius: 26.3px;
   }
 }

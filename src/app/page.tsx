@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { TiltedGridHero, type TiltedGridImage } from "@/components/ui/tilted-grid-hero";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Layers, FolderArchive, Quote } from "lucide-react";
 import { ScrollStack, ScrollStackItem } from "@/components/ui/ScrollStack";
 import { CardNav } from "@/components/ui/CardNav";
 import { GlowCursor } from "@/components/ui/GlowCursor";
@@ -18,6 +18,8 @@ import { AnimatedTestimonials, testimonials } from "@/components/ui/testimonial"
 import FAQDemo from "@/components/ui/demo";
 import { DossierPopupModal } from "@/components/ui/dossier-popup-modal";
 import StatsBand from "@/components/ui/stats-band";
+import { CalendlyCarousel } from "@/components/ui/connected-carousel";
+import { SERVICES_CAROUSEL_DATA } from "@/components/ui/connected-carousel-demo";
 
 
 const getFileDescription = (name: string, meta?: string) => {
@@ -87,57 +89,6 @@ const getFileCaption = (name: string, meta?: string) => {
   }
   return `Document specification for ${name} verified by DAVLabs × Sparsh Studio.`;
 };
-
-const SERVICES_TILTED_GRID_IMAGES: TiltedGridImage[] = [
-  {
-    title: "Web Development",
-    href: "/services/web-development",
-    src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop",
-    alt: "Web Development — Modern Next.js & Distributed Systems",
-  },
-  {
-    title: "App Development",
-    href: "/services/app-development",
-    src: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80&auto=format&fit=crop",
-    alt: "App Development — Native & Cross-Platform Mobile Engineering",
-  },
-  {
-    title: "AI Automation",
-    href: "/services/ai-automation",
-    src: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80&auto=format&fit=crop",
-    alt: "AI Automation — Autonomous Agents & LLM Pipelines",
-  },
-  {
-    title: "UI/UX & Web Design",
-    href: "/services/ui-ux-design",
-    src: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&q=80&auto=format&fit=crop",
-    alt: "UI/UX & Web Design — Bespoke Interfaces & Fluid Motion",
-  },
-  {
-    title: "Creative Logo Design",
-    href: "/services/creative-logo-design",
-    src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1200&q=80&auto=format&fit=crop",
-    alt: "Creative Logo Design — Symbolic Distillations & Vectors",
-  },
-  {
-    title: "Graphics Design & Branding",
-    href: "/services/graphics-design",
-    src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80&auto=format&fit=crop",
-    alt: "Graphics Design & Branding — High-Touch Print & Editorial",
-  },
-  {
-    title: "Social Media Marketing",
-    href: "/services/social-media-marketing",
-    src: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&q=80&auto=format&fit=crop",
-    alt: "Social Media Marketing — Algorithmic Distribution & Content",
-  },
-  {
-    title: "Brand Identity & Packaging",
-    href: "/services/brand-identity",
-    src: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=1200&q=80&auto=format&fit=crop",
-    alt: "Brand Identity & Packaging — Material Luxury & Sensory Details",
-  },
-];
 
 
 export default function HomePage() {
@@ -240,8 +191,25 @@ export default function HomePage() {
 
 
 
+  const handleScrollToHero = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const heroEl = document.getElementById("hero") || document.getElementById("top");
+    if (heroEl) {
+      heroEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    window.history.pushState(null, "", "#hero");
+  };
+
   const BrandLogo = (
-    <div className="flex items-center gap-2 text-sm sm:text-base font-semibold tracking-tight">
+    <div
+      onClick={handleScrollToHero}
+      className="flex items-center gap-2 text-sm sm:text-base font-semibold tracking-tight cursor-pointer select-none"
+    >
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-current">
         <circle cx="8" cy="12" r="6" stroke="currentColor" strokeWidth="1.6" />
         <circle cx="16" cy="12" r="6" stroke="currentColor" strokeWidth="1.6" />
@@ -274,7 +242,8 @@ export default function HomePage() {
           <CardNav
             logo={BrandLogo}
             logoAlt="DAVLabs and Sparsh Design"
-            logoHref="#"
+            logoHref="#hero"
+            onLogoClick={handleScrollToHero}
             theme="light"
             surface="solid"
             cardEffect="rise"
@@ -340,70 +309,69 @@ export default function HomePage() {
           />
         </section>
 
-        {/* Services 3D Tilted Grid Hero Showcase Section */}
-        {/* Services 3D Tilted Grid Hero Showcase Section (Full Screen / Edge-to-Edge) */}
-        <section id="services" className="scroll-mt-16 sm:scroll-mt-20 relative w-full py-12 sm:py-16 bg-[#ebe8f9] border-b border-[var(--border-delicate)] overflow-hidden">
-          <TiltedGridHero
-            images={SERVICES_TILTED_GRID_IMAGES}
-            speed={4.5}
-            tileHeight={32}
-            aspectRatio={16 / 9}
-            gap={6}
-            axis={53}
-            curve={78}
-            fade={10}
-            className="w-full h-[640px] sm:h-[740px] lg:h-[800px] bg-transparent"
-          >
-            <div className="relative z-10 flex h-full flex-col items-center justify-between py-6 sm:py-10 px-4 sm:px-6 text-center pointer-events-none">
-              {/* Top Section Header */}
-              <div className="pointer-events-auto flex flex-col items-center max-w-4xl px-4">
-                <h2 className="text-balance text-3xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-[var(--ink-primary)] leading-[1.08] mb-3">
-                  Every discipline, brought into focus.
-                </h2>
-                <p className="text-sm sm:text-base text-[var(--ink-secondary)] font-normal tracking-[-0.012em] max-w-xl mx-auto leading-relaxed">
-                  Where IT architecture harmonizes with digital craft &mdash; an infinite cylindrical stream across our active practices.
-                </p>
-              </div>
+        {/* Services Connected Carousel Showcase Section */}
+        <section id="services" className="scroll-mt-16 sm:scroll-mt-20 relative w-full py-16 sm:py-24 bg-[#ebe8f9] border-b border-[var(--border-delicate)] overflow-hidden">
+          {/* Subtle architectural dot pattern */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 text-foreground opacity-[0.05]"
+            style={{
+              backgroundImage: "radial-gradient(currentColor 1.1px, transparent 1.4px)",
+              backgroundSize: "24px 24px",
+            }}
+          />
 
-              {/* Bottom CTA */}
-              <div className="pointer-events-auto flex flex-col items-center pb-2 px-4">
-                <button
-                  type="button"
-                  onClick={() => router.push("/services")}
-                  className="inline-flex items-center gap-3.5 pl-2.5 pr-6 py-2.5 rounded-[22px] bg-[#9eff3e] text-black hover:bg-white hover:shadow-[0_8px_32px_rgba(158,255,62,0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group shadow-md"
-                >
-                  <span className="flex items-center justify-center w-12 h-12 bg-white rounded-[14px] border border-black/10 shadow-xs transition-transform duration-200 group-hover:translate-x-0.5">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        d="M3.125 10H16.875"
-                        stroke="black"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M11.25 4.375L16.875 10L11.25 15.625"
-                        stroke="black"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <span className="font-bold text-[17px] text-black tracking-tight">
-                    Get Started
-                  </span>
-                </button>
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
+            {/* Disciplines & Craft Header */}
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 border border-black/10 backdrop-blur-md shadow-xs text-xs font-mono uppercase tracking-wider text-zinc-800 mb-4 select-none">
+                <Layers className="w-3.5 h-3.5 text-zinc-600" />
+                <span>Disciplines &amp; Craft</span>
               </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#121212] leading-[1.08] mb-4">
+                Every discipline,<br className="hidden sm:inline" /> brought into focus.
+              </h2>
+              <p className="text-sm sm:text-base md:text-lg text-[var(--ink-secondary)] max-w-2xl mx-auto leading-relaxed">
+                Where IT architecture harmonizes with digital craft — an infinite cylindrical stream across our active practices.
+              </p>
             </div>
-          </TiltedGridHero>
+
+            {/* Connected Carousel Component */}
+            <CalendlyCarousel
+              items={SERVICES_CAROUSEL_DATA}
+              autoPlayInterval={6000}
+              pauseOnHover={false}
+              onActiveCardClick={(item) => {
+                if (item.href) {
+                  router.push(item.href);
+                }
+              }}
+              className="w-full"
+            />
+
+            {/* Bottom CTA to Contact */}
+            <div className="mt-10 sm:mt-14 flex justify-center">
+              <a
+                href="/contact"
+                className="f4m-btn f4m-btn-primary group"
+                style={{
+                  backgroundColor: "var(--v2-green, #9eff3e)",
+                  color: "#000000",
+                }}
+              >
+                <span className="f4m-btn-icon-box">
+                  <Image
+                    src="/figmaformotion/arrow-right.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    priority
+                  />
+                </span>
+                <span className="font-bold text-lg text-black">Get Started</span>
+              </a>
+            </div>
+          </div>
         </section>
 
         {/* Interactive Tactile Glass Folder Archives Section */}
@@ -418,9 +386,10 @@ export default function HomePage() {
           />
 
           <div className="relative max-w-5xl mx-auto px-6 text-center mb-16 sm:mb-20">
-            <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 block mb-2">
-              Interactive Archives &amp; Deliverables
-            </span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 border border-black/10 backdrop-blur-md shadow-xs text-xs font-mono uppercase tracking-wider text-zinc-800 mb-4 select-none">
+              <FolderArchive className="w-3.5 h-3.5 text-zinc-600" />
+              <span>Interactive Archives &amp; Deliverables</span>
+            </div>
             <h2 className="services-title mb-4">Project Dossiers</h2>
             <p className="text-sm sm:text-base text-[var(--ink-secondary)] max-w-xl mx-auto leading-relaxed">
               Tactile digital dossiers engineered with real liquid noise fields. Hover to peek inside, click to fan files, or tap + to append records.
@@ -475,9 +444,10 @@ export default function HomePage() {
         {/* Client Testimonials Section */}
         <section id="testimonials" className="relative w-full py-20 sm:py-28 overflow-hidden bg-[var(--bg-primary)] border-b border-[var(--border-delicate)]">
           <div className="relative max-w-5xl mx-auto px-6 text-center mb-6 sm:mb-10">
-            <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 block mb-2">
-              Client Endorsements &amp; Trust
-            </span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 border border-black/10 backdrop-blur-md shadow-xs text-xs font-mono uppercase tracking-wider text-zinc-800 mb-4 select-none">
+              <Quote className="w-3.5 h-3.5 text-zinc-600" />
+              <span>Client Endorsements &amp; Trust</span>
+            </div>
             <h2 className="services-title mb-4">What Our Partners Say</h2>
             <p className="text-sm sm:text-base text-[var(--ink-secondary)] max-w-xl mx-auto leading-relaxed">
               Engineering excellence and artisanal digital craft validated by industry leaders, founders, and creative directors.

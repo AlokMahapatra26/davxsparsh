@@ -4,6 +4,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import "@/styles/figma-motion.css";
+import { cn } from "@/lib/utils";
+import { AvatarHoverCard } from "@/components/ui/avatar-hover-card";
+import { Button } from "@/components/ui/button";
+import { Code2, CheckCircle2, Play, Tv, Sparkles, ExternalLink } from "lucide-react";
 
 const PREVIEW_CARDS = [
   { id: "01", src: "/figmaformotion/a2f05abe217e9823-480.webp", alt: "Why so curious 3D Mascot" },
@@ -58,6 +62,7 @@ export default function FigmaMotionHero({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activeNav, setActiveNav] = useState("Home");
   const [navStyle, setNavStyle] = useState({ left: 8, width: 74 });
+  const [activeBadgeIndex, setActiveBadgeIndex] = useState<number | null>(null);
   const navContainerRef = useRef<HTMLDivElement>(null);
 
   // Smooth scroll handler for anchor links
@@ -328,85 +333,227 @@ export default function FigmaMotionHero({
             </span>
           </h1>
 
-          {/* 3 Orbit Badges on Top Right */}
+          {/* 3 Orbit Badges on Top Right with Avatar Hover Card Integration */}
           <div className="f4m-badges">
             {/* Badge 1: Ready for Videocode */}
-            <div className="f4m-badge-entry f4m-enter" style={{ animationDelay: "0.28s" }}>
-              <div className="f4m-badge f4m-white-badge" role="img" aria-label="Ready for Videocode">
-                <span className="f4m-orbit" aria-hidden="true">
-                  <Image
-                    src="/figmaformotion/ready-ring.svg"
-                    alt=""
-                    width={84}
-                    height={84}
-                    priority
-                  />
-                  <span className="f4m-orbit-dot" style={{ left: "25px", top: "16.5px" }} />
-                  <span className="f4m-orbit-dot" style={{ left: "86px", top: "39.5px" }} />
-                  <span className="f4m-orbit-dot" style={{ left: "45px", top: "85.5px" }} />
-                </span>
-                <Image
-                  src="/figmaformotion/Check.svg"
-                  alt=""
-                  width={22}
-                  height={22}
-                  className="f4m-badge-icon"
-                  priority
-                />
-              </div>
+            <div
+              className={cn(
+                "f4m-badge-entry f4m-enter transition-all duration-300 ease-out",
+                activeBadgeIndex !== null && activeBadgeIndex !== 1
+                  ? "opacity-0 pointer-events-none scale-75 blur-xs"
+                  : "opacity-100 scale-100"
+              )}
+              style={{ animationDelay: "0.28s" }}
+            >
+              <AvatarHoverCard
+                size="badge"
+                variant="glass"
+                cardAlign="left"
+                onHoverChange={(hovered) => setActiveBadgeIndex(hovered ? 1 : null)}
+                name="Ready for Videocode"
+                username="videocode.io"
+                description="Production-ready React & Framer Motion animations exported directly from Figma master components."
+                customAvatar={
+                  <div className="f4m-badge f4m-white-badge cursor-pointer" role="img" aria-label="Ready for Videocode">
+                    <span className="f4m-orbit" aria-hidden="true">
+                      <Image
+                        src="/figmaformotion/ready-ring.svg"
+                        alt=""
+                        width={84}
+                        height={84}
+                        priority
+                      />
+                      <span className="f4m-orbit-dot" style={{ left: "25px", top: "16.5px" }} />
+                      <span className="f4m-orbit-dot" style={{ left: "86px", top: "39.5px" }} />
+                      <span className="f4m-orbit-dot" style={{ left: "45px", top: "85.5px" }} />
+                    </span>
+                    <Image
+                      src="/figmaformotion/Check.svg"
+                      alt=""
+                      width={22}
+                      height={22}
+                      className="f4m-badge-icon"
+                      priority
+                    />
+                  </div>
+                }
+                buttonContent={
+                  <div className="flex gap-2 w-full pt-1">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="flex-1 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-xs font-semibold cursor-pointer shadow-sm hover:!text-white"
+                      style={{ color: "#ffffff" }}
+                      onClick={() => {
+                        const target = document.getElementById("services");
+                        if (target) target.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    >
+                      <Code2 className="h-3.5 w-3.5 mr-1.5 !text-white shrink-0" style={{ color: "#ffffff" }} />
+                      <span className="!text-white" style={{ color: "#ffffff" }}>View Code</span>
+                    </Button>
+                    <Button
+                      size="sm"
+                      className="flex-1 bg-[#9eff3e] hover:bg-white !text-black text-xs font-bold cursor-pointer shadow-md hover:!text-black"
+                      style={{ color: "#000000", backgroundColor: "#9eff3e" }}
+                      onClick={() => {
+                        const target = document.getElementById("services");
+                        if (target) target.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    >
+                      <CheckCircle2 className="h-3.5 w-3.5 mr-1.5 !text-black shrink-0" style={{ color: "#000000" }} />
+                      <span className="!text-black font-bold" style={{ color: "#000000" }}>Get Access</span>
+                    </Button>
+                  </div>
+                }
+              />
             </div>
 
             {/* Badge 2: Figma animations included */}
-            <div className="f4m-badge-entry f4m-enter" style={{ animationDelay: "0.37s" }}>
-              <div className="f4m-badge" role="img" aria-label="Figma animations included">
-                <span className="f4m-orbit" aria-hidden="true">
-                  <Image
-                    src="/figmaformotion/figma-ring.svg"
-                    alt=""
-                    width={84}
-                    height={84}
-                    priority
-                  />
-                  <span className="f4m-orbit-dot" style={{ left: "31px", top: "12.5px" }} />
-                  <span className="f4m-orbit-dot" style={{ left: "84px", top: "36.5px" }} />
-                  <span className="f4m-orbit-dot" style={{ left: "26px", top: "79.5px" }} />
-                </span>
-                <Image
-                  src="/figmaformotion/figma-icone-svg-150px.svg"
-                  alt=""
-                  width={22}
-                  height={22}
-                  className="f4m-badge-icon"
-                  priority
-                />
-              </div>
+            <div
+              className={cn(
+                "f4m-badge-entry f4m-enter transition-all duration-300 ease-out",
+                activeBadgeIndex !== null && activeBadgeIndex !== 2
+                  ? "opacity-0 pointer-events-none scale-75 blur-xs"
+                  : "opacity-100 scale-100"
+              )}
+              style={{ animationDelay: "0.37s" }}
+            >
+              <AvatarHoverCard
+                size="badge"
+                variant="glass"
+                cardAlign="center"
+                onHoverChange={(hovered) => setActiveBadgeIndex(hovered ? 2 : null)}
+                name="Figma Animations"
+                username="figma.included"
+                description="100% editable vector animation files with smart variants, layout constraints, and motion tokens."
+                customAvatar={
+                  <div className="f4m-badge cursor-pointer" role="img" aria-label="Figma animations included">
+                    <span className="f4m-orbit" aria-hidden="true">
+                      <Image
+                        src="/figmaformotion/figma-ring.svg"
+                        alt=""
+                        width={84}
+                        height={84}
+                        priority
+                      />
+                      <span className="f4m-orbit-dot" style={{ left: "31px", top: "12.5px" }} />
+                      <span className="f4m-orbit-dot" style={{ left: "84px", top: "36.5px" }} />
+                      <span className="f4m-orbit-dot" style={{ left: "26px", top: "79.5px" }} />
+                    </span>
+                    <Image
+                      src="/figmaformotion/figma-icone-svg-150px.svg"
+                      alt=""
+                      width={22}
+                      height={22}
+                      className="f4m-badge-icon"
+                      priority
+                    />
+                  </div>
+                }
+                buttonContent={
+                  <div className="flex gap-2 w-full pt-1">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="flex-1 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-xs font-semibold cursor-pointer shadow-sm hover:!text-white"
+                      style={{ color: "#ffffff" }}
+                      onClick={() => {
+                        window.open("https://figma.com", "_blank");
+                      }}
+                    >
+                      <ExternalLink className="h-3.5 w-3.5 mr-1.5 !text-white shrink-0" style={{ color: "#ffffff" }} />
+                      <span className="!text-white" style={{ color: "#ffffff" }}>Open Figma</span>
+                    </Button>
+                    <Button
+                      size="sm"
+                      className="flex-1 bg-[#9eff3e] hover:bg-white !text-black text-xs font-bold cursor-pointer shadow-md hover:!text-black"
+                      style={{ color: "#000000", backgroundColor: "#9eff3e" }}
+                      onClick={() => {
+                        const target = document.getElementById("archives");
+                        if (target) target.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    >
+                      <Sparkles className="h-3.5 w-3.5 mr-1.5 !text-black shrink-0" style={{ color: "#000000" }} />
+                      <span className="!text-black font-bold" style={{ color: "#000000" }}>Assets</span>
+                    </Button>
+                  </div>
+                }
+              />
             </div>
 
             {/* Badge 3: Watch live template creation */}
-            <div className="f4m-badge-entry f4m-enter" style={{ animationDelay: "0.46s" }}>
-              <div className="f4m-badge" role="img" aria-label="Watch live template creation">
-                <span className="f4m-orbit" aria-hidden="true">
-                  <Image
-                    src="/figmaformotion/live-ring.svg"
-                    alt=""
-                    width={84}
-                    height={84}
-                    priority
-                  />
-                  <span className="f4m-orbit-dot" style={{ left: "40px", top: "10.5px" }} />
-                  <span className="f4m-orbit-dot" style={{ left: "12px", top: "66.5px" }} />
-                  <span className="f4m-orbit-dot" style={{ left: "75px", top: "74.5px" }} />
-                  <span className="f4m-orbit-dot" style={{ left: "84px", top: "33.5px" }} />
-                </span>
-                <Image
-                  src="/figmaformotion/MonitorPlay.svg"
-                  alt=""
-                  width={22}
-                  height={22}
-                  className="f4m-badge-icon"
-                  priority
-                />
-              </div>
+            <div
+              className={cn(
+                "f4m-badge-entry f4m-enter transition-all duration-300 ease-out",
+                activeBadgeIndex !== null && activeBadgeIndex !== 3
+                  ? "opacity-0 pointer-events-none scale-75 blur-xs"
+                  : "opacity-100 scale-100"
+              )}
+              style={{ animationDelay: "0.46s" }}
+            >
+              <AvatarHoverCard
+                size="badge"
+                variant="glass"
+                cardAlign="right"
+                onHoverChange={(hovered) => setActiveBadgeIndex(hovered ? 3 : null)}
+                name="Watch Live Stream"
+                username="live.templates"
+                description="Watch real-time live template creation sessions, tutorials, and motion breakdowns."
+                customAvatar={
+                  <div className="f4m-badge cursor-pointer" role="img" aria-label="Watch live template creation">
+                    <span className="f4m-orbit" aria-hidden="true">
+                      <Image
+                        src="/figmaformotion/live-ring.svg"
+                        alt=""
+                        width={84}
+                        height={84}
+                        priority
+                      />
+                      <span className="f4m-orbit-dot" style={{ left: "40px", top: "10.5px" }} />
+                      <span className="f4m-orbit-dot" style={{ left: "12px", top: "66.5px" }} />
+                      <span className="f4m-orbit-dot" style={{ left: "75px", top: "74.5px" }} />
+                      <span className="f4m-orbit-dot" style={{ left: "84px", top: "33.5px" }} />
+                    </span>
+                    <Image
+                      src="/figmaformotion/MonitorPlay.svg"
+                      alt=""
+                      width={22}
+                      height={22}
+                      className="f4m-badge-icon"
+                      priority
+                    />
+                  </div>
+                }
+                buttonContent={
+                  <div className="flex gap-2 w-full pt-1">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="flex-1 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-xs font-semibold cursor-pointer shadow-sm hover:!text-white"
+                      style={{ color: "#ffffff" }}
+                      onClick={() => {
+                        window.open("https://youtube.com", "_blank");
+                      }}
+                    >
+                      <Play className="h-3.5 w-3.5 mr-1.5 fill-current !text-white shrink-0" style={{ color: "#ffffff" }} />
+                      <span className="!text-white" style={{ color: "#ffffff" }}>Watch Live</span>
+                    </Button>
+                    <Button
+                      size="sm"
+                      className="flex-1 bg-[#9eff3e] hover:bg-white !text-black text-xs font-bold cursor-pointer shadow-md hover:!text-black"
+                      style={{ color: "#000000", backgroundColor: "#9eff3e" }}
+                      onClick={() => {
+                        const target = document.getElementById("services");
+                        if (target) target.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    >
+                      <Tv className="h-3.5 w-3.5 mr-1.5 !text-black shrink-0" style={{ color: "#000000" }} />
+                      <span className="!text-black font-bold" style={{ color: "#000000" }}>Replays</span>
+                    </Button>
+                  </div>
+                }
+              />
             </div>
           </div>
 

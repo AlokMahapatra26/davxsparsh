@@ -68,6 +68,8 @@
   --color-border: rgba(0, 0, 0, 0.08);
   --color-card: #ffffff;
   --color-card-foreground: #121212;
+  --color-secondary: #e2def5;
+  --color-secondary-foreground: #121212;
 
   --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: "Klarheit", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -80,6 +82,8 @@
   --foreground: #121212;
   --card: #ffffff;
   --card-foreground: #121212;
+  --secondary: #e2def5;
+  --secondary-foreground: #121212;
   --border: rgba(0, 0, 0, 0.08);
   --primary: #121212;
   --primary-foreground: #ffffff;

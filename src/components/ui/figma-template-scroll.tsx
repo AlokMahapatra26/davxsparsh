@@ -369,7 +369,7 @@ export default function FigmaTemplateScroll({
         ? maxHeroCardW / dims.cardWidth + (1 - maxHeroCardW / dims.cardWidth) * H
         : 1;
       const G = isDesktop ? (dims.width * 0.789 - dims.width / 2) * (1 - H) : 0;
-      const K = isDesktop ? (heroHeight * 0.615 - dims.height / 2) * (1 - H) : 0;
+      const K = isDesktop ? (heroHeight * 0.650 - dims.height / 2) * (1 - H) : 0;
 
       // Apply transform to each template card
       scrollState.cards.forEach((cardTransform, idx) => {
