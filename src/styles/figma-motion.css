@@ -551,6 +551,13 @@
   height: 95px;
   display: grid;
   position: relative;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+
+.f4m-badge:hover {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 @media (min-width: 768px) and (max-width: 1099px) {

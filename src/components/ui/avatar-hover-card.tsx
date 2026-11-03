@@ -1,10 +1,11 @@
 "use client";
 
-import React, { type ReactNode, useState } from "react";
+import React, { type ReactNode, useState, useEffect, useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 
 export interface NativeHoverCardProps {
   /**
@@ -66,9 +67,25 @@ export interface NativeHoverCardProps {
    */
   cardAlign?: "left" | "right" | "center";
   /**
-   * Callback fired when hover state changes
+   * Callback fired when open/hover state changes
    */
-  onHoverChange?: (hovered: boolean) => void;
+  onHoverChange?: (open: boolean) => void;
+  /**
+   * Trigger mode: "click" (default) or "hover"
+   */
+  trigger?: "click" | "hover";
+  /**
+   * Controlled open state
+   */
+  isOpen?: boolean;
+  /**
+   * Callback fired when open state changes
+   */
+  onOpenChange?: (open: boolean) => void;
+  /**
+   * Callback fired when closed
+   */
+  onClose?: () => void;
 }
 
 const imageSizeVariants: Record<string, string> = {
@@ -112,18 +129,83 @@ export function Component({
   customAvatar,
   cardAlign = "left",
   onHoverChange,
+  trigger = "click",
+  isOpen: controlledIsOpen,
+  onOpenChange,
+  onClose,
 }: NativeHoverCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
+  const isControlled = controlledIsOpen !== undefined;
+  const isCardOpen = isControlled ? controlledIsOpen : internalOpen;
+
+  const handleOpen = () => {
+    if (!isControlled) {
+      setInternalOpen(true);
+    }
+    onOpenChange?.(true);
     onHoverChange?.(true);
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
+  const handleClose = () => {
+    if (!isControlled) {
+      setInternalOpen(false);
+    }
+    onOpenChange?.(false);
     onHoverChange?.(false);
+    onClose?.();
   };
+
+  const handleTriggerClick = (e: React.MouseEvent) => {
+    if (trigger === "click") {
+      e.stopPropagation();
+      if (isCardOpen) {
+        handleClose();
+      } else {
+        handleOpen();
+      }
+    }
+  };
+
+  const handleMouseEnter = () => {
+    if (trigger === "hover") {
+      handleOpen();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (trigger === "hover") {
+      handleClose();
+    }
+  };
+
+  // Close on Click Outside or Escape Key
+  useEffect(() => {
+    if (!isCardOpen) return;
+
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        handleClose();
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isCardOpen]);
 
   const getVariantStyles = () => {
     switch (variant) {
@@ -165,12 +247,13 @@ export function Component({
 
   return (
     <motion.div
-      className={cn("relative inline-block", isHovered ? "z-50" : "z-10", className)}
+      ref={containerRef}
+      className={cn("relative inline-block", isCardOpen ? "z-50" : "z-10", className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       initial={false}
       animate={{
-        width: isHovered ? "auto" : "fit-content",
+        width: isCardOpen ? "auto" : "fit-content",
       }}
       transition={{
         type: "spring",
@@ -178,15 +261,17 @@ export function Component({
         damping: 30,
       }}
     >
+      {/* Clickable Trigger Badge */}
       <motion.div
         className={cn(
-          "relative rounded-full",
+          "relative rounded-full cursor-pointer select-none",
           customAvatar ? "overflow-visible" : "overflow-hidden",
           imageSizeVariants[size] || imageSizeVariants.md
         )}
+        onClick={handleTriggerClick}
         layout
         animate={{
-          padding: isHovered ? "8px" : "0px",
+          padding: isCardOpen ? "8px" : "0px",
         }}
         transition={{
           type: "spring",
@@ -199,7 +284,7 @@ export function Component({
 
       {/* Expanded Card Content */}
       <AnimatePresence>
-        {isHovered && (
+        {isCardOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: -4 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -214,18 +299,22 @@ export function Component({
             )}
             style={{ pointerEvents: "auto" }}
           >
-            {/* Background with gradient overlay on image */}
+            {/* Background with close icon and avatar header */}
             <div className="relative">
-              <motion.div
-                className={cn(
-                  "relative p-3 flex",
-                  cardAlign === "right"
-                    ? "justify-end"
-                    : cardAlign === "center"
-                    ? "justify-end sm:justify-center"
-                    : "justify-end sm:justify-start"
-                )}
+              {/* Close Button in Top Right */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClose();
+                }}
+                aria-label="Close card"
+                className="absolute top-3.5 right-3.5 z-50 w-7 h-7 rounded-full bg-white/10 hover:bg-white/25 active:bg-white/40 text-white flex items-center justify-center transition-all duration-150 cursor-pointer backdrop-blur-md border border-white/20 hover:scale-105 active:scale-95 shadow-sm"
               >
+                <X className="w-3.5 h-3.5 text-white" />
+              </button>
+
+              <motion.div className="relative p-3.5 pb-1 flex justify-start items-center">
                 <div className={cn(imageSizeVariants[size] || imageSizeVariants.md)}>
                   {avatarElement}
                 </div>
@@ -248,7 +337,7 @@ export function Component({
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.12 }}
-                    className="text-base sm:text-lg font-bold !text-white leading-tight tracking-tight drop-shadow-md"
+                    className="text-base sm:text-lg font-bold !text-white leading-tight tracking-tight drop-shadow-md pr-6"
                     style={{ color: "#ffffff" }}
                   >
                     {name}
@@ -281,7 +370,7 @@ export function Component({
                   </motion.p>
                 )}
 
-                {/* Button */}
+                {/* Action Buttons */}
                 <motion.div
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}

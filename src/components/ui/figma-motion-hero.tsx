@@ -349,7 +349,10 @@ export default function FigmaMotionHero({
                 size="badge"
                 variant="glass"
                 cardAlign="left"
-                onHoverChange={(hovered) => setActiveBadgeIndex(hovered ? 1 : null)}
+                trigger="click"
+                isOpen={activeBadgeIndex === 1}
+                onOpenChange={(open) => setActiveBadgeIndex(open ? 1 : null)}
+                onClose={() => setActiveBadgeIndex(null)}
                 name="Ready for Videocode"
                 username="videocode.io"
                 description="Production-ready React & Framer Motion animations exported directly from Figma master components."
@@ -423,7 +426,10 @@ export default function FigmaMotionHero({
                 size="badge"
                 variant="glass"
                 cardAlign="center"
-                onHoverChange={(hovered) => setActiveBadgeIndex(hovered ? 2 : null)}
+                trigger="click"
+                isOpen={activeBadgeIndex === 2}
+                onOpenChange={(open) => setActiveBadgeIndex(open ? 2 : null)}
+                onClose={() => setActiveBadgeIndex(null)}
                 name="Figma Animations"
                 username="figma.included"
                 description="100% editable vector animation files with smart variants, layout constraints, and motion tokens."
@@ -496,7 +502,10 @@ export default function FigmaMotionHero({
                 size="badge"
                 variant="glass"
                 cardAlign="right"
-                onHoverChange={(hovered) => setActiveBadgeIndex(hovered ? 3 : null)}
+                trigger="click"
+                isOpen={activeBadgeIndex === 3}
+                onOpenChange={(open) => setActiveBadgeIndex(open ? 3 : null)}
+                onClose={() => setActiveBadgeIndex(null)}
                 name="Watch Live Stream"
                 username="live.templates"
                 description="Watch real-time live template creation sessions, tutorials, and motion breakdowns."
