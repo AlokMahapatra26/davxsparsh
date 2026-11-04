@@ -237,28 +237,35 @@ function Distribution({
   bins,
   max,
   marker,
+  inverted,
 }: {
   bins: number[];
   max: number;
   marker: number;
+  inverted?: boolean;
 }) {
   const peak = Math.max(...bins) || 1;
   const width = max / bins.length;
   return (
     <div className={styles.bars}>
-      {bins.map((count, index) => (
-        <span
-          key={index}
-          className={styles.bar}
-          data-ink={index * width < marker ? "" : undefined}
-          style={
-            {
-              "--j": index / bins.length,
-              "--h": Math.max(0.04, count / peak),
-            } as CSSProperties
-          }
-        />
-      ))}
+      {bins.map((count, index) => {
+        const isHighlighted = inverted
+          ? index * width >= marker
+          : index * width < marker;
+        return (
+          <span
+            key={index}
+            className={styles.bar}
+            data-ink={isHighlighted ? "" : undefined}
+            style={
+              {
+                "--j": index / bins.length,
+                "--h": Math.max(0.04, count / peak),
+              } as CSSProperties
+            }
+          />
+        );
+      })}
     </div>
   );
 }
@@ -341,8 +348,148 @@ function WorldMap({ points }: { points: [number, number][] }) {
   );
 }
 
+function DevicesVisual() {
+  return (
+    <div className={styles.agencyVisual}>
+      <svg
+        viewBox="0 0 110 44"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className={styles.draw}
+      >
+        {/* Desktop Browser Frame */}
+        <rect
+          x="3"
+          y="5"
+          width="64"
+          height="37"
+          rx="3.5"
+          stroke="var(--ink)"
+          strokeWidth="1.2"
+          opacity="0.85"
+        />
+        {/* Browser Top bar */}
+        <line x1="3" y1="12" x2="67" y2="12" stroke="var(--soft)" strokeWidth="1" />
+        {/* 3 browser dots */}
+        <circle cx="8" cy="8.5" r="1.2" fill="var(--soft)" />
+        <circle cx="12" cy="8.5" r="1.2" fill="var(--soft)" />
+        <circle cx="16" cy="8.5" r="1.2" fill="var(--soft)" />
+        {/* Browser wireframe UI lines */}
+        <rect x="7" y="16" width="20" height="20" rx="2" fill="var(--soft)" opacity="0.4" />
+        <line x1="31" y1="18" x2="61" y2="18" stroke="var(--ink)" strokeWidth="1.2" opacity="0.6" />
+        <line x1="31" y1="23" x2="55" y2="23" stroke="var(--soft)" strokeWidth="1" />
+        <line x1="31" y1="28" x2="59" y2="28" stroke="var(--soft)" strokeWidth="1" />
+        <rect x="31" y="32" width="16" height="3.5" rx="1" fill="var(--ink)" opacity="0.7" />
+
+        {/* Mobile Smartphone (overlapping in front) */}
+        <rect
+          x="72"
+          y="1"
+          width="26"
+          height="42"
+          rx="4.5"
+          fill="var(--background)"
+          stroke="var(--ink)"
+          strokeWidth="1.4"
+        />
+        {/* Dynamic Island */}
+        <rect x="80" y="3.5" width="10" height="2" rx="1" fill="var(--ink)" opacity="0.8" />
+        {/* Phone UI skeleton */}
+        <rect x="76" y="8" width="18" height="9" rx="2" fill="var(--soft)" opacity="0.5" />
+        <line x1="76" y1="21" x2="90" y2="21" stroke="var(--ink)" strokeWidth="1" opacity="0.6" />
+        <line x1="76" y1="25" x2="86" y2="25" stroke="var(--soft)" strokeWidth="0.8" />
+        <rect x="76" y="29" width="8" height="8" rx="1.5" fill="var(--soft)" opacity="0.4" />
+        <rect x="86" y="29" width="8" height="8" rx="1.5" fill="var(--ink)" opacity="0.5" />
+        {/* Home bar */}
+        <line x1="81" y1="40" x2="89" y2="40" stroke="var(--soft)" strokeWidth="1.2" strokeLinecap="round" />
+      </svg>
+    </div>
+  );
+}
+
+function StarsVisual({ rating = 5 }: { rating?: number }) {
+  return (
+    <div className="flex flex-col justify-end w-full h-full pb-0.5">
+      <div className="flex items-center gap-1.5 w-full">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <svg
+            key={star}
+            viewBox="0 0 24 24"
+            fill="var(--ink)"
+            className="w-5 h-5 transition-transform duration-200"
+          >
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+        ))}
+      </div>
+      <div className="flex items-center gap-1.5 mt-2 text-[11px] font-mono tracking-wider text-[var(--text-muted)]">
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+        <span>100% Verified Client Feedback</span>
+      </div>
+    </div>
+  );
+}
+
+function DesignCraftVisual() {
+  return (
+    <div className="flex flex-col justify-end w-full h-full pb-0.5">
+      <div className="flex items-center gap-1.5 w-full">
+        <span className="px-2 py-0.5 rounded border border-[var(--soft)] text-[10px] font-mono font-medium text-[var(--ink)] bg-black/[0.02]">
+          Figma
+        </span>
+        <span className="px-2 py-0.5 rounded border border-[var(--soft)] text-[10px] font-mono font-medium text-[var(--ink)] bg-black/[0.02]">
+          Next.js
+        </span>
+        <span className="px-2 py-0.5 rounded border border-[var(--soft)] text-[10px] font-mono font-medium text-[var(--ink)] bg-black/[0.02]">
+          Swift
+        </span>
+      </div>
+      <div className="flex items-center gap-1.5 mt-2 text-[11px] font-mono text-[var(--text-muted)]">
+        <span className="font-semibold text-emerald-600 dark:text-emerald-400">60 FPS</span>
+        <span className="opacity-40">•</span>
+        <span>Sub-second Interactive</span>
+      </div>
+    </div>
+  );
+}
+
+function GlobalNetworkVisual() {
+  return (
+    <div className={styles.agencyVisual}>
+      <svg
+        viewBox="0 0 130 44"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className={styles.draw}
+      >
+        <ellipse cx="65" cy="22" rx="58" ry="17" stroke="var(--soft)" strokeWidth="0.8" opacity="0.35" />
+        <ellipse cx="65" cy="22" rx="38" ry="17" stroke="var(--soft)" strokeWidth="0.8" opacity="0.35" />
+        <ellipse cx="65" cy="22" rx="18" ry="17" stroke="var(--soft)" strokeWidth="0.8" opacity="0.35" />
+        <line x1="7" y1="22" x2="123" y2="22" stroke="var(--soft)" strokeWidth="0.8" opacity="0.35" />
+
+        <path d="M22 20 Q 42 6, 62 16" stroke="var(--ink)" strokeWidth="1.2" strokeDasharray="2.5 2.5" opacity="0.75" />
+        <path d="M62 16 Q 84 8, 102 24" stroke="var(--ink)" strokeWidth="1.2" strokeDasharray="2.5 2.5" opacity="0.75" />
+        <path d="M62 16 Q 75 32, 88 28" stroke="var(--ink)" strokeWidth="1.2" strokeDasharray="2.5 2.5" opacity="0.6" />
+
+        <circle cx="22" cy="20" r="3" fill="var(--ink)" />
+        <circle cx="62" cy="16" r="3.2" fill="var(--ink)" />
+        <circle cx="88" cy="28" r="2.5" fill="var(--ink)" />
+        <circle cx="102" cy="24" r="2.8" fill="var(--ink)" />
+      </svg>
+    </div>
+  );
+}
+
 function Visual({ visual }: { visual: StatVisual }) {
   switch (visual.kind) {
+    case "devices":
+      return <DevicesVisual />;
+    case "stars":
+      return <StarsVisual rating={visual.rating} />;
+    case "craft":
+      return <DesignCraftVisual />;
+    case "network":
+      return <GlobalNetworkVisual />;
     case "trend":
       return <Trend values={visual.values} />;
     case "uptime":
@@ -353,6 +500,7 @@ function Visual({ visual }: { visual: StatVisual }) {
           bins={visual.bins}
           max={visual.max}
           marker={visual.marker}
+          inverted={visual.inverted}
         />
       );
     case "map":

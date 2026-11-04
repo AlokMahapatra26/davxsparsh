@@ -52,11 +52,11 @@ export default function FigmaMotionHero({
   titleLine1 = "we make brands",
   titleLine2 = "impossible",
   titleLine3 = "to ignore",
-  description = "Access a growing library of premium animations designed exclusively for your current stack.",
-  primaryCtaText = "Get Access",
-  primaryCtaHref = "#services",
-  secondaryCtaText = "Explore",
-  secondaryCtaHref = "#archives",
+  description = "A powerhouse alliance pairing purpose-built IT engineering with sensory, high-end product & brand craft.",
+  primaryCtaText = "Start a Project",
+  primaryCtaHref = "/contact",
+  secondaryCtaText = "Explore Services",
+  secondaryCtaHref = "#services",
 }: FigmaMotionHeroProps) {
   const containerRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -400,12 +400,11 @@ export default function FigmaMotionHero({
                       className="flex-1 bg-[#9eff3e] hover:bg-white !text-black text-xs font-bold cursor-pointer shadow-md hover:!text-black"
                       style={{ color: "#000000", backgroundColor: "#9eff3e" }}
                       onClick={() => {
-                        const target = document.getElementById("services");
-                        if (target) target.scrollIntoView({ behavior: "smooth" });
+                        window.location.href = "/contact";
                       }}
                     >
                       <CheckCircle2 className="h-3.5 w-3.5 mr-1.5 !text-black shrink-0" style={{ color: "#000000" }} />
-                      <span className="!text-black font-bold" style={{ color: "#000000" }}>Get Access</span>
+                      <span className="!text-black font-bold" style={{ color: "#000000" }}>Start a Project</span>
                     </Button>
                   </div>
                 }
@@ -572,40 +571,76 @@ export default function FigmaMotionHero({
           {/* Action CTA Buttons */}
           <div className="f4m-actions">
             {/* Primary Action Button */}
-            <a
-              href={primaryCtaHref}
-              onClick={(e) => handleScrollTo(e, primaryCtaHref)}
-              className="f4m-btn f4m-btn-primary f4m-enter f4m-delay-btn1"
-            >
-              <span className="f4m-btn-icon-box">
-                <Image
-                  src="/figmaformotion/arrow-right.svg"
-                  alt=""
-                  width={20}
-                  height={20}
-                  priority
-                />
-              </span>
-              <span>{primaryCtaText}</span>
-            </a>
+            {primaryCtaHref.startsWith("#") ? (
+              <a
+                href={primaryCtaHref}
+                onClick={(e) => handleScrollTo(e, primaryCtaHref)}
+                className="f4m-btn f4m-btn-primary f4m-enter f4m-delay-btn1"
+              >
+                <span className="f4m-btn-icon-box">
+                  <Image
+                    src="/figmaformotion/arrow-right.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    priority
+                  />
+                </span>
+                <span>{primaryCtaText}</span>
+              </a>
+            ) : (
+              <Link
+                href={primaryCtaHref}
+                className="f4m-btn f4m-btn-primary f4m-enter f4m-delay-btn1"
+              >
+                <span className="f4m-btn-icon-box">
+                  <Image
+                    src="/figmaformotion/arrow-right.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    priority
+                  />
+                </span>
+                <span>{primaryCtaText}</span>
+              </Link>
+            )}
 
             {/* Secondary Action Button */}
-            <a
-              href={secondaryCtaHref}
-              onClick={(e) => handleScrollTo(e, secondaryCtaHref)}
-              className="f4m-btn f4m-btn-secondary f4m-enter f4m-delay-btn2"
-            >
-              <span className="f4m-btn-icon-box">
-                <Image
-                  src="/figmaformotion/squares-four.svg"
-                  alt=""
-                  width={20}
-                  height={20}
-                  priority
-                />
-              </span>
-              <span>{secondaryCtaText}</span>
-            </a>
+            {secondaryCtaHref.startsWith("#") ? (
+              <a
+                href={secondaryCtaHref}
+                onClick={(e) => handleScrollTo(e, secondaryCtaHref)}
+                className="f4m-btn f4m-btn-secondary f4m-enter f4m-delay-btn2"
+              >
+                <span className="f4m-btn-icon-box">
+                  <Image
+                    src="/figmaformotion/squares-four.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    priority
+                  />
+                </span>
+                <span>{secondaryCtaText}</span>
+              </a>
+            ) : (
+              <Link
+                href={secondaryCtaHref}
+                className="f4m-btn f4m-btn-secondary f4m-enter f4m-delay-btn2"
+              >
+                <span className="f4m-btn-icon-box">
+                  <Image
+                    src="/figmaformotion/squares-four.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    priority
+                  />
+                </span>
+                <span>{secondaryCtaText}</span>
+              </Link>
+            )}
           </div>
         </div>
 

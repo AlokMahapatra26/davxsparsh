@@ -2,8 +2,10 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Layers, FolderArchive, Quote } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { ScrollStack, ScrollStackItem } from "@/components/ui/ScrollStack";
 import { CardNav } from "@/components/ui/CardNav";
 import { GlowCursor } from "@/components/ui/GlowCursor";
@@ -13,10 +15,8 @@ import GlassFolder, { type FolderFile } from "@/components/ui/glass-folder-cards
 import { ClipPathLinks } from "@/components/ui/clip-path-links";
 import { Footer } from "@/components/ui/Footer";
 import GsapFlipCard, { type GsapFlipCardItem } from "@/components/ui/gsap-card-flip";
-import DossierCardFace from "@/components/ui/dossier-card-face";
 import { AnimatedTestimonials, testimonials } from "@/components/ui/testimonial";
 import FAQDemo from "@/components/ui/demo";
-import { DossierPopupModal } from "@/components/ui/dossier-popup-modal";
 import StatsBand from "@/components/ui/stats-band";
 import { CalendlyCarousel } from "@/components/ui/connected-carousel";
 import { SERVICES_CAROUSEL_DATA } from "@/components/ui/connected-carousel-demo";
@@ -143,50 +143,48 @@ export default function HomePage() {
   }, []);
 
   // Maintain live file arrays for folders so dynamically added files (+ button) are supported!
+  const [websiteFiles, setWebsiteFiles] = useState<FolderFile[]>([
+    { name: "Square World Logistics", meta: "Freight Portal · Live", image: "/images/square-world-thumbnail.jpg", href: "https://www.squareworldlogistics.in/" },
+    { name: "Essana Health", meta: "Telehealth Clinic · Live", image: "/images/essana-thumbnail.jpg", href: "https://essana.com.au/" },
+    { name: "Anshuukam Textile", meta: "Garment Export · Live", image: "/images/anshuukam-thumbnail.jpg", href: "https://www.anshuukamtextile.com/" },
+    { name: "Aarav Enterprises", meta: "Industrial Manpower · Live", image: "/images/aarav-thumbnail.jpg", href: "https://aaravent.in/" },
+    { name: "Salasar Polysacks", meta: "Polymer Packaging · Live", image: "/images/salasar-thumbnail.jpg", href: "https://www.salasarpolysacks.com/" },
+    { name: "Aqua Shakti Industries", meta: "Water Treatment · Live", image: "/images/aquashakti-thumbnail.jpg", href: "https://www.aquashaktiipl.com/" },
+    { name: "JIYA Sales & Services", meta: "Material Handling · Live", image: "/images/jiya-thumbnail.jpg", href: "https://jiyasalesandservices.com/" },
+  ]);
+
+  const [saasFiles, setSaasFiles] = useState<FolderFile[]>([
+    { name: "AI Automation Pipeline", meta: "Custom LLMs · Python", art: "ember" },
+    { name: "Collaborative Analytics Engine", meta: "PostgreSQL · ClickHouse", art: "glacier" },
+    { name: "Multi-Tenant CRM Suite", meta: "Node.js · Microservices" },
+    { name: "Billing & Subscription Gateway", meta: "Stripe · Webhooks.yml" },
+  ]);
+
   const [designFiles, setDesignFiles] = useState<FolderFile[]>([
-    { name: "Tokens & Typography", meta: "Storybook · v2.4", art: "aurora" },
-    { name: "Component Hierarchy", meta: "Figma · 48 assets", art: "dusk" },
-    { name: "Brand Guidelines.pdf", meta: "PDF · 8.2 MB" },
+    { name: "Tokens & Typography System", meta: "Figma · 120+ Components", art: "dusk" },
+    { name: "Sensory Brand Identity & Logo", meta: "Vector Marks · Editorial", art: "aurora" },
+    { name: "Mobile App Tactile UI Kit", meta: "iOS & Android · Spatial UI", art: "verdant" },
+    { name: "Brand Guidelines & Packaging", meta: "PDF · 14.8 MB" },
   ]);
-
-  const [cloudFiles, setCloudFiles] = useState<FolderFile[]>([
-    { name: "Zero-Trust Architecture", meta: "K8s · Terraform", art: "ember" },
-    { name: "Telemetry & Logs", meta: "Prometheus · Grafana" },
-    { name: "Microservices Blueprint", meta: "Go · gRPC", art: "glacier" },
-    { name: "CI/CD Pipeline.yml", meta: "GitHub Actions" },
-  ]);
-
-  const [artifactFiles, setArtifactFiles] = useState<FolderFile[]>([
-    { name: "Fluid WebGL Dynamics", meta: "Shaders · GLSL", art: "verdant" },
-    { name: "Sensory Packaging", meta: "Print · 3D Mockup", art: "dusk" },
-    { name: "Audit Report v4", meta: "PDF · 1.4 MB" },
-  ]);
-
-  const [activeDossierPopup, setActiveDossierPopup] = useState<{
-    folderName: string;
-    folderMeta: string;
-    files: FolderFile[];
-    activeFile: FolderFile;
-  } | null>(null);
 
   const handleOpenFileGallery = (
     folderKey: string,
     clickedFile: FolderFile,
     currentFiles: FolderFile[]
   ) => {
-    const folderMetaMap: Record<string, string> = {
-      "Design Systems": "Sparsh Design",
-      "Cloud Topologies": "DAVLabs IT",
-      "Tactile Artifacts": "Case Studies",
+    const slugMap: Record<string, string> = {
+      "Websites": "websites",
+      "SaaS Products": "saas-products",
+      "Designs": "designs",
+      "Design Systems": "designs",
+      "Cloud Topologies": "saas-products",
+      "Tactile Artifacts": "designs",
     };
-    const folderMeta = folderMetaMap[folderKey] || "DAVLabs × Sparsh";
-
-    setActiveDossierPopup({
-      folderName: folderKey,
-      folderMeta,
-      files: currentFiles,
-      activeFile: clickedFile,
-    });
+    const slug = slugMap[folderKey] || "websites";
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("return_to_section", "archives");
+    }
+    router.push(`/projects/${slug}`);
   };
 
 
@@ -294,7 +292,11 @@ export default function HomePage() {
           titleLine1="we make brands"
           titleLine2="impossible"
           titleLine3="to ignore"
-          primaryCtaHref="#services"
+          description="Pairing purpose-built IT engineering with sensory, high-end product & brand craft."
+          primaryCtaText="Start a Project"
+          primaryCtaHref="/contact"
+          secondaryCtaText="Explore Services"
+          secondaryCtaHref="#services"
         />
 
         {/* Figma for Motion v2 1:1 Scroll Stack & Audience Orbit Animation */}
@@ -304,8 +306,8 @@ export default function HomePage() {
         <section className="relative w-full border-t border-[var(--border-delicate)] bg-[#ebe8f9]">
           <StatsBand
             layout="divided"
-            title="Fast, steady, and close to everyone"
-            description="Measured across every region from October 2025 to September 2026."
+            title="Engineered for scale, crafted for impact"
+            description="Verified delivery milestones, store ratings, and user reach measured across our global web, mobile, and design partnerships."
           />
         </section>
 
@@ -390,54 +392,59 @@ export default function HomePage() {
               <FolderArchive className="w-3.5 h-3.5 text-zinc-600" />
               <span>Interactive Archives &amp; Deliverables</span>
             </div>
-            <h2 className="services-title mb-4">Project Dossiers</h2>
+            <h2 className="services-title mb-4">Projects</h2>
             <p className="text-sm sm:text-base text-[var(--ink-secondary)] max-w-xl mx-auto leading-relaxed">
-              Tactile digital dossiers engineered with real liquid noise fields. Hover to peek inside, click to fan files, or tap + to append records.
+              Tactile digital archives engineered with real liquid noise fields. Hover to peek inside, click to fan files, or tap + to append records.
             </p>
           </div>
 
           <div className="relative max-w-6xl mx-auto px-4 flex flex-col items-center">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-end justify-items-center gap-x-12 gap-y-16">
               <GlassFolder
-                label="Design Systems"
-                meta="Sparsh Design"
+                label="Websites"
+                meta="Production Platforms"
                 art="aurora"
                 seed={3}
                 action="none"
                 appearDelay={0}
-                files={designFiles}
-                onFilesChange={setDesignFiles}
-                onFileSelect={(file) => handleOpenFileGallery("Design Systems", file, designFiles)}
+                files={websiteFiles}
+                onFilesChange={setWebsiteFiles}
+                onFileSelect={(file) => handleOpenFileGallery("Websites", file, websiteFiles)}
               />
               <GlassFolder
-                label="Cloud Topologies"
-                meta="DAVLabs IT"
+                label="SaaS Products"
+                meta="Cloud Software"
                 art="none"
                 action="none"
                 labelPlacement="top-left"
                 appearDelay={140}
-                files={cloudFiles}
-                onFilesChange={setCloudFiles}
-                onFileSelect={(file) => handleOpenFileGallery("Cloud Topologies", file, cloudFiles)}
+                files={saasFiles}
+                onFilesChange={setSaasFiles}
+                onFileSelect={(file) => handleOpenFileGallery("SaaS Products", file, saasFiles)}
               />
               <GlassFolder
-                label="Tactile Artifacts"
-                meta="Case Studies"
+                label="Designs"
+                meta="Sparsh Craft"
                 tone="dark"
                 art="ember"
                 seed={11}
                 action="none"
                 labelPlacement="top-right"
                 appearDelay={280}
-                files={artifactFiles}
-                onFilesChange={setArtifactFiles}
-                onFileSelect={(file) => handleOpenFileGallery("Tactile Artifacts", file, artifactFiles)}
+                files={designFiles}
+                onFilesChange={setDesignFiles}
+                onFileSelect={(file) => handleOpenFileGallery("Designs", file, designFiles)}
               />
             </div>
 
-            <p className="relative mt-16 font-mono text-[11px] tracking-[0.2em] text-[var(--ink-muted)] uppercase">
-              Click any card to open interactive Flip dossier
-            </p>
+            <div className="relative mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
+              <Button size="sm" asChild className="gap-2 bg-zinc-950 hover:bg-zinc-800 text-white rounded-full px-5 py-2 shadow-xs text-xs font-mono">
+                <Link href="/projects">
+                  <span>Explore All Projects &amp; Live Builds</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </section>
 
@@ -636,23 +643,6 @@ export default function HomePage() {
         {/* Knowledge & FAQ Section right above Footer */}
         <FAQDemo id="faq" className="scroll-mt-20 border-t border-[var(--border-delicate)]" />
       </main>
-
-      {/* Bada Sa Popup Modal for Folder Cards */}
-      {activeDossierPopup && (
-        <DossierPopupModal
-          isOpen={!!activeDossierPopup}
-          onClose={() => setActiveDossierPopup(null)}
-          folderName={activeDossierPopup.folderName}
-          folderMeta={activeDossierPopup.folderMeta}
-          files={activeDossierPopup.files}
-          activeFile={activeDossierPopup.activeFile}
-          onSelectFile={(file) =>
-            setActiveDossierPopup((prev) => (prev ? { ...prev, activeFile: file } : null))
-          }
-          getFileDescription={getFileDescription}
-          getFileCaption={getFileCaption}
-        />
-      )}
 
       {/* Sleek Tasteful Footer */}
       <Footer />

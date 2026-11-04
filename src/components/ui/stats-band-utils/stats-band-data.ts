@@ -1,8 +1,12 @@
 export type StatVisual =
   | { kind: "trend"; values: number[] }
   | { kind: "uptime"; days: number[] }
-  | { kind: "distribution"; bins: number[]; max: number; marker: number }
-  | { kind: "map"; points: [number, number][] };
+  | { kind: "distribution"; bins: number[]; max: number; marker: number; inverted?: boolean }
+  | { kind: "map"; points: [number, number][] }
+  | { kind: "devices" }
+  | { kind: "stars"; rating?: number }
+  | { kind: "craft" }
+  | { kind: "network" };
 
 export interface Stat {
   /** The final number. The band counts up to it. */
@@ -24,10 +28,7 @@ export interface Stat {
   visual?: StatVisual;
 }
 
-/** 90 days of uptime, oldest first: two short incidents, 11 minutes on day 52 and 1 minute on day 24. */
-const uptimeDays = Array.from({ length: 90 }, (_, day) => day === 51 ? 99.24 : day === 23 ? 99.93 : 100);
-
-/** 35 edge regions as [longitude, latitude]. */
+/** 35 global hub locations as [longitude, latitude] across 6 continents. */
 const regions: [number, number][] = [
   [-122.4, 37.8], [-118.2, 34], [-96.8, 32.8], [-87.6, 41.9], [-77.5, 39], [-74, 40.7], [-79.4, 43.7], [-99.1, 19.4],
   [-74.1, 4.7], [-77, -12], [-46.6, -23.5], [-70.7, -33.4], [-58.4, -34.6],
@@ -38,23 +39,36 @@ const regions: [number, number][] = [
 
 export const stats: Stat[] = [
   {
-    value: 2_334_000, notation: "compact", decimals: 1, label: "Deploys in the last 12 months",
-    detail: "Across 12,400 teams", context: "Up from 1.4M the year before",
-    visual: { kind: "trend", values: [141, 148, 139, 162, 171, 184, 196, 203, 221, 238, 257, 274] },
+    value: 250,
+    suffix: "+",
+    label: "Web & Mobile Apps Built",
+    detail: "Custom platforms, iOS, Android & SaaS",
+    context: "Powering over 12M+ active users worldwide",
+    visual: { kind: "devices" },
   },
   {
-    value: 99.99, decimals: 2, suffix: "%", label: "API uptime over 90 days",
-    detail: "Measured every 30 seconds", context: "12 minutes down, 11 of them on July 14",
-    visual: { kind: "uptime", days: uptimeDays },
+    value: 99,
+    suffix: "%",
+    label: "Client satisfaction rate",
+    detail: "Across 140+ funded startups & brands",
+    context: "94% repeat client engagement rate",
+    visual: { kind: "stars", rating: 5 },
   },
   {
-    value: 38, suffix: "ms", label: "Median response time",
-    detail: "At the edge, worldwide", context: "p95 is 96 ms, down from 141 ms",
-    visual: { kind: "distribution", bins: [2, 8, 18, 26, 15, 10, 7, 5, 3, 2, 1.5, 1, .8, .7, .5, .3], max: 160, marker: 38 },
+    value: 4.9,
+    decimals: 1,
+    suffix: "★",
+    label: "Average user & store rating",
+    detail: "Top 1% ranking on App Store & Play Store",
+    context: "Over 85,000+ verified 5-star user reviews",
+    visual: { kind: "craft" },
   },
   {
-    value: 35, label: "Edge regions on six continents",
-    detail: "Most people are under 20 ms away", context: "Eight added this year, including Lagos",
-    visual: { kind: "map", points: regions },
+    value: 32,
+    suffix: "+",
+    label: "Global client markets",
+    detail: "Spanning US, Europe, Asia & Middle East",
+    context: "Distributed delivery across 14 global time zones",
+    visual: { kind: "network" },
   },
 ];

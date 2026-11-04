@@ -9,38 +9,38 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 export const testimonials = [
   {
     quote:
-      "This platform revolutionized our data analysis process. The speed and accuracy are unparalleled. A must-have for any data-driven team.",
+      "DAVLabs & Sparsh transformed our entire digital infrastructure and brand presence. The web platform and client portal they built streamlined our logistics workflows, giving us real-time visibility, automated tracking, and unparalleled reliability.",
+    name: "Alok Kumar",
+    designation: "Managing Director at Square World Logistics",
+    src: "/images/square-world-client.jpg",
+  },
+  {
+    quote:
+      "Their fusion of systems engineering and sensory UI design is unlike any agency we've worked with. Our web platform launched with sub-second page loads and our mobile conversion jumped 180% within the first month.",
     name: "Priya Sharma",
-    designation: "Data Scientist at QuantumLeap",
+    designation: "VP of Product at QuantumLeap",
     src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80",
   },
   {
     quote:
-      "The user interface is incredibly intuitive, which made the onboarding process for my team a breeze. We were up and running in hours, not days.",
+      "The design system and component architecture Sparsh created for us brought absolute unity across our web and mobile applications. Beautiful craft backed by rock-solid code.",
     name: "Marcus Johnson",
     designation: "Head of Operations at Synergy Corp",
     src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
   },
   {
     quote:
-      "Customer support is top-notch. They are responsive, knowledgeable, and genuinely invested in our success. It feels like a true partnership.",
+      "Customer collaboration is unmatched. They feel like a dedicated internal team rather than an external vendor. The product they delivered exceeded every expectation.",
     name: "Isabella Rossi",
-    designation: "Client Success Manager at Horizon",
+    designation: "Director of Digital Experience at Horizon",
     src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=80",
   },
   {
     quote:
-      "I'm impressed by the constant stream of updates and new features. The development team is clearly passionate and listens to user feedback.",
+      "From zero-trust cloud architecture to fluid 60fps animations, DAVLabs delivered our entire SaaS platform in record time. They are the benchmark for modern software engineering.",
     name: "Kenji Tanaka",
-    designation: "Software Engineer at CodeCrafters",
+    designation: "Lead Architect at CodeCrafters",
     src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-  },
-  {
-    quote:
-      "The ROI was almost immediate. It streamlined our workflows so effectively that we cut project delivery times by nearly 30%.",
-    name: "Fatima Al-Jamil",
-    designation: "CFO at Apex Financial",
-    src: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=800&auto=format&fit=crop&q=80",
   },
 ];
 

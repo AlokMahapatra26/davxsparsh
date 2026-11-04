@@ -121,8 +121,8 @@ export function StatsBandDemo() {
     <div className="w-full">
       <StatsBand
         layout="divided"
-        title="Fast, steady, and close to everyone"
-        description="Measured across every region from October 2025 to September 2026."
+        title="Engineered for scale, crafted for impact"
+        description="Verified delivery milestones, store ratings, and user reach measured across our global web, mobile, and design partnerships."
       />
     </div>
   );
