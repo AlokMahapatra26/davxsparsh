@@ -19,7 +19,7 @@ export default function ProjectsIndexPage() {
   };
 
   return (
-    <main className="relative min-h-screen bg-[#f8f7fd] text-zinc-900 pb-32 overflow-hidden">
+    <main className="relative min-h-screen bg-[#f8f7fd] text-zinc-900 pb-32 overflow-x-clip">
       {/* Architectural Dot Pattern */}
       <div
         aria-hidden="true"
@@ -30,31 +30,32 @@ export default function ProjectsIndexPage() {
         }}
       />
 
-      {/* Top Floating Bar */}
-      <header className="sticky top-0 z-40 bg-[#f8f7fd]/80 backdrop-blur-md border-b border-black/5 px-4 sm:px-8 py-3.5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Button variant="push-outline" size="sm" asChild className="gap-2 cursor-pointer shadow-xs">
-            <Link href="/#archives">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Return to Studio</span>
-            </Link>
-          </Button>
-          <span className="hidden sm:inline text-xs font-mono text-zinc-400">/</span>
-          <span className="hidden sm:inline text-xs font-mono text-zinc-600 uppercase tracking-wider">
+      {/* Top Sticky Bar */}
+      <header className="sticky top-0 z-40 bg-[#f8f7fd]/90 backdrop-blur-md border-b border-black/10 px-3 sm:px-8 py-3 sm:py-4 flex items-center justify-between gap-3 shadow-xs">
+        <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0 shrink-0">
+          <Link
+            href="/#archives"
+            className="inline-flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white hover:bg-zinc-100 text-zinc-900 font-semibold text-[13px] sm:text-[15px] border border-black/10 shadow-xs hover:shadow-sm transition-all duration-200 cursor-pointer active:scale-95 group shrink-0"
+          >
+            <ArrowLeft className="w-4 h-4 text-zinc-600 group-hover:text-zinc-950 transition-transform group-hover:-translate-x-0.5 shrink-0" />
+            <span>Return to Studio</span>
+          </Link>
+          <span className="hidden sm:inline text-sm font-mono text-zinc-400">/</span>
+          <span className="hidden md:inline text-xs sm:text-sm font-mono text-zinc-700 uppercase tracking-wider font-semibold truncate">
             All Projects &amp; Deliverables
           </span>
         </div>
 
         {/* Quick Category Switcher Tabs */}
-        <nav className="flex items-center gap-1.5 p-1 rounded-full bg-white/80 border border-black/10 shadow-xs text-xs font-mono">
-          <span className="px-3 py-1 rounded-full bg-zinc-950 text-white font-semibold shadow-xs">
+        <nav className="flex items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-full bg-white/90 border border-black/10 shadow-xs text-[12px] sm:text-[14px] font-medium shrink-0 overflow-x-auto">
+          <span className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-zinc-950 text-white font-semibold shadow-xs whitespace-nowrap">
             All ({PROJECTS_DATA.length})
           </span>
           {Object.values(PROJECT_CATEGORIES).map((cat) => (
             <Link
               key={cat.slug}
               href={`/projects/${cat.slug}`}
-              className="px-3 py-1 rounded-full text-zinc-600 hover:text-zinc-950 hover:bg-black/5 transition-all"
+              className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-zinc-600 hover:text-zinc-950 hover:bg-black/5 whitespace-nowrap transition-all duration-150"
             >
               {cat.title}
             </Link>

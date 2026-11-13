@@ -80,13 +80,21 @@ const Contact = () => {
   }, [selectedServices]);
 
   return (
-    <section className="relative w-full min-h-screen bg-[#ede5f9] flex items-center justify-center py-16 sm:py-20 md:py-28 px-6 sm:px-10 lg:px-16 selection:bg-[#4355ff]/10">
+    <section className="relative w-full min-h-screen bg-[#ede5f9] flex flex-col items-center justify-center py-10 sm:py-14 md:py-16 px-6 sm:px-10 lg:px-16 selection:bg-[#4355ff]/10">
       <div className="w-full max-w-[1360px] mx-auto">
+        {/* Top Center: Contact Us */}
+        <div className="flex items-center justify-center text-center mb-14 sm:mb-20 md:mb-24">
+          <h2 className="services-title text-[#0f172a]">
+            Contact Us
+          </h2>
+        </div>
+
         <div className="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-16">
           {/* Left Column: Headline, Details, Trusted By */}
           <div className="w-full lg:w-[580px] xl:w-[620px] shrink-0 pt-2">
             <ContactInfo
               selectedServices={selectedServices}
+              setSelectedServices={setSelectedServices}
               routingData={routingData}
             />
           </div>

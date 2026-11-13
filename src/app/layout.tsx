@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { GlowCursor } from "@/components/ui/GlowCursor";
 import { SupportChatbot } from "@/components/ui/support-chatbot";
 
 export const metadata: Metadata = {
@@ -63,6 +64,18 @@ export default function RootLayout({
       <body>
         <div className="ambient-grid" aria-hidden="true" />
         <div className="noise-overlay" aria-hidden="true" />
+        <GlowCursor
+          overlay
+          color="#ff8500"
+          secondaryColor="#ff8500"
+          intensity={1.6}
+          trailWidth={4.5}
+          linger={1.4}
+          glow={1.3}
+          clickBurst
+          theme="light"
+          excludeSelector="footer, .footer-root, [data-thumbnail-trail], [data-glow-suppress]"
+        />
         {children}
         <SupportChatbot />
       </body>

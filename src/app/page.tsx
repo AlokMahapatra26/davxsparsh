@@ -5,10 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Layers, FolderArchive, Quote } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { ScrollStack, ScrollStackItem } from "@/components/ui/ScrollStack";
 import { CardNav } from "@/components/ui/CardNav";
-import { GlowCursor } from "@/components/ui/GlowCursor";
 import FigmaMotionHero from "@/components/ui/figma-motion-hero";
 import FigmaTemplateScroll from "@/components/ui/figma-template-scroll";
 import GlassFolder, { type FolderFile } from "@/components/ui/glass-folder-cards";
@@ -220,20 +218,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Interactive Fluid GlowCursor Trail across the page including Hero - Color #ff8500 */}
-      <GlowCursor
-        overlay
-        color="#ff8500"
-        secondaryColor="#ff8500"
-        intensity={1.6}
-        trailWidth={4.5}
-        linger={1.4}
-        glow={1.3}
-        clickBurst
-        theme="light"
-        excludeSelector="footer, .footer-root, [data-thumbnail-trail], [data-glow-suppress]"
-      />
-
       {/* Top Floating CardNav (Centered 50% Width) */}
       <header className="fixed top-3 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none flex justify-center">
         <div className="w-[94%] sm:w-[80%] md:w-[65%] lg:w-[50%] mx-auto pointer-events-auto">
@@ -438,12 +422,17 @@ export default function HomePage() {
             </div>
 
             <div className="relative mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
-              <Button size="sm" asChild className="gap-2 bg-zinc-950 hover:bg-zinc-800 text-white rounded-full px-5 py-2 shadow-xs text-xs font-mono">
-                <Link href="/projects">
-                  <span>Explore All Projects &amp; Live Builds</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </Button>
+              <Link
+                href="/projects"
+                className="group inline-flex items-center gap-3.5 sm:gap-4 bg-[#58ff46] hover:bg-[#4ef43d] text-black font-bold p-2 sm:p-2.5 pr-6 sm:pr-7 rounded-[22px] sm:rounded-[24px] shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span className="w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] sm:rounded-[16px] bg-white flex items-center justify-center text-black shadow-xs shrink-0 transition-transform duration-200 group-hover:translate-x-0.5">
+                  <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+                </span>
+                <span className="text-[15px] sm:text-[16px] font-bold tracking-tight text-black">
+                  Explore All Projects &amp; Live Builds
+                </span>
+              </Link>
             </div>
           </div>
         </section>
