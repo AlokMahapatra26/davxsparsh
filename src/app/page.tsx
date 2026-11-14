@@ -210,9 +210,9 @@ export default function HomePage() {
         <circle cx="8" cy="12" r="6" stroke="currentColor" strokeWidth="1.6" />
         <circle cx="16" cy="12" r="6" stroke="currentColor" strokeWidth="1.6" />
       </svg>
-      <span className="font-bold text-[var(--ink-primary)]">DAVLabs</span>
-      <span className="opacity-40">&times;</span>
-      <span className="opacity-75 text-[var(--ink-secondary)]">Sparsh</span>
+      <span className="font-bold text-[var(--ink-primary)]">
+        DAV<span className="font-medium opacity-75 text-[var(--ink-secondary)]">Sparsh</span>
+      </span>
     </div>
   );
 
@@ -223,7 +223,7 @@ export default function HomePage() {
         <div className="w-[94%] sm:w-[80%] md:w-[65%] lg:w-[50%] mx-auto pointer-events-auto">
           <CardNav
             logo={BrandLogo}
-            logoAlt="DAVLabs and Sparsh Design"
+            logoAlt="DAVSparsh"
             logoHref="#hero"
             onLogoClick={handleScrollToHero}
             theme="light"

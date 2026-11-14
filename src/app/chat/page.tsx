@@ -191,7 +191,7 @@ export default function ChatPage() {
 
             <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-border/70">
               <span className="font-semibold text-sm tracking-tight text-foreground">
-                DAVLabs <span className="opacity-40">&times;</span> Sparsh
+                <span className="font-bold">DAV</span><span className="font-medium opacity-75">Sparsh</span>
               </span>
               <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
