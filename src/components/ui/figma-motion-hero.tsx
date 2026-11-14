@@ -495,10 +495,12 @@ export default function FigmaMotionHero({
                 isOpen={activeBadgeIndex === 3}
                 onOpenChange={(open) => setActiveBadgeIndex(open ? 3 : null)}
                 onClose={() => setActiveBadgeIndex(null)}
-                name="Global Network"
+                name="Our Global Clients"
                 hideActions
+                hideHeaderAvatar
+                cardTheme="light"
                 bodyContent={
-                  <WorldMap theme="dark" lineColor="#fca311" dots={GLOBAL_NETWORK_DOTS} />
+                  <WorldMap theme="light" lineColor="#fca311" dots={GLOBAL_NETWORK_DOTS} />
                 }
                 customAvatar={
                   <div className="f4m-badge cursor-pointer" role="img" aria-label="Watch live template creation">

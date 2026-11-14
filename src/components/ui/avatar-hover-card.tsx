@@ -58,6 +58,14 @@ export interface NativeHoverCardProps {
    */
   hideActions?: boolean;
   /**
+   * Hide the circular avatar/badge in the open card header
+   */
+  hideHeaderAvatar?: boolean;
+  /**
+   * Open card color theme. Default: "dark"
+   */
+  cardTheme?: "dark" | "light";
+  /**
    * Size of the image when collapsed
    * Default: "md"
    */
@@ -132,6 +140,8 @@ export function Component({
   buttonContent,
   bodyContent,
   hideActions = false,
+  hideHeaderAvatar = false,
+  cardTheme = "dark",
   size = "md",
   className,
   cardClassName,
@@ -277,7 +287,9 @@ export function Component({
                   transition={{ type: "spring", stiffness: 320, damping: 28 }}
                   className={cn(
                     "relative w-full max-w-[1040px] min-h-[520px] sm:min-h-[600px] flex flex-col justify-between rounded-[36px] sm:rounded-[44px] overflow-hidden p-8 sm:p-12 md:p-14",
-                    "bg-zinc-950/95 backdrop-blur-2xl border border-white/20 text-white shadow-[0_30px_90px_rgba(0,0,0,0.95)] ring-1 ring-white/10",
+                    cardTheme === "light"
+                      ? "bg-white backdrop-blur-2xl border border-black/10 text-black shadow-[0_30px_90px_rgba(0,0,0,0.35)] ring-1 ring-black/5"
+                      : "bg-zinc-950/95 backdrop-blur-2xl border border-white/20 text-white shadow-[0_30px_90px_rgba(0,0,0,0.95)] ring-1 ring-white/10",
                     cardClassName
                   )}
                   onClick={(e) => e.stopPropagation()}
@@ -290,23 +302,33 @@ export function Component({
                       handleClose();
                     }}
                     aria-label="Close modal"
-                    className="absolute top-6 right-6 sm:top-8 sm:right-8 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/10 hover:bg-white/25 active:bg-white/40 text-white flex items-center justify-center transition-all duration-150 cursor-pointer backdrop-blur-md border border-white/20 hover:scale-110 active:scale-95 shadow-md"
+                    className={cn(
+                      "absolute top-6 right-6 sm:top-8 sm:right-8 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all duration-150 cursor-pointer backdrop-blur-md border hover:scale-110 active:scale-95 shadow-md",
+                      cardTheme === "light"
+                        ? "bg-black/5 hover:bg-black/10 active:bg-black/20 text-black border-black/15"
+                        : "bg-white/10 hover:bg-white/25 active:bg-white/40 text-white border-white/20"
+                    )}
                   >
-                    <X className="w-6 h-6 text-white" />
+                    <X className={cn("w-6 h-6", cardTheme === "light" ? "text-black" : "text-white")} />
                   </button>
 
                   {/* Header with Circular Badge and Titles */}
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8 mb-6 pt-1">
-                    <div className="w-[110px] h-[110px] sm:w-[130px] sm:h-[130px] shrink-0 flex items-center justify-center rounded-3xl bg-white/[0.04] border border-white/10 p-2 shadow-inner">
-                      <div className="scale-105 sm:scale-115 flex items-center justify-center">
-                        {avatarElement}
+                    {!hideHeaderAvatar && (
+                      <div className="w-[110px] h-[110px] sm:w-[130px] sm:h-[130px] shrink-0 flex items-center justify-center rounded-3xl bg-white/[0.04] border border-white/10 p-2 shadow-inner">
+                        <div className="scale-105 sm:scale-115 flex items-center justify-center">
+                          {avatarElement}
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     <div className="space-y-2 flex-1 pr-12">
                       <h3
-                        className="text-3xl sm:text-4xl md:text-5xl font-black !text-white leading-[1.1] tracking-tight drop-shadow-md"
-                        style={{ color: "#ffffff" }}
+                        className={cn(
+                          "text-3xl sm:text-4xl md:text-5xl font-black leading-[1.1] tracking-tight drop-shadow-md",
+                          cardTheme === "light" ? "!text-black" : "!text-white"
+                        )}
+                        style={{ color: cardTheme === "light" ? "#000000" : "#ffffff" }}
                       >
                         {name}
                       </h3>
