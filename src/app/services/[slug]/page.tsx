@@ -1002,57 +1002,33 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
               </h2>
             </div>
 
-            {/* Right Side Services Continuous Infinite Marquee with Hover Pause */}
-            <div className="w-full lg:max-w-[700px] xl:max-w-[780px] overflow-hidden relative rounded-full bg-white/80 border border-black/10 shadow-xs backdrop-blur-md p-1.5 [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
-              <nav
-                aria-label="Services Switcher"
-                className="animate-marquee-infinite flex items-center gap-2 will-change-transform"
-              >
-                {/* Loop 1 */}
-                {ALL_SERVICES_NAV.map((s, idx) => {
-                  const isActive =
-                    s.slug === normalizedSlug ||
-                    (normalizedSlug === 'logo-design' && s.slug === 'creative-logo-design');
+            {/* Right Side Services Switcher: static, separate buttons */}
+            <nav
+              aria-label="Services Switcher"
+              className="w-full lg:max-w-[700px] xl:max-w-[780px] flex flex-wrap items-center gap-2 lg:justify-end"
+            >
+              {ALL_SERVICES_NAV.map((s) => {
+                const isActive =
+                  s.slug === normalizedSlug ||
+                  (normalizedSlug === 'logo-design' && s.slug === 'creative-logo-design');
 
-                  return (
-                    <Link
-                      key={`set1-${s.slug}-${idx}`}
-                      href={`/services/${s.slug}#flow`}
-                      className={cn(
-                        "px-4 py-2 rounded-full text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 select-none",
-                        isActive
-                          ? "bg-zinc-950 text-white shadow-xs font-bold ring-1 ring-zinc-950"
-                          : "text-zinc-600 hover:text-zinc-950 hover:bg-black/5"
-                      )}
-                    >
-                      {s.title}
-                    </Link>
-                  );
-                })}
-
-                {/* Loop 2 for seamless infinite slide */}
-                {ALL_SERVICES_NAV.map((s, idx) => {
-                  const isActive =
-                    s.slug === normalizedSlug ||
-                    (normalizedSlug === 'logo-design' && s.slug === 'creative-logo-design');
-
-                  return (
-                    <Link
-                      key={`set2-${s.slug}-${idx}`}
-                      href={`/services/${s.slug}#flow`}
-                      className={cn(
-                        "px-4 py-2 rounded-full text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 select-none",
-                        isActive
-                          ? "bg-zinc-950 text-white shadow-xs font-bold ring-1 ring-zinc-950"
-                          : "text-zinc-600 hover:text-zinc-950 hover:bg-black/5"
-                      )}
-                    >
-                      {s.title}
-                    </Link>
-                  );
-                })}
-              </nav>
-            </div>
+                return (
+                  <Link
+                    key={s.slug}
+                    href={`/services/${s.slug}#flow`}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={cn(
+                      "px-4 py-2 rounded-full border text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer select-none",
+                      isActive
+                        ? "bg-zinc-950 text-white border-zinc-950 shadow-xs font-bold"
+                        : "bg-white/80 text-zinc-600 border-black/10 hover:text-zinc-950 hover:bg-white hover:border-black/20"
+                    )}
+                  >
+                    {s.title}
+                  </Link>
+                );
+              })}
+            </nav>
           </div>
 
           <BentoGridShowcase
