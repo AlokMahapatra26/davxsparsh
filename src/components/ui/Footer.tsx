@@ -156,7 +156,7 @@ export function Footer() {
         {/* Bottom Utility Bar */}
         <div className="footer-bottom">
           <div className="footer-copyright">
-            &copy; 2026 DAVLabs &times; Sparsh Design. All rights reserved.
+            &copy; 2026 DAVSparsh. All rights reserved.
           </div>
 
           <div className="footer-location">

@@ -6,9 +6,11 @@ import Image from "next/image";
 import "@/styles/figma-motion.css";
 import { AvatarHoverCard } from "@/components/ui/avatar-hover-card";
 import { Button } from "@/components/ui/button";
+import { GlassmorphismPortfolioBlock } from "@/components/ui/glassmorphism-portfolio-block-shadcnui";
+import { STUDIO_PROFILE } from "@/data/studio-profile";
 import { WorldMap } from "@/components/ui/map";
 import { GLOBAL_NETWORK_DOTS } from "@/components/ui/map-demo";
-import { Code2, CheckCircle2, Sparkles, ExternalLink } from "lucide-react";
+import { Code2, CheckCircle2, ArrowRight } from "lucide-react";
 
 const PREVIEW_CARDS = [
   { id: "01", src: "/figmaformotion/a2f05abe217e9823-480.webp", alt: "Why so curious 3D Mascot" },
@@ -424,59 +426,30 @@ export default function FigmaMotionHero({
                 onOpenChange={(open) => setActiveBadgeIndex(open ? 2 : null)}
                 onClose={() => setActiveBadgeIndex(null)}
                 name="Figma Animations"
-                username="figma.included"
-                description="100% editable vector animation files with smart variants, layout constraints, interactive prototypes, and modular motion tokens ready for design systems."
+                hideHeader
+                hideActions
+                cardTheme="light"
+                cardClassName="!p-6 !min-h-0 max-h-[96vh]"
+                bodyContent={<GlassmorphismPortfolioBlock embedded content={STUDIO_PROFILE} />}
                 customAvatar={
-                  <div className="f4m-badge cursor-pointer" role="img" aria-label="Figma animations included">
+                  <div className="f4m-badge cursor-pointer" role="img" aria-label="Company profile and case studies">
                     <span className="f4m-orbit" aria-hidden="true">
                       <Image
-                        src="/figmaformotion/figma-ring.svg"
+                        src="/figmaformotion/company-ring.svg"
                         alt=""
                         width={84}
                         height={84}
                         priority
                       />
-                      <span className="f4m-orbit-dot" style={{ left: "31px", top: "12.5px" }} />
-                      <span className="f4m-orbit-dot" style={{ left: "84px", top: "36.5px" }} />
-                      <span className="f4m-orbit-dot" style={{ left: "26px", top: "79.5px" }} />
                     </span>
                     <Image
-                      src="/figmaformotion/figma-icone-svg-150px.svg"
+                      src="/figmaformotion/company-logo.svg"
                       alt=""
                       width={22}
                       height={22}
                       className="f4m-badge-icon"
                       priority
                     />
-                  </div>
-                }
-                buttonContent={
-                  <div className="flex flex-col sm:flex-row gap-4 w-full pt-1">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="flex-1 h-14 sm:h-16 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-base sm:text-lg font-semibold cursor-pointer shadow-sm rounded-2xl hover:!text-white transition-all hover:scale-[1.01]"
-                      style={{ color: "#ffffff" }}
-                      onClick={() => {
-                        window.open("https://figma.com", "_blank");
-                      }}
-                    >
-                      <ExternalLink className="h-5 w-5 mr-2.5 !text-white shrink-0" style={{ color: "#ffffff" }} />
-                      <span className="!text-white" style={{ color: "#ffffff" }}>Open Figma</span>
-                    </Button>
-                    <Button
-                      size="lg"
-                      className="flex-1 h-14 sm:h-16 bg-[#9eff3e] hover:bg-white !text-black text-base sm:text-lg font-bold cursor-pointer shadow-md rounded-2xl hover:!text-black transition-all hover:scale-[1.01]"
-                      style={{ color: "#000000", backgroundColor: "#9eff3e" }}
-                      onClick={() => {
-                        const target = document.getElementById("archives");
-                        if (target) target.scrollIntoView({ behavior: "smooth" });
-                        setActiveBadgeIndex(null);
-                      }}
-                    >
-                      <Sparkles className="h-5 w-5 mr-2.5 !text-black shrink-0" style={{ color: "#000000" }} />
-                      <span className="!text-black font-bold" style={{ color: "#000000" }}>Assets</span>
-                    </Button>
                   </div>
                 }
               />
@@ -496,26 +469,35 @@ export default function FigmaMotionHero({
                 onOpenChange={(open) => setActiveBadgeIndex(open ? 3 : null)}
                 onClose={() => setActiveBadgeIndex(null)}
                 name="Our Global Clients"
-                hideActions
+                titleClassName="text-2xl sm:text-3xl md:text-4xl"
+                buttonContent={
+                  <div className="flex justify-end">
+                    <Link
+                      href="/contact"
+                      onClick={() => setActiveBadgeIndex(null)}
+                      className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-2xl bg-black text-white text-base font-semibold shadow-md transition-all hover:bg-zinc-800 hover:scale-[1.02] active:scale-95"
+                      style={{ color: "#ffffff" }}
+                    >
+                      <span style={{ color: "#ffffff" }}>Contact Now</span>
+                      <ArrowRight className="h-4 w-4 shrink-0" style={{ color: "#ffffff" }} />
+                    </Link>
+                  </div>
+                }
                 hideHeaderAvatar
                 cardTheme="light"
                 bodyContent={
                   <WorldMap theme="light" lineColor="#fca311" dots={GLOBAL_NETWORK_DOTS} />
                 }
                 customAvatar={
-                  <div className="f4m-badge cursor-pointer" role="img" aria-label="Watch live template creation">
+                  <div className="f4m-badge cursor-pointer" role="img" aria-label="Our Global Clients">
                     <span className="f4m-orbit" aria-hidden="true">
                       <Image
-                        src="/figmaformotion/live-ring.svg"
+                        src="/figmaformotion/global-ring.svg"
                         alt=""
                         width={84}
                         height={84}
                         priority
                       />
-                      <span className="f4m-orbit-dot" style={{ left: "40px", top: "10.5px" }} />
-                      <span className="f4m-orbit-dot" style={{ left: "12px", top: "66.5px" }} />
-                      <span className="f4m-orbit-dot" style={{ left: "75px", top: "74.5px" }} />
-                      <span className="f4m-orbit-dot" style={{ left: "84px", top: "33.5px" }} />
                     </span>
                     <Image
                       src="/figmaformotion/team-users-white.png"

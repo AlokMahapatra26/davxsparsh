@@ -19,12 +19,12 @@ const INITIAL_GREETING: ChatMessage = {
   id: "msg-welcome",
   role: "assistant",
   content:
-    "Hello! I am the official AI support assistant for **DAVLabs × Sparsh Design**. How can I help you explore our engineering services, brand craft, or project inquiries today?\n\n*(Feel free to converse in **English**, **Hindi**, or **Hinglish**!)*",
+    "Hello! I am the official AI support assistant for **DAVSparsh**. How can I help you explore our engineering services, brand craft, or project inquiries today?\n\n*(Feel free to converse in **English**, **Hindi**, or **Hinglish**!)*",
   timestamp: "Just now",
 };
 
 const SUGGESTIONS = [
-  "What services do DAVLabs & Sparsh offer?",
+  "What services do DAVSparsh offer?",
   "Tell me about web and mobile app development",
   "How can I contact the team for a project quote?",
   "Hindi me baat karo",
@@ -363,7 +363,7 @@ export default function ChatPage() {
             onChange={(e) => setInputValue(e.target.value)}
             onSend={() => handleSendMessage()}
             isLoading={isLoading}
-            placeholder="Ask about DAVLabs & Sparsh Design (or say 'Hindi me baat karo')..."
+            placeholder="Ask about DAVSparsh (or say 'Hindi me baat karo')..."
             loadingText="Generating response with Gemini..."
             blobTranslucent
             className="w-full"

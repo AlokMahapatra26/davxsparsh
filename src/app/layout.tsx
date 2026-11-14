@@ -4,7 +4,7 @@ import { GlowCursor } from "@/components/ui/GlowCursor";
 import { SupportChatbot } from "@/components/ui/support-chatbot";
 
 export const metadata: Metadata = {
-  title: "DAVLabs × Sparsh Design — Engineering Precision × Editorial Craft",
+  title: "DAVSparsh — Engineering Precision × Editorial Craft",
   description:
     "An alliance between DAVLabs (IT & Systems Engineering) and Sparsh Design (Brand & Digital Product Experience). Purpose-built software and thoughtful digital aesthetics.",
   keywords: [
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Product Design",
   ],
   openGraph: {
-    title: "DAVLabs × Sparsh Design — Collaborative Studio",
+    title: "DAVSparsh — Collaborative Studio",
     description:
       "High-impact IT solutions and elevated design systems. Engineered for scale, crafted for resonance.",
     type: "website",

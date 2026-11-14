@@ -14,7 +14,7 @@ export function DossierCardFace({
 }) {
   const isDoc = item.isDocument || (!item.art && !item.image);
   const name = item.title || String(item.id || "Dossier");
-  const meta = item.meta || "DAVLabs × Sparsh";
+  const meta = item.meta || "DAVSparsh";
   const isPdf = name.toLowerCase().endsWith(".pdf");
   const isYml = name.toLowerCase().endsWith(".yml") || name.toLowerCase().endsWith(".yaml");
 
@@ -149,7 +149,7 @@ export function DossierCardFace({
               {name}
             </h3>
             <p className="text-xs font-mono !text-zinc-500 mt-1">
-              DAVLabs × Sparsh Studio • Archive Reference Record
+              DAVSparsh Studio • Archive Reference Record
             </p>
           </div>
         </div>

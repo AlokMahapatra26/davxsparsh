@@ -85,7 +85,7 @@ const getFileCaption = (name: string, meta?: string) => {
   if (name.includes("Audit")) {
     return "Performance benchmark audit: 100/100 Lighthouse score and zero layout shift.";
   }
-  return `Document specification for ${name} verified by DAVLabs × Sparsh Studio.`;
+  return `Document specification for ${name} verified by DAVSparsh Studio.`;
 };
 
 
@@ -491,7 +491,7 @@ export default function HomePage() {
                 <div className="scroll-stack-card__top">
                   <span className="scroll-stack-card__num">01</span>
                   <span className="scroll-stack-card__author">
-                    DAVLabs &times; Sparsh Design
+                    DAVSparsh
                   </span>
                 </div>
                 <div className="scroll-stack-card__body">

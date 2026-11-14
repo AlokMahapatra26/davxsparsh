@@ -130,7 +130,7 @@ export default function ServicesIndexPage() {
       </div>
 
       <div className="mt-24 pt-8 border-t border-zinc-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-zinc-400">
-        <span>DAVLabs &times; Sparsh Design Collaborative Studio</span>
+        <span>DAVSparsh Collaborative Studio</span>
         <span>Available for select commissions</span>
       </div>
     </main>

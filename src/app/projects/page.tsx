@@ -6,7 +6,7 @@ import { PROJECT_CATEGORIES, PROJECTS_DATA } from "@/data/projects-data";
 import { MinimalProjectCard } from "@/components/ui/minimal-project-card";
 
 export const metadata = {
-  title: "Projects & Portfolio | DAVLabs × Sparsh Design",
+  title: "Projects & Portfolio | DAVSparsh",
   description:
     "Explore our delivered websites, SaaS platforms, and sensory design systems built with engineering precision and editorial craft.",
 };

@@ -1,13 +1,13 @@
 /**
- * DAVLabs × Sparsh Design — Official Website Knowledge Base
+ * DAVSparsh — Official Website Knowledge Base
  * This file serves as the source of truth for the AI Support Assistant.
  */
 
 export const WEBSITE_KNOWLEDGE = `
-# DAVLabs × Sparsh Design — Official Knowledge Base
+# DAVSparsh — Official Knowledge Base
 
 ## 1. Company Overview
-- Name: DAVLabs × Sparsh Design (DAVLabs & Sparsh)
+- Name: DAVSparsh (a collaboration of DAVLabs and Sparsh Design)
 - Tagline: Engineering Precision × Editorial Craft
 - What We Do: A powerhouse alliance pairing purpose-built IT engineering (by DAVLabs) with sensory, high-end product & brand craft (by Sparsh Design).
 - Core Philosophy: Systems built from first principles with tactile, human-centered digital interfaces.

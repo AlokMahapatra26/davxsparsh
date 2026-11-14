@@ -9,7 +9,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 export const testimonials = [
   {
     quote:
-      "DAVLabs & Sparsh transformed our entire digital infrastructure and brand presence. The web platform and client portal they built streamlined our logistics workflows, giving us real-time visibility, automated tracking, and unparalleled reliability.",
+      "DAVSparsh transformed our entire digital infrastructure and brand presence. The web platform and client portal they built streamlined our logistics workflows, giving us real-time visibility, automated tracking, and unparalleled reliability.",
     name: "Alok Kumar",
     designation: "Managing Director at Square World Logistics",
     src: "/images/square-world-client.jpg",

@@ -62,9 +62,17 @@ export interface NativeHoverCardProps {
    */
   hideHeaderAvatar?: boolean;
   /**
+   * Hide the whole header (avatar, title, username) in the open card
+   */
+  hideHeader?: boolean;
+  /**
    * Open card color theme. Default: "dark"
    */
   cardTheme?: "dark" | "light";
+  /**
+   * Extra class names for the open card title
+   */
+  titleClassName?: string;
   /**
    * Size of the image when collapsed
    * Default: "md"
@@ -141,7 +149,9 @@ export function Component({
   bodyContent,
   hideActions = false,
   hideHeaderAvatar = false,
+  hideHeader = false,
   cardTheme = "dark",
+  titleClassName,
   size = "md",
   className,
   cardClassName,
@@ -313,7 +323,7 @@ export function Component({
                   </button>
 
                   {/* Header with Circular Badge and Titles */}
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8 mb-6 pt-1">
+                  <div className={cn("flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8 mb-6 pt-1", hideHeader && "hidden")}>
                     {!hideHeaderAvatar && (
                       <div className="w-[110px] h-[110px] sm:w-[130px] sm:h-[130px] shrink-0 flex items-center justify-center rounded-3xl bg-white/[0.04] border border-white/10 p-2 shadow-inner">
                         <div className="scale-105 sm:scale-115 flex items-center justify-center">
@@ -326,7 +336,8 @@ export function Component({
                       <h3
                         className={cn(
                           "text-3xl sm:text-4xl md:text-5xl font-black leading-[1.1] tracking-tight drop-shadow-md",
-                          cardTheme === "light" ? "!text-black" : "!text-white"
+                          cardTheme === "light" ? "!text-black" : "!text-white",
+                          titleClassName
                         )}
                         style={{ color: cardTheme === "light" ? "#000000" : "#ffffff" }}
                       >

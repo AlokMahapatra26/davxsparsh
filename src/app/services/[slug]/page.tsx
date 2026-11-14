@@ -586,7 +586,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
   const service = SERVICE_REGISTRY[normalizedSlug] || {
     title: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
     lead: 'Purpose-built software and thoughtful digital aesthetics crafted for modern ambitious brands.',
-    division: 'DAVLabs × Sparsh Design',
+    division: 'DAVSparsh',
     email: 'contact@davlabs.in',
     description:
       'Our collaborative studio unites deep technical architecture with elevated editorial craft to build digital products that endure.',
@@ -1075,7 +1075,7 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
 
         {/* Bottom Editorial Footnote */}
         <div className="mt-20 pt-8 border-t border-zinc-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-zinc-400">
-          <span>DAVLabs &times; Sparsh Design Collaborative Studio</span>
+          <span>DAVSparsh Collaborative Studio</span>
           <span>Available for select enterprise and product commissions</span>
         </div>
       </main>

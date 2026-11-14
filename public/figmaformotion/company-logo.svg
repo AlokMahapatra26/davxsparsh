@@ -1,0 +1,7 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Approximation of the four-colour pinwheel logo. Replace this file with the original logo asset. -->
+  <path d="M3 22C3 10 11 3 24 3V22H3Z" fill="#3E9C8C"/>
+  <path d="M26 3C38 3 45 11 45 24H26V3Z" fill="#2F6FD6"/>
+  <path d="M3 26H22V45C10 45 3 37 3 26Z" fill="#2E4A8C"/>
+  <path d="M26 26H45C45 38 37 45 24 45H26V26Z" fill="#D92B2B"/>
+</svg>

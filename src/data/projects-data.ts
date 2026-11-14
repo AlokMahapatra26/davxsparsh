@@ -34,7 +34,7 @@ export const PROJECT_CATEGORIES: Record<string, ProjectCategory> = {
     description:
       "Engineered from first principles with Next.js, sub-second edge speeds, and tactile editorial design that converts visitors into loyal brand advocates.",
     badge: "Web Engineering",
-    division: "DAVLabs × Sparsh Design",
+    division: "DAVSparsh",
     email: "contact@davlabs.in",
   },
   "saas-products": {
@@ -67,7 +67,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     subtitle: "Freight & Supply Chain Portal",
     category: "websites",
     categoryLabel: "Websites",
-    division: "DAVLabs Systems × Sparsh Design",
+    division: "DAVSparsh",
     image: "/images/square-world-thumbnail.jpg",
     description:
       "End-to-end digital web presence, shipment tracking interface, and corporate brand portal engineered for an international freight forwarding powerhouse.",
@@ -90,7 +90,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     subtitle: "Telehealth Clinic & Longevity Medicine",
     category: "websites",
     categoryLabel: "Websites",
-    division: "DAVLabs Systems × Sparsh Design",
+    division: "DAVSparsh",
     image: "/images/essana-thumbnail.jpg",
     description:
       "Modern Australian telehealth and longevity medicine platform featuring specialized clinical pathways, patient intake pipelines, and seamless clinician booking.",
@@ -113,7 +113,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     subtitle: "Garment Manufacturer & Export Portal",
     category: "websites",
     categoryLabel: "Websites",
-    division: "DAVLabs Systems × Sparsh Design",
+    division: "DAVSparsh",
     image: "/images/anshuukam-thumbnail.jpg",
     description:
       "Modern industrial web experience, digital product catalog, and global export inquiry pipeline engineered for a premier Indian garment manufacturer.",
@@ -136,7 +136,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     subtitle: "Industrial Workforce & Manpower Contracting",
     category: "websites",
     categoryLabel: "Websites",
-    division: "DAVLabs Systems × Sparsh Design",
+    division: "DAVSparsh",
     image: "/images/aarav-thumbnail.jpg",
     description:
       "Specialized industrial workforce contracting portal and client deployment interface for pharmaceutical cleanrooms, plastic moulding, and medical instrument plants.",
@@ -159,7 +159,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     subtitle: "HDPE Tarpaulin & Polymer Packaging Manufacturer",
     category: "websites",
     categoryLabel: "Websites",
-    division: "DAVLabs Systems × Sparsh Design",
+    division: "DAVSparsh",
     image: "/images/salasar-thumbnail.jpg",
     description:
       "Leading industrial polymer packaging web platform, interactive product specifier, and direct B2B supply portal for heavy-duty HDPE tarpaulins and woven sacks.",
@@ -182,7 +182,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     subtitle: "Industrial Water Treatment & RO Plants",
     category: "websites",
     categoryLabel: "Websites",
-    division: "DAVLabs Systems × Sparsh Design",
+    division: "DAVSparsh",
     image: "/images/aquashakti-thumbnail.jpg",
     description:
       "Complete industrial engineering showcase, technical product catalog, and plant inquiry portal for industrial RO, STP, ETP, and chemical treatment plants.",
@@ -205,7 +205,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     subtitle: "Material Handling Equipment & Spares",
     category: "websites",
     categoryLabel: "Websites",
-    division: "DAVLabs Systems × Sparsh Design",
+    division: "DAVSparsh",
     image: "/images/jiya-thumbnail.jpg",
     description:
       "Premier material handling machinery catalog and OEM industrial spares supply portal for hydraulic stackers, pallet trucks, and polyurethane caster wheels.",
