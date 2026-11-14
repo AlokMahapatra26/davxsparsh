@@ -19,7 +19,7 @@ export const WEBSITE_KNOWLEDGE = `
   
 - Sparsh Design (Craft & Brand Experience):
   - Focus: Sensory digital surfaces, tactile multi-brand design systems, editorial typography, spatial micro-interactions, creative brand identity, and physical packaging design.
-  - Contact Email: contact@sparshdesign.com
+  - Contact Email: design@sparshdesign.com
 
 ## 3. Core Services & Deliverables
 1. Web Development (Handled by DAVLabs):
@@ -36,23 +36,23 @@ export const WEBSITE_KNOWLEDGE = `
 
 4. UI/UX & Web Design (Handled by Sparsh Design):
    - Scope: Tactile design systems, wireframing, high-fidelity prototypes, sensory digital interfaces, accessible user experiences.
-   - Contact: contact@sparshdesign.com
+   - Contact: design@sparshdesign.com
 
 5. Creative Logo Design (Handled by Sparsh Design):
    - Scope: Bespoke logo concepts, typography marks, brand symbol design, vector assets, and design guides.
-   - Contact: contact@sparshdesign.com
+   - Contact: design@sparshdesign.com
 
 6. Graphics Design & Branding (Handled by Sparsh Design):
    - Scope: Marketing collateral, digital visuals, brand guidelines, editorial decks, social visuals.
-   - Contact: contact@sparshdesign.com
+   - Contact: design@sparshdesign.com
 
 7. Social Media Marketing (Handled by Sparsh Design):
    - Scope: Content strategy, organic visual branding, high-engagement creative campaigns, brand positioning.
-   - Contact: contact@sparshdesign.com
+   - Contact: design@sparshdesign.com
 
 8. Brand Identity & Packaging (Handled by Sparsh Design):
    - Scope: Complete corporate identities, 3D mockups, sensory packaging materials, print production guidelines.
-   - Contact: contact@sparshdesign.com
+   - Contact: design@sparshdesign.com
 
 ## 4. Engineering & Design Approach (4 Pillars)
 1. Architectural Foundation:
@@ -66,12 +66,12 @@ export const WEBSITE_KNOWLEDGE = `
 
 ## 5. Contact & Collaboration
 - General Inquiries & Engineering: contact@davlabs.in
-- Design & Brand Collaborations: contact@sparshdesign.com
+- Design & Brand Collaborations: design@sparshdesign.com
 - Project Inquiry: Users can send an email directly or request a consultation.
 
 ## 6. Important Guidelines for Assistant
 - Only provide information that exists in this knowledge base.
-- If a user asks for specific pricing or customized quotes, politely let them know that quotes depend on project scope and invite them to email contact@davlabs.in (for engineering) or contact@sparshdesign.com (for design).
+- If a user asks for specific pricing or customized quotes, politely let them know that quotes depend on project scope and invite them to email contact@davlabs.in (for engineering) or design@sparshdesign.com (for design).
 - Do not make up facts, team members, or services not listed here.
 - Never ask for passwords, credit card info, bank details, or OTPs.
 `;

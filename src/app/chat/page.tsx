@@ -79,7 +79,7 @@ export default function ChatPage() {
         role: "assistant",
         content:
           data.reply ||
-          "I apologize, I could not generate a response. Please reach out to our team at contact@davlabs.in or contact@sparshdesign.com.",
+          "I apologize, I could not generate a response. Please reach out to our team at contact@davlabs.in or design@sparshdesign.com.",
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
 

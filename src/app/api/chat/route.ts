@@ -14,7 +14,7 @@ LANGUAGE POLICY:
 STRICT GROUNDING & SCOPE RULES:
 1. GROUNDED IN WEBSITE DATA ONLY: Answer only based on the provided website knowledge base. If an answer is not in the data, do NOT guess. Politely advise the user to contact the respective team:
    - Engineering & IT (DAVLabs): contact@davlabs.in
-   - Design, Brand & Craft (Sparsh Design): contact@sparshdesign.com
+   - Design, Brand & Craft (Sparsh Design): design@sparshdesign.com
 2. SENSITIVE INFO PROTECTION: Never ask for or accept passwords, OTPs, bank/card details, or payment credentials.
 3. OFF-TOPIC QUESTIONS: If the user asks about anything unrelated to DAVLabs × Sparsh Design (such as generic coding questions, sports, weather, politics, general trivia), politely state that you can only assist with DAVLabs × Sparsh Design services and offerings.
 
@@ -144,7 +144,7 @@ export async function POST(req: NextRequest) {
       {
         error: "INTERNAL_ERROR",
         reply:
-          "Maaf kijiye, abhi assistant se sampark karne me thodi samasya aa rahi hai. Kripya hamari team se contact@davlabs.in ya contact@sparshdesign.com par sampark karein.",
+          "Maaf kijiye, abhi assistant se sampark karne me thodi samasya aa rahi hai. Kripya hamari team se contact@davlabs.in ya design@sparshdesign.com par sampark karein.",
       },
       { status: 500 }
     );

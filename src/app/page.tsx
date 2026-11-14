@@ -261,7 +261,7 @@ export default function HomePage() {
                 links: [
                   { label: "Contact Us", href: "/contact" },
                   { label: "DAVLabs (Engineering)", href: "mailto:contact@davlabs.in" },
-                  { label: "Sparsh Design (Craft)", href: "mailto:contact@sparshdesign.com" }
+                  { label: "Sparsh Design (Craft)", href: "mailto:design@sparshdesign.com" }
                 ]
               }
             ]}

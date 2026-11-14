@@ -23,23 +23,23 @@ export const SERVICE_ROUTING: Record<string, ServiceInfo> = {
     division: "DAVLabs Intelligence Systems",
   },
   "UI/UX & Web Design": {
-    email: "contact@sparshdesign.com",
+    email: "design@sparshdesign.com",
     division: "Sparsh Design Studio",
   },
   "Creative Logo Design": {
-    email: "contact@sparshdesign.com",
+    email: "design@sparshdesign.com",
     division: "Sparsh Design Studio",
   },
   "Graphics Design & Branding": {
-    email: "contact@sparshdesign.com",
+    email: "design@sparshdesign.com",
     division: "Sparsh Design Studio",
   },
   "Social Media Marketing": {
-    email: "contact@sparshdesign.com",
+    email: "design@sparshdesign.com",
     division: "Sparsh Digital Marketing",
   },
   "Brand Identity & Packaging": {
-    email: "contact@sparshdesign.com",
+    email: "design@sparshdesign.com",
     division: "Sparsh Design Studio",
   },
 };

@@ -50,6 +50,14 @@ export interface NativeHoverCardProps {
    */
   buttonContent?: ReactNode;
   /**
+   * Custom body rendered in place of the description box
+   */
+  bodyContent?: ReactNode;
+  /**
+   * Hide the footer action area (buttons)
+   */
+  hideActions?: boolean;
+  /**
    * Size of the image when collapsed
    * Default: "md"
    */
@@ -122,6 +130,8 @@ export function Component({
   buttonText = "View Profile",
   onButtonClick,
   buttonContent,
+  bodyContent,
+  hideActions = false,
   size = "md",
   className,
   cardClassName,
@@ -312,8 +322,15 @@ export function Component({
                     </div>
                   </div>
 
+                  {/* Custom body (e.g. map) */}
+                  {bodyContent && (
+                    <div className="my-4 sm:my-6 flex-1 flex items-center justify-center">
+                      <div className="w-full">{bodyContent}</div>
+                    </div>
+                  )}
+
                   {/* Description Box (Spacious Grand Body) */}
-                  {description && (
+                  {!bodyContent && description && (
                     <div className="my-6 sm:my-8 p-6 sm:p-8 md:p-10 rounded-3xl bg-white/[0.03] border border-white/10 flex-1 flex items-center">
                       <p
                         className="text-base sm:text-xl md:text-2xl !text-zinc-200 leading-relaxed font-normal"
@@ -325,6 +342,7 @@ export function Component({
                   )}
 
                   {/* Action CTA Buttons */}
+                  {!hideActions && (
                   <div className="pt-4 border-t border-white/10">
                     {buttonContent ? (
                       buttonContent
@@ -341,6 +359,7 @@ export function Component({
                       </Button>
                     )}
                   </div>
+                  )}
                 </motion.div>
               </motion.div>
             )}

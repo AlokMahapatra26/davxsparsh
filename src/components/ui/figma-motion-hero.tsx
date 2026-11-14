@@ -6,7 +6,9 @@ import Image from "next/image";
 import "@/styles/figma-motion.css";
 import { AvatarHoverCard } from "@/components/ui/avatar-hover-card";
 import { Button } from "@/components/ui/button";
-import { Code2, CheckCircle2, Play, Tv, Sparkles, ExternalLink } from "lucide-react";
+import { WorldMap } from "@/components/ui/map";
+import { GLOBAL_NETWORK_DOTS } from "@/components/ui/map-demo";
+import { Code2, CheckCircle2, Sparkles, ExternalLink } from "lucide-react";
 
 const PREVIEW_CARDS = [
   { id: "01", src: "/figmaformotion/a2f05abe217e9823-480.webp", alt: "Why so curious 3D Mascot" },
@@ -493,9 +495,11 @@ export default function FigmaMotionHero({
                 isOpen={activeBadgeIndex === 3}
                 onOpenChange={(open) => setActiveBadgeIndex(open ? 3 : null)}
                 onClose={() => setActiveBadgeIndex(null)}
-                name="Watch Live Stream"
-                username="live.templates"
-                description="Watch real-time live template creation sessions, interactive tutorials, motion design breakdowns, and high-fidelity product architecture live streams."
+                name="Global Network"
+                hideActions
+                bodyContent={
+                  <WorldMap theme="dark" lineColor="#fca311" dots={GLOBAL_NETWORK_DOTS} />
+                }
                 customAvatar={
                   <div className="f4m-badge cursor-pointer" role="img" aria-label="Watch live template creation">
                     <span className="f4m-orbit" aria-hidden="true">
@@ -520,35 +524,6 @@ export default function FigmaMotionHero({
                       className="f4m-badge-icon object-contain"
                       priority
                     />
-                  </div>
-                }
-                buttonContent={
-                  <div className="flex flex-col sm:flex-row gap-4 w-full pt-1">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="flex-1 h-14 sm:h-16 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-base sm:text-lg font-semibold cursor-pointer shadow-sm rounded-2xl hover:!text-white transition-all hover:scale-[1.01]"
-                      style={{ color: "#ffffff" }}
-                      onClick={() => {
-                        window.open("https://youtube.com", "_blank");
-                      }}
-                    >
-                      <Play className="h-5 w-5 mr-2.5 fill-current !text-white shrink-0" style={{ color: "#ffffff" }} />
-                      <span className="!text-white" style={{ color: "#ffffff" }}>Watch Live</span>
-                    </Button>
-                    <Button
-                      size="lg"
-                      className="flex-1 h-14 sm:h-16 bg-[#9eff3e] hover:bg-white !text-black text-base sm:text-lg font-bold cursor-pointer shadow-md rounded-2xl hover:!text-black transition-all hover:scale-[1.01]"
-                      style={{ color: "#000000", backgroundColor: "#9eff3e" }}
-                      onClick={() => {
-                        const target = document.getElementById("services");
-                        if (target) target.scrollIntoView({ behavior: "smooth" });
-                        setActiveBadgeIndex(null);
-                      }}
-                    >
-                      <Tv className="h-5 w-5 mr-2.5 !text-black shrink-0" style={{ color: "#000000" }} />
-                      <span className="!text-black font-bold" style={{ color: "#000000" }}>Replays</span>
-                    </Button>
                   </div>
                 }
               />

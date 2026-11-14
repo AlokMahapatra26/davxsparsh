@@ -64,17 +64,17 @@ export function Footer() {
               <span className="footer-channel-tag">Sparsh Design &bull; Digital &amp; Tactile Craft</span>
               <div className="footer-cta-wrapper">
                 <a
-                  href="mailto:contact@sparshdesign.com"
-                  onClick={(e) => handleCopyEmail(e, 'contact@sparshdesign.com')}
+                  href="mailto:design@sparshdesign.com"
+                  onClick={(e) => handleCopyEmail(e, 'design@sparshdesign.com')}
                   className="footer-email-link group"
-                  title="Click to copy contact@sparshdesign.com"
+                  title="Click to copy design@sparshdesign.com"
                 >
-                  <span className="footer-email-text">contact@sparshdesign.com</span>
+                  <span className="footer-email-text">design@sparshdesign.com</span>
                   <span className="footer-email-arrow transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
                     ↗
                   </span>
                 </a>
-                {copiedEmail === 'contact@sparshdesign.com' && (
+                {copiedEmail === 'design@sparshdesign.com' && (
                   <span className="footer-copied-toast">Copied to clipboard</span>
                 )}
               </div>
@@ -135,8 +135,8 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:contact@sparshdesign.com" title="Sparsh Design">
-                  contact@sparshdesign.com <span className="footer-link-sub">↗</span>
+                <a href="mailto:design@sparshdesign.com" title="Sparsh Design">
+                  design@sparshdesign.com <span className="footer-link-sub">↗</span>
                 </a>
               </li>
               <li>

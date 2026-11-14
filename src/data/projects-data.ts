@@ -55,7 +55,7 @@ export const PROJECT_CATEGORIES: Record<string, ProjectCategory> = {
       "Sensory digital surfaces, multi-brand Figma token architectures, spatial micro-interactions, and iconic brand systems that command market authority.",
     badge: "Brand & UI/UX Craft",
     division: "Sparsh Design Studio",
-    email: "contact@sparshdesign.com",
+    email: "design@sparshdesign.com",
   },
 };
 

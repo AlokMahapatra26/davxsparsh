@@ -118,7 +118,7 @@ const SERVICE_REGISTRY: Record<string, ServiceData> = {
     title: 'Creative Logo Design',
     lead: 'Unique, custom brand marks that declare your presence and start your business on the right foot.',
     division: 'Sparsh Design Studio',
-    email: 'contact@sparshdesign.com',
+    email: 'design@sparshdesign.com',
     description:
       'We provide creative, unique, and custom logo designs. The icon that declares your presence to the world. Logo is your first impression, so start the life of your business on the right foot with a distinct visual signature.',
     capabilities: [
@@ -148,7 +148,7 @@ const SERVICE_REGISTRY: Record<string, ServiceData> = {
     title: 'Creative Logo Design',
     lead: 'Unique, custom brand marks that declare your presence and start your business on the right foot.',
     division: 'Sparsh Design Studio',
-    email: 'contact@sparshdesign.com',
+    email: 'design@sparshdesign.com',
     description:
       'We provide creative, unique, and custom logo designs. The icon that declares your presence to the world. Logo is your first impression, so start the life of your business on the right foot with a distinct visual signature.',
     capabilities: [
@@ -178,7 +178,7 @@ const SERVICE_REGISTRY: Record<string, ServiceData> = {
     title: 'Graphics Design & Branding',
     lead: 'High-impact visual creatives, outdoor branding, corporate stationery, and packaging design.',
     division: 'Sparsh Design Studio',
-    email: 'contact@sparshdesign.com',
+    email: 'design@sparshdesign.com',
     description:
       'Pixel-perfect graphic design services crafting everything your brand needs to communicate with power. From large-format outdoor hoardings and exhibition booths to daily social creatives, corporate stationery, video creation, and packaging.',
     capabilities: [
@@ -208,7 +208,7 @@ const SERVICE_REGISTRY: Record<string, ServiceData> = {
     title: 'Social Media Marketing',
     lead: 'Gaining targeted website traffic, qualified leads, and brand authority across digital channels.',
     division: 'Sparsh Design Digital Marketing',
-    email: 'contact@sparshdesign.com',
+    email: 'design@sparshdesign.com',
     description:
       'Great marketing on social media can bring remarkable success to your business by driving high volumes of leads and sales. We create and execute high-converting content and paid campaigns across Instagram, Facebook, LinkedIn, and YouTube to attain your branding and revenue goals.',
     capabilities: [
@@ -238,7 +238,7 @@ const SERVICE_REGISTRY: Record<string, ServiceData> = {
     title: 'UI/UX & Web Design',
     lead: 'Building responsive, pixel-perfect digital experiences, portfolio sites, and e-commerce platforms.',
     division: 'Sparsh Design Studio',
-    email: 'contact@sparshdesign.com',
+    email: 'design@sparshdesign.com',
     description:
       'We design digital products that articulate clarity, dignity, and technological distinction. From exploratory conceptualization to production-ready design systems with multi-brand token workflows, every detail is mathematically anchored to create calm focus and elevate product authority.',
     capabilities: [
@@ -358,7 +358,7 @@ const SERVICE_REGISTRY: Record<string, ServiceData> = {
     title: 'Brand Identity & Packaging',
     lead: 'Enduring visual languages, brand standards, and packaging designed to outlast market cycles.',
     division: 'Sparsh Design Studio',
-    email: 'contact@sparshdesign.com',
+    email: 'design@sparshdesign.com',
     description:
       'Crafting timeless brand marks and cohesive identity systems that articulate pedigree, authority, and emotional resonance. We develop comprehensive brand books spanning typography hierarchy, color science, motion choreography, and tactile physical collateral.',
     capabilities: [

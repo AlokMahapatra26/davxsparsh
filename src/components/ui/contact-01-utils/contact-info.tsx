@@ -82,7 +82,7 @@ export default function ContactInfo({
 
   const displayEmails =
     activeMode === "design"
-      ? ["contact@sparshdesign.com"]
+      ? ["design@sparshdesign.com"]
       : activeMode === "development"
       ? ["contact@davlabs.in"]
       : (routingData?.emails || ["contact@davlabs.in"]);
