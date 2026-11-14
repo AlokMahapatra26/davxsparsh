@@ -66,8 +66,8 @@ export default function RootLayout({
         <div className="noise-overlay" aria-hidden="true" />
         <GlowCursor
           overlay
-          color="#fdf400"
-          secondaryColor="#fdf400"
+          color="#fca311"
+          secondaryColor="#fca311"
           intensity={1.6}
           trailWidth={4.5}
           linger={1.4}
