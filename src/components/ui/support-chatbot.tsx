@@ -8,6 +8,7 @@ import {
   Send,
   Maximize2,
   RotateCcw,
+  Sparkles,
   ArrowUpRight,
   CheckCheck,
   User,
@@ -109,37 +110,6 @@ export function SupportChatbot() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Sync conversation history from sessionStorage on mount
-  useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem("davsparsh_chat_history");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setMessages(parsed);
-        }
-      }
-    } catch (e) {
-      console.error("Failed to load chat history:", e);
-    }
-  }, []);
-
-  // Save conversation history to sessionStorage so full screen (/chat) keeps the same conversation
-  useEffect(() => {
-    try {
-      if (messages && messages.length > 1) {
-        sessionStorage.setItem("davsparsh_chat_history", JSON.stringify(messages));
-      }
-    } catch (e) {
-      console.error("Failed to save chat history:", e);
-    }
-  }, [messages]);
-
-  // Auto-close floating chatbot popup whenever route changes (e.g. going Back to Studio from /chat)
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
   useEffect(() => {
     if (isOpen) {
       scrollToBottom();
@@ -219,9 +189,6 @@ export function SupportChatbot() {
   };
 
   const handleResetChat = () => {
-    try {
-      sessionStorage.removeItem("davsparsh_chat_history");
-    } catch (e) {}
     setMessages([INITIAL_POPUP_GREETING]);
     setInputValue("");
   };
@@ -312,16 +279,14 @@ export function SupportChatbot() {
                     <span className="font-bold text-sm tracking-tight text-foreground">
                       DAV<span className="font-medium opacity-75">Sparsh</span>
                     </span>
-                    <span
-                      className="text-[10px] font-mono px-1.5 py-0.5 rounded-full font-bold"
-                      style={{
-                        backgroundColor: "rgba(252, 163, 17, 0.14)",
-                        color: "#fca311",
-                      }}
-                    >
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-semibold">
                       AI Live
                     </span>
                   </div>
+                  <p className="text-[11px] text-muted-foreground flex items-center gap-1">
+                    <Sparkles className="w-2.5 h-2.5 text-amber-500" />
+                    Powered by Gemini 3.5 Flash
+                  </p>
                 </div>
               </div>
 
@@ -337,7 +302,6 @@ export function SupportChatbot() {
                 </button>
                 <Link
                   href="/chat"
-                  onClick={() => setIsOpen(false)}
                   title="Open full page"
                   className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
                 >

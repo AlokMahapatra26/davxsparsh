@@ -64,18 +64,19 @@ export default function RootLayout({
       <body>
         <div className="ambient-grid" aria-hidden="true" />
         <div className="noise-overlay" aria-hidden="true" />
-        {children}
         <GlowCursor
           overlay
-          color="#fca311"
-          secondaryColor="#fca311"
-          intensity={2.2}
-          trailWidth={5.5}
-          linger={1.6}
-          glow={1.5}
+          color="#fdf400"
+          secondaryColor="#fdf400"
+          intensity={1.6}
+          trailWidth={4.5}
+          linger={1.4}
+          glow={1.3}
           clickBurst
-          excludeSelector="[data-thumbnail-trail], [data-glow-suppress]"
+          theme="light"
+          excludeSelector="footer, .footer-root, [data-thumbnail-trail], [data-glow-suppress]"
         />
+        {children}
         <SupportChatbot />
       </body>
     </html>

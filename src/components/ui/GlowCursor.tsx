@@ -231,12 +231,23 @@ void main() {
   vec3 bloom = texture(uBloom, vUv).rgb * uGlow;
   float edge = smoothstep(0.0, 0.02, min(min(vUv.x, 1.0 - vUv.x), min(vUv.y, 1.0 - vUv.y)));
   float grain = 1.0 + (hash(gl_FragCoord.xy + fract(uTime * 13.7) * 97.0) - 0.5) * uGrain * 2.0;
-
-  vec3 color = 1.0 - exp(-(light + bloom * 1.5) * grain);
-  color *= edge;
-  float brightness = max(color.r, max(color.g, color.b));
-  float alpha = clamp(brightness * 1.85, 0.0, 0.96);
-  outColor = vec4(color, alpha);
+  if (uLight > 0.5) {
+    float energy = max(dye.x, 0.0);
+    float heat = clamp(dye.y, 0.0, energy);
+    float gas = max(dye.z, 0.0);
+    float fresh = heat / max(energy, 0.0001);
+    vec3 tint = mix(uSecondary, uColor, fresh);
+    float halo = dot(bloom, vec3(0.2126, 0.7152, 0.0722));
+    float density = 1.0 - exp(-((energy * 1.1 + gas * 0.8) * uIntensity + halo * 0.25));
+    float tone = dot(tint, vec3(0.2126, 0.7152, 0.0722));
+    vec3 ink = tint;
+    density = clamp(density * grain, 0.0, 1.0) * edge;
+    outColor = vec4(ink * density, density);
+  } else {
+    vec3 color = 1.0 - exp(-(light + bloom) * grain);
+    color *= edge;
+    outColor = vec4(color, max(color.r, max(color.g, color.b)));
+  }
 }`;
 
 const QUALITY: Record<string, { sim: number; dye: number }> = {
@@ -308,8 +319,8 @@ export interface GlowCursorProps {
 }
 
 export const GlowCursor: React.FC<GlowCursorProps> = ({
-  color = '#fca311',
-  secondaryColor = '#fca311',
+  color = '#fdf400',
+  secondaryColor = '#fdf400',
   intensity = 1.3,
   trailWidth = 3,
   linger = 1.4,
@@ -976,7 +987,7 @@ export const GlowCursor: React.FC<GlowCursorProps> = ({
     };
   }, []);
 
-  const mode = blendMode ?? 'normal';
+  const mode = blendMode ?? (theme === 'light' ? 'normal' : 'screen');
   const overlayClass = overlay ? 'glow-cursor--overlay' : '';
 
   return (

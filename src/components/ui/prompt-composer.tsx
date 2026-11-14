@@ -170,18 +170,6 @@ const DEFAULT_WARP: Partial<WarpProps> = {
   width: 1280,
 };
 
-function checkWebGLSupport(): boolean {
-  if (typeof window === "undefined") return false;
-  try {
-    const canvas = document.createElement("canvas");
-    const gl =
-      canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-    return Boolean(window.WebGLRenderingContext && gl);
-  } catch {
-    return false;
-  }
-}
-
 export type AiBlobWarpAvatarProps = Omit<ComponentProps<"div">, "children"> & {
   pulseDurationSec?: number;
   warpProps?: Partial<WarpProps>;
@@ -200,17 +188,12 @@ export const AiBlobWarpAvatar = forwardRef<
     ...restWarpProps
   } = warpProps ?? {};
   const rootRef = useRef<HTMLDivElement>(null);
-  const [hasWebGL, setHasWebGL] = useState(false);
   const reduceMotion = useReducedMotion();
   const inView = useInView(rootRef, {
     amount: 0.2,
     margin: "0px 0px -10% 0px",
   });
   const live = inView && !reduceMotion;
-
-  useEffect(() => {
-    setHasWebGL(checkWebGLSupport());
-  }, []);
 
   const setRefs = useCallback(
     (node: HTMLDivElement | null) => {
@@ -245,28 +228,18 @@ export const AiBlobWarpAvatar = forwardRef<
             : { scale: 1, rotate: 0 }
         }
         aria-hidden
-        className="pointer-events-none absolute inset-0 origin-center rounded-full overflow-hidden"
+        className="pointer-events-none absolute inset-0 origin-center rounded-full"
         transition={{
           duration: pulseDurationSec,
           ease: "easeInOut",
           repeat: Number.POSITIVE_INFINITY,
         }}
       >
-        {hasWebGL ? (
-          <Warp
-            {...DEFAULT_WARP}
-            {...restWarpProps}
-            speed={live ? baseSpeed : 0}
-          />
-        ) : (
-          <div
-            className="w-full h-full rounded-full animate-pulse"
-            style={{
-              background:
-                "radial-gradient(circle at 35% 35%, #fda4af 0%, #0070f3 40%, #fb923c 70%, #00d4ff 100%)",
-            }}
-          />
-        )}
+        <Warp
+          {...DEFAULT_WARP}
+          {...restWarpProps}
+          speed={live ? baseSpeed : 0}
+        />
       </motion.div>
     </div>
   );
