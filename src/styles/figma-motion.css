@@ -420,6 +420,10 @@
   color: #ffffff !important;
 }
 
+.f4m-title > span.f4m-text-yellow {
+  color: #ffe600 !important;
+}
+
 @media (min-width: 768px) {
   .f4m-title {
     font: inherit;
@@ -433,6 +437,9 @@
   .f4m-title > span {
     display: inline;
     color: #ffffff !important;
+  }
+  .f4m-title > span.f4m-text-yellow {
+    color: #ffe600 !important;
   }
   .f4m-title > span:nth-child(2) {
     white-space: nowrap;

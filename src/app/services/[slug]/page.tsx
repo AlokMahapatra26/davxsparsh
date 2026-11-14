@@ -72,6 +72,16 @@ export async function generateStaticParams() {
   ];
 }
 
+const ALL_SERVICES_NAV = [
+  { slug: 'web-development', title: 'Web Development' },
+  { slug: 'app-development', title: 'App Development' },
+  { slug: 'ai-automation', title: 'AI Automation & Systems' },
+  { slug: 'ui-ux-design', title: 'UI/UX & Web Design' },
+  { slug: 'creative-logo-design', title: 'Creative Logo Design' },
+  { slug: 'graphics-design', title: 'Graphics Design & Branding' },
+  { slug: 'social-media-marketing', title: 'Social Media Marketing' },
+];
+
 interface ServiceData {
   title: string;
   lead: string;
@@ -983,11 +993,40 @@ async function ServiceDetailContent({ params }: ServicePageProps) {
         </div>
 
         {/* Bento Grid Showcase Integration - Flow Section */}
-        <section id="flow" className="mb-20 sm:mb-24 scroll-mt-20">
-          <div className="mb-6 sm:mb-8">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-950 tracking-[-0.035em] font-display">
-              Flow
-            </h2>
+        <section id="flow" className="mb-20 sm:mb-24 scroll-mt-24">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6 mb-7 sm:mb-9">
+            <div className="flex items-center gap-3 shrink-0">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-950 tracking-[-0.035em] font-display">
+                Flow
+              </h2>
+            </div>
+
+            {/* Right Side Services - Separate Individual Buttons (No slide, standalone buttons) */}
+            <nav
+              aria-label="Services Switcher"
+              className="flex flex-wrap items-center gap-2 sm:gap-2.5 max-w-full lg:max-w-[760px] lg:justify-end"
+            >
+              {ALL_SERVICES_NAV.map((s) => {
+                const isActive =
+                  s.slug === normalizedSlug ||
+                  (normalizedSlug === 'logo-design' && s.slug === 'creative-logo-design');
+
+                return (
+                  <Link
+                    key={s.slug}
+                    href={`/services/${s.slug}#flow`}
+                    className={cn(
+                      "px-3.5 sm:px-4 py-2 rounded-full text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer select-none",
+                      isActive
+                        ? "bg-zinc-950 text-white shadow-sm font-bold ring-1 ring-zinc-950"
+                        : "bg-white/80 hover:bg-white text-zinc-700 hover:text-zinc-950 border border-black/10 hover:border-black/25 shadow-xs hover:shadow-sm backdrop-blur-sm hover:-translate-y-0.5 active:translate-y-0"
+                    )}
+                  >
+                    {s.title}
+                  </Link>
+                );
+              })}
+            </nav>
           </div>
 
           <BentoGridShowcase

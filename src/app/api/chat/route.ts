@@ -24,17 +24,19 @@ ${WEBSITE_KNOWLEDGE}
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey =
+    const rawApiKey =
       process.env.GEMINI_API_KEY ||
       process.env.GOOGLE_API_KEY ||
       process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+
+    const apiKey = rawApiKey?.trim();
 
     if (!apiKey) {
       return NextResponse.json(
         {
           error: "API_KEY_MISSING",
           reply:
-            "Google Gemini API key configure nahi hai. Google AI Studio (https://aistudio.google.com) se 100% Free API key generate karein aur project ke root me .env.local file me GEMINI_API_KEY=your_key_here set karein.",
+            "Google Gemini API key configure nahi hai. Google AI Studio se API key generate karein aur .env.local file me GEMINI_API_KEY=your_key set karein.",
         },
         { status: 200 }
       );
@@ -91,39 +93,50 @@ export async function POST(req: NextRequest) {
     // Initialize Google Gen AI client with provided key
     const ai = new GoogleGenAI({ apiKey });
 
-    // Current standard Gemini model (gemini-2.5-flash is current flagship fast model)
-    const primaryModel = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+    // Ordered list of candidate Gemini models (gemini-3.5-flash first as requested)
+    const candidateModels = Array.from(
+      new Set(
+        [
+          process.env.GEMINI_MODEL,
+          "gemini-3.5-flash",
+          "gemini-3.5-flash-lite",
+          "gemini-3.8-flash",
+          "gemini-2.0-flash",
+          "gemini-1.5-flash",
+        ].filter(Boolean) as string[]
+      )
+    );
 
-    try {
-      const response = await ai.models.generateContent({
-        model: primaryModel,
-        contents: normalizedContents,
-        config: {
-          systemInstruction: SYSTEM_PROMPT,
-          temperature: 0.2, // Low temperature for high factual accuracy
-          maxOutputTokens: 800,
-        },
-      });
+    let reply: string | null = null;
+    let lastError: any = null;
 
-      const reply = response.text || "Maaf kijiye, main jawab generate nahi kar paya.";
-      return NextResponse.json({ reply });
-    } catch (primaryError: any) {
-      console.warn(`Primary model ${primaryModel} failed, trying gemini-2.5-flash-lite fallback:`, primaryError?.message);
+    for (const model of candidateModels) {
+      try {
+        const response = await ai.models.generateContent({
+          model,
+          contents: normalizedContents,
+          config: {
+            systemInstruction: SYSTEM_PROMPT,
+            temperature: 0.2, // Low temperature for high factual accuracy
+            maxOutputTokens: 800,
+          },
+        });
 
-      // Graceful fallback to gemini-2.5-flash-lite
-      const fallbackResponse = await ai.models.generateContent({
-        model: "gemini-2.5-flash-lite",
-        contents: normalizedContents,
-        config: {
-          systemInstruction: SYSTEM_PROMPT,
-          temperature: 0.2,
-          maxOutputTokens: 800,
-        },
-      });
+        if (response.text) {
+          reply = response.text;
+          break;
+        }
+      } catch (err: any) {
+        lastError = err;
+        console.warn(`Model ${model} failed, trying next candidate:`, err?.message || err);
+      }
+    }
 
-      const reply = fallbackResponse.text || "Maaf kijiye, main jawab generate nahi kar paya.";
+    if (reply) {
       return NextResponse.json({ reply });
     }
+
+    throw lastError || new Error("All candidate Gemini models failed to generate content.");
   } catch (error: any) {
     console.error("Gemini Chatbot API error:", error);
 

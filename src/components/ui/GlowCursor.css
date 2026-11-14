@@ -10,7 +10,7 @@
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 45;
+  z-index: 9990;
   overflow: hidden;
 }
 

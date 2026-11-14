@@ -40,6 +40,32 @@ export default function ChatPage() {
     messagesEndRef.current?.scrollIntoView({ behavior });
   };
 
+  // Sync conversation history from sessionStorage on mount (preserves chat from popup widget)
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem("davsparsh_chat_history");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setMessages(parsed);
+        }
+      }
+    } catch (e) {
+      console.error("Failed to load chat history:", e);
+    }
+  }, []);
+
+  // Save conversation history to sessionStorage so switching back to popup preserves context
+  useEffect(() => {
+    try {
+      if (messages && messages.length > 1) {
+        sessionStorage.setItem("davsparsh_chat_history", JSON.stringify(messages));
+      }
+    } catch (e) {
+      console.error("Failed to save chat history:", e);
+    }
+  }, [messages]);
+
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading]);
@@ -100,6 +126,9 @@ export default function ChatPage() {
   };
 
   const handleResetChat = () => {
+    try {
+      sessionStorage.removeItem("davsparsh_chat_history");
+    } catch (e) {}
     setMessages([INITIAL_GREETING]);
     setInputValue("");
   };
@@ -193,8 +222,17 @@ export default function ChatPage() {
               <span className="font-semibold text-sm tracking-tight text-foreground">
                 <span className="font-bold">DAV</span><span className="font-medium opacity-75">Sparsh</span>
               </span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span
+                className="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold flex items-center gap-1.5"
+                style={{
+                  backgroundColor: "rgba(252, 163, 17, 0.14)",
+                  color: "#fca311",
+                }}
+              >
+                <span
+                  className="w-1.5 h-1.5 rounded-full animate-pulse"
+                  style={{ backgroundColor: "#fca311" }}
+                />
                 Live Support
               </span>
             </div>

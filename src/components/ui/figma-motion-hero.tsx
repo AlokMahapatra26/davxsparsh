@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import "@/styles/figma-motion.css";
-import { cn } from "@/lib/utils";
 import { AvatarHoverCard } from "@/components/ui/avatar-hover-card";
 import { Button } from "@/components/ui/button";
 import { Code2, CheckCircle2, Play, Tv, Sparkles, ExternalLink } from "lucide-react";
@@ -311,7 +310,7 @@ export default function FigmaMotionHero({
               <span className={`f4m-enter ${count ? 'f4m-delay-2' : 'f4m-delay-1'} text-white`} style={{ color: "#ffffff" }}>
                 {toTitleCase(titleLine1)}
               </span>
-              <span className="f4m-enter f4m-delay-3 text-white" style={{ color: "#ffffff" }}>
+              <span className="f4m-enter f4m-delay-3 f4m-text-yellow text-[#ffe600]" style={{ color: "#ffe600" }}>
                 {/* 3 Interactive Motion Preview Cards */}
                 <span className="f4m-hero-previews" aria-hidden="true">
                   {PREVIEW_CARDS.map((card) => (
@@ -329,7 +328,9 @@ export default function FigmaMotionHero({
                 </span>
                 {toTitleCase(titleLine2)}
               </span>
-              <span className="f4m-enter f4m-delay-4 text-white" style={{ color: "#ffffff" }}>{toTitleCase(titleLine3)}</span>
+              <span className="f4m-enter f4m-delay-4 f4m-text-yellow text-[#ffe600]" style={{ color: "#ffe600" }}>
+                {toTitleCase(titleLine3)}
+              </span>
             </span>
           </h1>
 
@@ -337,25 +338,20 @@ export default function FigmaMotionHero({
           <div className="f4m-badges">
             {/* Badge 1: Ready for Videocode */}
             <div
-              className={cn(
-                "f4m-badge-entry f4m-enter transition-all duration-300 ease-out",
-                activeBadgeIndex !== null && activeBadgeIndex !== 1
-                  ? "opacity-0 pointer-events-none scale-75 blur-xs"
-                  : "opacity-100 scale-100"
-              )}
+              className="f4m-badge-entry f4m-enter transition-all duration-300 ease-out"
               style={{ animationDelay: "0.28s" }}
             >
               <AvatarHoverCard
                 size="badge"
                 variant="glass"
-                cardAlign="left"
+                cardAlign="center"
                 trigger="click"
                 isOpen={activeBadgeIndex === 1}
                 onOpenChange={(open) => setActiveBadgeIndex(open ? 1 : null)}
                 onClose={() => setActiveBadgeIndex(null)}
                 name="Ready for Videocode"
                 username="videocode.io"
-                description="Production-ready React & Framer Motion animations exported directly from Figma master components."
+                description="Production-ready React & Framer Motion animations exported directly from Figma master components. Optimized with sub-pixel perfection, dynamic spring physics, and modular engineering tokens."
                 customAvatar={
                   <div className="f4m-badge f4m-white-badge cursor-pointer" role="img" aria-label="Ready for Videocode">
                     <span className="f4m-orbit" aria-hidden="true">
@@ -381,30 +377,31 @@ export default function FigmaMotionHero({
                   </div>
                 }
                 buttonContent={
-                  <div className="flex gap-2 w-full pt-1">
+                  <div className="flex flex-col sm:flex-row gap-4 w-full pt-1">
                     <Button
-                      size="sm"
+                      size="lg"
                       variant="outline"
-                      className="flex-1 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-xs font-semibold cursor-pointer shadow-sm hover:!text-white"
+                      className="flex-1 h-14 sm:h-16 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-base sm:text-lg font-semibold cursor-pointer shadow-sm rounded-2xl hover:!text-white transition-all hover:scale-[1.01]"
                       style={{ color: "#ffffff" }}
                       onClick={() => {
                         const target = document.getElementById("services");
                         if (target) target.scrollIntoView({ behavior: "smooth" });
+                        setActiveBadgeIndex(null);
                       }}
                     >
-                      <Code2 className="h-3.5 w-3.5 mr-1.5 !text-white shrink-0" style={{ color: "#ffffff" }} />
+                      <Code2 className="h-5 w-5 mr-2.5 !text-white shrink-0" style={{ color: "#ffffff" }} />
                       <span className="!text-white" style={{ color: "#ffffff" }}>View Code</span>
                     </Button>
                     <Button
-                      size="sm"
-                      className="flex-1 bg-[#9eff3e] hover:bg-white !text-black text-xs font-bold cursor-pointer shadow-md hover:!text-black"
+                      size="lg"
+                      asChild
+                      className="flex-1 h-14 sm:h-16 bg-[#9eff3e] hover:bg-white !text-black text-base sm:text-lg font-bold cursor-pointer shadow-md rounded-2xl hover:!text-black transition-all hover:scale-[1.01]"
                       style={{ color: "#000000", backgroundColor: "#9eff3e" }}
-                      onClick={() => {
-                        window.location.href = "/contact";
-                      }}
                     >
-                      <CheckCircle2 className="h-3.5 w-3.5 mr-1.5 !text-black shrink-0" style={{ color: "#000000" }} />
-                      <span className="!text-black font-bold" style={{ color: "#000000" }}>Start a Project</span>
+                      <Link href="/contact" className="flex items-center justify-center">
+                        <CheckCircle2 className="h-5 w-5 mr-2.5 !text-black shrink-0" style={{ color: "#000000" }} />
+                        <span className="!text-black font-bold" style={{ color: "#000000" }}>Start a Project</span>
+                      </Link>
                     </Button>
                   </div>
                 }
@@ -413,12 +410,7 @@ export default function FigmaMotionHero({
 
             {/* Badge 2: Figma animations included */}
             <div
-              className={cn(
-                "f4m-badge-entry f4m-enter transition-all duration-300 ease-out",
-                activeBadgeIndex !== null && activeBadgeIndex !== 2
-                  ? "opacity-0 pointer-events-none scale-75 blur-xs"
-                  : "opacity-100 scale-100"
-              )}
+              className="f4m-badge-entry f4m-enter transition-all duration-300 ease-out"
               style={{ animationDelay: "0.37s" }}
             >
               <AvatarHoverCard
@@ -431,7 +423,7 @@ export default function FigmaMotionHero({
                 onClose={() => setActiveBadgeIndex(null)}
                 name="Figma Animations"
                 username="figma.included"
-                description="100% editable vector animation files with smart variants, layout constraints, and motion tokens."
+                description="100% editable vector animation files with smart variants, layout constraints, interactive prototypes, and modular motion tokens ready for design systems."
                 customAvatar={
                   <div className="f4m-badge cursor-pointer" role="img" aria-label="Figma animations included">
                     <span className="f4m-orbit" aria-hidden="true">
@@ -457,29 +449,30 @@ export default function FigmaMotionHero({
                   </div>
                 }
                 buttonContent={
-                  <div className="flex gap-2 w-full pt-1">
+                  <div className="flex flex-col sm:flex-row gap-4 w-full pt-1">
                     <Button
-                      size="sm"
+                      size="lg"
                       variant="outline"
-                      className="flex-1 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-xs font-semibold cursor-pointer shadow-sm hover:!text-white"
+                      className="flex-1 h-14 sm:h-16 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-base sm:text-lg font-semibold cursor-pointer shadow-sm rounded-2xl hover:!text-white transition-all hover:scale-[1.01]"
                       style={{ color: "#ffffff" }}
                       onClick={() => {
                         window.open("https://figma.com", "_blank");
                       }}
                     >
-                      <ExternalLink className="h-3.5 w-3.5 mr-1.5 !text-white shrink-0" style={{ color: "#ffffff" }} />
+                      <ExternalLink className="h-5 w-5 mr-2.5 !text-white shrink-0" style={{ color: "#ffffff" }} />
                       <span className="!text-white" style={{ color: "#ffffff" }}>Open Figma</span>
                     </Button>
                     <Button
-                      size="sm"
-                      className="flex-1 bg-[#9eff3e] hover:bg-white !text-black text-xs font-bold cursor-pointer shadow-md hover:!text-black"
+                      size="lg"
+                      className="flex-1 h-14 sm:h-16 bg-[#9eff3e] hover:bg-white !text-black text-base sm:text-lg font-bold cursor-pointer shadow-md rounded-2xl hover:!text-black transition-all hover:scale-[1.01]"
                       style={{ color: "#000000", backgroundColor: "#9eff3e" }}
                       onClick={() => {
                         const target = document.getElementById("archives");
                         if (target) target.scrollIntoView({ behavior: "smooth" });
+                        setActiveBadgeIndex(null);
                       }}
                     >
-                      <Sparkles className="h-3.5 w-3.5 mr-1.5 !text-black shrink-0" style={{ color: "#000000" }} />
+                      <Sparkles className="h-5 w-5 mr-2.5 !text-black shrink-0" style={{ color: "#000000" }} />
                       <span className="!text-black font-bold" style={{ color: "#000000" }}>Assets</span>
                     </Button>
                   </div>
@@ -489,25 +482,20 @@ export default function FigmaMotionHero({
 
             {/* Badge 3: Watch live template creation */}
             <div
-              className={cn(
-                "f4m-badge-entry f4m-enter transition-all duration-300 ease-out",
-                activeBadgeIndex !== null && activeBadgeIndex !== 3
-                  ? "opacity-0 pointer-events-none scale-75 blur-xs"
-                  : "opacity-100 scale-100"
-              )}
+              className="f4m-badge-entry f4m-enter transition-all duration-300 ease-out"
               style={{ animationDelay: "0.46s" }}
             >
               <AvatarHoverCard
                 size="badge"
                 variant="glass"
-                cardAlign="right"
+                cardAlign="center"
                 trigger="click"
                 isOpen={activeBadgeIndex === 3}
                 onOpenChange={(open) => setActiveBadgeIndex(open ? 3 : null)}
                 onClose={() => setActiveBadgeIndex(null)}
                 name="Watch Live Stream"
                 username="live.templates"
-                description="Watch real-time live template creation sessions, tutorials, and motion breakdowns."
+                description="Watch real-time live template creation sessions, interactive tutorials, motion design breakdowns, and high-fidelity product architecture live streams."
                 customAvatar={
                   <div className="f4m-badge cursor-pointer" role="img" aria-label="Watch live template creation">
                     <span className="f4m-orbit" aria-hidden="true">
@@ -524,39 +512,41 @@ export default function FigmaMotionHero({
                       <span className="f4m-orbit-dot" style={{ left: "84px", top: "33.5px" }} />
                     </span>
                     <Image
-                      src="/figmaformotion/MonitorPlay.svg"
-                      alt=""
-                      width={22}
-                      height={22}
-                      className="f4m-badge-icon"
+                      src="/figmaformotion/team-users-white.png"
+                      alt="Collaborative Creation"
+                      width={26}
+                      height={19}
+                      style={{ width: "auto", height: "auto" }}
+                      className="f4m-badge-icon object-contain"
                       priority
                     />
                   </div>
                 }
                 buttonContent={
-                  <div className="flex gap-2 w-full pt-1">
+                  <div className="flex flex-col sm:flex-row gap-4 w-full pt-1">
                     <Button
-                      size="sm"
+                      size="lg"
                       variant="outline"
-                      className="flex-1 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-xs font-semibold cursor-pointer shadow-sm hover:!text-white"
+                      className="flex-1 h-14 sm:h-16 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-base sm:text-lg font-semibold cursor-pointer shadow-sm rounded-2xl hover:!text-white transition-all hover:scale-[1.01]"
                       style={{ color: "#ffffff" }}
                       onClick={() => {
                         window.open("https://youtube.com", "_blank");
                       }}
                     >
-                      <Play className="h-3.5 w-3.5 mr-1.5 fill-current !text-white shrink-0" style={{ color: "#ffffff" }} />
+                      <Play className="h-5 w-5 mr-2.5 fill-current !text-white shrink-0" style={{ color: "#ffffff" }} />
                       <span className="!text-white" style={{ color: "#ffffff" }}>Watch Live</span>
                     </Button>
                     <Button
-                      size="sm"
-                      className="flex-1 bg-[#9eff3e] hover:bg-white !text-black text-xs font-bold cursor-pointer shadow-md hover:!text-black"
+                      size="lg"
+                      className="flex-1 h-14 sm:h-16 bg-[#9eff3e] hover:bg-white !text-black text-base sm:text-lg font-bold cursor-pointer shadow-md rounded-2xl hover:!text-black transition-all hover:scale-[1.01]"
                       style={{ color: "#000000", backgroundColor: "#9eff3e" }}
                       onClick={() => {
                         const target = document.getElementById("services");
                         if (target) target.scrollIntoView({ behavior: "smooth" });
+                        setActiveBadgeIndex(null);
                       }}
                     >
-                      <Tv className="h-3.5 w-3.5 mr-1.5 !text-black shrink-0" style={{ color: "#000000" }} />
+                      <Tv className="h-5 w-5 mr-2.5 !text-black shrink-0" style={{ color: "#000000" }} />
                       <span className="!text-black font-bold" style={{ color: "#000000" }}>Replays</span>
                     </Button>
                   </div>

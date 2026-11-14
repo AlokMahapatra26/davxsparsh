@@ -170,6 +170,18 @@ const DEFAULT_WARP: Partial<WarpProps> = {
   width: 1280,
 };
 
+function checkWebGLSupport(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    const canvas = document.createElement("canvas");
+    const gl =
+      canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    return Boolean(window.WebGLRenderingContext && gl);
+  } catch {
+    return false;
+  }
+}
+
 export type AiBlobWarpAvatarProps = Omit<ComponentProps<"div">, "children"> & {
   pulseDurationSec?: number;
   warpProps?: Partial<WarpProps>;
@@ -188,12 +200,17 @@ export const AiBlobWarpAvatar = forwardRef<
     ...restWarpProps
   } = warpProps ?? {};
   const rootRef = useRef<HTMLDivElement>(null);
+  const [hasWebGL, setHasWebGL] = useState(false);
   const reduceMotion = useReducedMotion();
   const inView = useInView(rootRef, {
     amount: 0.2,
     margin: "0px 0px -10% 0px",
   });
   const live = inView && !reduceMotion;
+
+  useEffect(() => {
+    setHasWebGL(checkWebGLSupport());
+  }, []);
 
   const setRefs = useCallback(
     (node: HTMLDivElement | null) => {
@@ -228,18 +245,28 @@ export const AiBlobWarpAvatar = forwardRef<
             : { scale: 1, rotate: 0 }
         }
         aria-hidden
-        className="pointer-events-none absolute inset-0 origin-center rounded-full"
+        className="pointer-events-none absolute inset-0 origin-center rounded-full overflow-hidden"
         transition={{
           duration: pulseDurationSec,
           ease: "easeInOut",
           repeat: Number.POSITIVE_INFINITY,
         }}
       >
-        <Warp
-          {...DEFAULT_WARP}
-          {...restWarpProps}
-          speed={live ? baseSpeed : 0}
-        />
+        {hasWebGL ? (
+          <Warp
+            {...DEFAULT_WARP}
+            {...restWarpProps}
+            speed={live ? baseSpeed : 0}
+          />
+        ) : (
+          <div
+            className="w-full h-full rounded-full animate-pulse"
+            style={{
+              background:
+                "radial-gradient(circle at 35% 35%, #fda4af 0%, #0070f3 40%, #fb923c 70%, #00d4ff 100%)",
+            }}
+          />
+        )}
       </motion.div>
     </div>
   );
@@ -425,15 +452,15 @@ function TrailingSendSlot({
       layoutId="prompt-composer-trailing"
       transition={trailingMotionTransition(reduceMotion)}
     >
-      <ButtonPrimitive
+      <button
         className={cn(
-          "flex size-full min-h-10 min-w-10 select-none items-center justify-center rounded-full outline-none",
+          "flex size-full min-h-10 min-w-10 select-none items-center justify-center rounded-full outline-none cursor-pointer",
           "shadow-foreground/10 shadow-sm ring-1 ring-foreground/10 transition-[background-color,color,transform] duration-150 ease-out",
           "focus-visible:ring-2 focus-visible:ring-ring/35",
           "fine-hover:enabled:hover:bg-accent fine-hover:enabled:hover:text-accent-foreground",
           "enabled:active:scale-[0.96] motion-reduce:enabled:active:scale-100",
           disabled
-            ? "pointer-events-none bg-muted/80 text-muted-foreground opacity-50"
+            ? "pointer-events-none bg-muted/80 text-muted-foreground opacity-50 cursor-not-allowed"
             : "bg-primary text-primary-foreground fine-hover:hover:bg-primary/90",
         )}
         disabled={disabled}
@@ -442,7 +469,7 @@ function TrailingSendSlot({
       >
         <Send aria-hidden className="size-4 shrink-0" />
         <span className="sr-only">Send message</span>
-      </ButtonPrimitive>
+      </button>
     </motion.div>
   );
 }
@@ -764,15 +791,15 @@ export const PromptComposer = forwardRef<
 
             <div className="flex items-center justify-end gap-2 border-border/50 border-t pt-2">
               {showAttachControl ? (
-                <ButtonPrimitive
+                <button
                   className={cn(
-                    "flex min-h-9 min-w-9 sm:min-h-10 sm:min-w-10 shrink-0 select-none items-center justify-center rounded-full outline-none",
+                    "flex min-h-9 min-w-9 sm:min-h-10 sm:min-w-10 shrink-0 select-none items-center justify-center rounded-full outline-none cursor-pointer",
                     "bg-muted text-muted-foreground shadow-foreground/10 shadow-sm ring-1 ring-foreground/10",
                     "transition-[background-color,color,transform] duration-150 ease-out",
                     "fine-hover:hover:bg-accent fine-hover:hover:text-accent-foreground",
                     "focus-visible:ring-2 focus-visible:ring-ring/35",
                     "enabled:active:scale-[0.96] motion-reduce:enabled:active:scale-100",
-                    (disabled || isLoading) && "pointer-events-none opacity-40",
+                    (disabled || isLoading) && "pointer-events-none opacity-40 cursor-not-allowed",
                   )}
                   disabled={disabled || isLoading}
                   onClick={onAttach}
@@ -780,7 +807,7 @@ export const PromptComposer = forwardRef<
                 >
                   <Paperclip aria-hidden className="size-4 shrink-0" />
                   <span className="sr-only">Attach file</span>
-                </ButtonPrimitive>
+                </button>
               ) : null}
 
               <div className="relative size-9 sm:size-10 shrink-0">
