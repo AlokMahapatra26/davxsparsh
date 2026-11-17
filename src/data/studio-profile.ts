@@ -7,7 +7,7 @@ import type { PortfolioBlockContent } from "@/components/ui/glassmorphism-portfo
  * TODO: replace the "#" hrefs and handles below with the real social links.
  */
 export const STUDIO_PROFILE: PortfolioBlockContent = {
-  badge: "Our Studio",
+  badge: "Agency",
   title: "DAVSparsh",
   description:
     "A powerhouse alliance pairing purpose-built IT engineering with sensory, high-end product and brand craft. Systems built from first principles with tactile, human-centered digital interfaces.",

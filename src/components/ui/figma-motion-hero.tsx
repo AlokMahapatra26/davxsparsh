@@ -8,6 +8,7 @@ import { AvatarHoverCard } from "@/components/ui/avatar-hover-card";
 import { Button } from "@/components/ui/button";
 import { GlassmorphismPortfolioBlock } from "@/components/ui/glassmorphism-portfolio-block-shadcnui";
 import { STUDIO_PROFILE } from "@/data/studio-profile";
+import TimelineBlock01 from "@/components/ui/timeline-01";
 import { WorldMap } from "@/components/ui/map";
 import { GLOBAL_NETWORK_DOTS } from "@/components/ui/map-demo";
 import { Code2, CheckCircle2, ArrowRight } from "lucide-react";
@@ -350,12 +351,14 @@ export default function FigmaMotionHero({
                 variant="glass"
                 cardAlign="center"
                 trigger="click"
+                cardTheme="light"
+                hideHeader
                 isOpen={activeBadgeIndex === 1}
                 onOpenChange={(open) => setActiveBadgeIndex(open ? 1 : null)}
                 onClose={() => setActiveBadgeIndex(null)}
                 name="Ready for Videocode"
                 username="videocode.io"
-                description="Production-ready React & Framer Motion animations exported directly from Figma master components. Optimized with sub-pixel perfection, dynamic spring physics, and modular engineering tokens."
+                bodyContent={<TimelineBlock01 />}
                 customAvatar={
                   <div className="f4m-badge f4m-white-badge cursor-pointer" role="img" aria-label="Ready for Videocode">
                     <span className="f4m-orbit" aria-hidden="true">
@@ -385,21 +388,21 @@ export default function FigmaMotionHero({
                     <Button
                       size="lg"
                       variant="outline"
-                      className="flex-1 h-14 sm:h-16 bg-white/10 hover:bg-white/20 !text-white border-white/25 text-base sm:text-lg font-semibold cursor-pointer shadow-sm rounded-2xl hover:!text-white transition-all hover:scale-[1.01]"
-                      style={{ color: "#ffffff" }}
+                      className="flex-1 h-14 sm:h-16 bg-black/5 hover:bg-black/10 !text-black border-black/15 text-base sm:text-lg font-semibold cursor-pointer shadow-sm rounded-2xl transition-all hover:scale-[1.01]"
+                      style={{ color: "#000000" }}
                       onClick={() => {
                         const target = document.getElementById("services");
                         if (target) target.scrollIntoView({ behavior: "smooth" });
                         setActiveBadgeIndex(null);
                       }}
                     >
-                      <Code2 className="h-5 w-5 mr-2.5 !text-white shrink-0" style={{ color: "#ffffff" }} />
-                      <span className="!text-white" style={{ color: "#ffffff" }}>View Code</span>
+                      <Code2 className="h-5 w-5 mr-2.5 !text-black shrink-0" style={{ color: "#000000" }} />
+                      <span className="!text-black" style={{ color: "#000000" }}>View Code</span>
                     </Button>
                     <Button
                       size="lg"
                       asChild
-                      className="flex-1 h-14 sm:h-16 bg-[#9eff3e] hover:bg-white !text-black text-base sm:text-lg font-bold cursor-pointer shadow-md rounded-2xl hover:!text-black transition-all hover:scale-[1.01]"
+                      className="flex-1 h-14 sm:h-16 bg-[#9eff3e] hover:bg-black hover:!text-white !text-black text-base sm:text-lg font-bold cursor-pointer shadow-md rounded-2xl transition-all hover:scale-[1.01]"
                       style={{ color: "#000000", backgroundColor: "#9eff3e" }}
                     >
                       <Link href="/contact" className="flex items-center justify-center">
