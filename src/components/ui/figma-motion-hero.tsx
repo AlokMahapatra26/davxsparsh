@@ -356,22 +356,19 @@ export default function FigmaMotionHero({
                 isOpen={activeBadgeIndex === 1}
                 onOpenChange={(open) => setActiveBadgeIndex(open ? 1 : null)}
                 onClose={() => setActiveBadgeIndex(null)}
-                name="Ready for Videocode"
-                username="videocode.io"
+                name="Our Story"
+                username="davxsparsh"
                 bodyContent={<TimelineBlock01 />}
                 customAvatar={
-                  <div className="f4m-badge f4m-white-badge cursor-pointer" role="img" aria-label="Ready for Videocode">
+                  <div className="f4m-badge f4m-white-badge cursor-pointer" role="img" aria-label="Our Story">
                     <span className="f4m-orbit" aria-hidden="true">
                       <Image
-                        src="/figmaformotion/ready-ring.svg"
-                        alt=""
+                        src="/figmaformotion/our-story-ring.svg"
+                        alt="Our Story"
                         width={84}
                         height={84}
                         priority
                       />
-                      <span className="f4m-orbit-dot" style={{ left: "25px", top: "16.5px" }} />
-                      <span className="f4m-orbit-dot" style={{ left: "86px", top: "39.5px" }} />
-                      <span className="f4m-orbit-dot" style={{ left: "45px", top: "85.5px" }} />
                     </span>
                     <Image
                       src="/figmaformotion/Check.svg"

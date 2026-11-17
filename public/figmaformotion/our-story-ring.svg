@@ -1,0 +1,8 @@
+<svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="ring" d="M42 5.5 A36.5 36.5 0 1 1 41.99 5.5"/>
+  </defs>
+  <text fill="#000000" font-family="Helvetica, Arial, sans-serif" font-size="6.4" font-weight="700" letter-spacing="0.5">
+    <textPath href="#ring" startOffset="0" textLength="226" lengthAdjust="spacing">OUR STORY • OUR STORY • OUR STORY • </textPath>
+  </text>
+</svg>
